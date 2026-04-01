@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mora — Giới thiệu cho nhà đầu tư</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1A1916;--teal:#0F6E56;--teal-d:#085041;--teal-m:#5DCAA5;--teal-l:#E1F5EE;--amber:#854F0B;--amber-d:#633806;--amber-l:#FAEEDA;--cream:#FAF9F6;--linen:#E8DFD0;--blue:#185FA5;--blue-l:#E8F0FA;--rose:#BE185D;--red:#9B2C2C;--red-l:#FDE8E8;--w50:#F5F0E8;--w400:#C4B49A;--w600:#8C7A62;--brass:#B89A60;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--r:6px;--rl:10px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+.hdr{background:var(--ink);padding:13px 48px;display:flex;align-items:center;position:sticky;top:0;z-index:300}.hdr-logo{font-family:var(--serif);font-size:18px;font-weight:300;color:var(--cream);letter-spacing:.15em;text-transform:uppercase}.hdr-r{margin-left:auto;display:flex;gap:12px}.hdr-tag{font-family:var(--mono);font-size:9px;color:var(--w600);letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(255,255,255,.08);border-radius:3px}
+.hero{background:var(--ink);padding:52px 48px 40px;position:relative;overflow:hidden}.hero::before{content:'';position:absolute;top:-50%;right:-15%;width:800px;height:800px;background:radial-gradient(ellipse,rgba(15,110,86,.06) 0%,transparent 65%);border-radius:50%}.hero-inner{position:relative;z-index:1;max-width:780px}.hero-ey{font-family:var(--mono);font-size:9px;color:var(--teal-m);letter-spacing:.25em;text-transform:uppercase;margin-bottom:14px}.hero h1{font-family:var(--serif);font-size:42px;font-weight:300;line-height:1.1;color:var(--cream);margin-bottom:10px}.hero h1 em{font-weight:400;font-style:italic;color:var(--teal-m)}.hero-p{font-size:14px;color:var(--w400);max-width:580px;line-height:1.8;margin-bottom:28px}.hg{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.06)}.hg-v{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--cream)}.hg-l{font-family:var(--mono);font-size:8px;color:var(--w600);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.tw{background:var(--cream);border-bottom:1px solid var(--linen);position:sticky;top:46px;z-index:200;overflow:hidden}.tabs{display:flex;padding:0 48px;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{padding:12px 16px;font-family:var(--mono);font-size:8.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--w600);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;margin-bottom:-1px;flex-shrink:0}.tab:hover{color:var(--ink)}.tab.a{color:var(--teal);border-bottom-color:var(--teal);font-weight:500}
+.main{max-width:920px;margin:0 auto;padding:0 48px 80px}.pnl{display:none;padding-top:36px}.pnl.v{display:block}
+.sp{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.15em;color:var(--w600);margin-bottom:6px}.sh{font-family:var(--serif);font-size:26px;font-weight:300;line-height:1.2;margin-bottom:6px}.ss{font-size:13px;color:var(--w600);margin-bottom:24px;max-width:650px;line-height:1.75}.sub{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--ink);margin:28px 0 12px}.bd{font-size:13px;color:var(--w600);line-height:1.8;margin-bottom:14px}.hr{border:none;border-top:1px solid var(--linen);margin:24px 0}
+.co{padding:16px 20px;border-left:3px solid var(--teal);background:var(--teal-l);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--teal-d);line-height:1.7;margin:16px 0}.co strong{font-weight:600}.co-a{border-left-color:var(--amber);background:var(--amber-l);color:var(--amber-d)}.co-ink{border-left-color:var(--ink);background:rgba(26,25,22,.04);color:var(--ink)}
+.kr{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:16px 0}.ki{background:white;border:1px solid var(--linen);border-radius:var(--rl);padding:14px 16px;text-align:center}.kv{font-family:var(--serif);font-size:28px;font-weight:300;color:var(--ink)}.kv.ac{color:var(--teal)}.kl{font-family:var(--mono);font-size:8px;color:var(--w600);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.cd{background:white;border:1px solid var(--linen);border-radius:var(--rl);padding:18px 20px;margin-bottom:10px}.cd-h{font-family:var(--serif);font-size:16px;font-weight:400;color:var(--ink);margin-bottom:4px}.cd-pre{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--w600);margin-bottom:8px}.cd p,.cd li{font-size:12px;color:var(--w600);line-height:1.7}.cd ul{padding-left:16px}.cd li{margin-bottom:3px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.tb{width:100%;border-collapse:collapse;margin:16px 0}.tb th{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:var(--w600);text-align:left;padding:9px 12px;border-bottom:2px solid var(--linen);font-weight:500}.tb td{padding:10px 12px;border-bottom:1px solid rgba(232,223,208,.4);font-size:11px;vertical-align:top;color:var(--w600)}.tb tr:hover td{background:rgba(245,240,232,.5)}.nm{font-family:var(--serif);font-size:13px;color:var(--ink)}.tg{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:3px;display:inline-block}.t-t{background:var(--teal-l);color:var(--teal)}.t-a{background:var(--amber-l);color:var(--amber)}.t-g{background:rgba(26,25,22,.05);color:var(--w600)}
+.fl{display:flex;align-items:stretch;gap:0;margin:16px 0;overflow-x:auto}.fs{flex:1;min-width:100px;background:white;border:1px solid var(--linen);padding:14px 12px;text-align:center}.fs:first-child{border-radius:var(--rl) 0 0 var(--rl)}.fs:last-child{border-radius:0 var(--rl) var(--rl) 0}.fn{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--teal);margin-bottom:2px}.ft{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);font-weight:500;margin-bottom:4px}.fd{font-size:10px;color:var(--w600);line-height:1.5}.fa{width:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--w400);font-size:13px}
+.wf{background:var(--ink);border-radius:var(--rl);padding:28px 32px;margin:20px 0}.wf-t{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--w600);margin-bottom:16px}.wf-r{display:flex;align-items:center;gap:12px;margin-bottom:8px}.wf-l{font-family:var(--mono);font-size:9px;color:var(--w400);width:130px;text-align:right;flex-shrink:0;line-height:1.3}.wf-b{height:28px;border-radius:4px;display:flex;align-items:center;padding:0 12px;font-family:var(--mono);font-size:9px;color:white;min-width:40px;transition:width .8s ease}.wf-v{font-family:var(--mono);font-size:11px;color:var(--cream);min-width:90px;flex-shrink:0;text-align:right}.wf-div{border:none;border-top:1px dashed rgba(255,255,255,.1);margin:10px 0 10px 142px}.wf-r.wf-total .wf-l{color:var(--teal-m);font-weight:500;font-size:10px}.wf-r.wf-total .wf-v{color:var(--teal-m);font-weight:500;font-size:12px}.wf-r.wf-total .wf-b{box-shadow:0 0 16px rgba(93,202,165,.2)}
+.qa{border:1px solid var(--linen);border-radius:var(--rl);overflow:hidden;margin-bottom:10px;transition:box-shadow .2s}.qa:hover{box-shadow:0 2px 12px rgba(26,25,22,.06)}.qa-q{padding:16px 20px;background:white;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background .12s}.qa-q:hover{background:var(--w50)}.qa-n{font-family:var(--serif);font-size:18px;color:var(--teal);width:28px;flex-shrink:0;text-align:center}.qa-t{font-size:13px;font-weight:500;color:var(--ink);flex:1;line-height:1.5}.qa-ar{font-size:12px;color:var(--w400);transition:transform .25s;flex-shrink:0;width:20px;text-align:center}.qa.open .qa-ar{transform:rotate(90deg);color:var(--teal)}.qa-a{display:none;padding:18px 24px 22px 60px;border-top:1px solid var(--linen);font-size:12px;color:var(--w600);line-height:1.85;background:var(--w50)}.qa.open .qa-a{display:block}.qa-a strong{color:var(--ink)}
+.insight{background:white;border:1px solid var(--linen);border-radius:var(--rl);padding:24px 28px;margin:20px 0}.insight-h{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--teal-d);margin-bottom:14px;display:flex;align-items:center;gap:10px}.insight-h::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);flex-shrink:0}.insight-items{display:flex;flex-direction:column;gap:12px}.insight-item{display:flex;gap:12px;align-items:flex-start}.insight-num{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--teal);width:24px;flex-shrink:0;line-height:1.2}.insight-text{font-size:12px;color:var(--w600);line-height:1.7}.insight-text strong{color:var(--ink)}
+.src{font-size:10px;color:var(--w400);margin-top:4px;font-style:italic}
+.src a{color:var(--blue);text-decoration:none}.src a:hover{text-decoration:underline}
+.foot{margin-top:48px;padding:24px 48px;text-align:center;font-family:var(--mono);font-size:9px;color:var(--w400);border-top:1px solid var(--linen)}
+@media(max-width:768px){.hdr,.tabs,.hero,.main,.foot{padding-left:16px;padding-right:16px}.hero h1{font-size:28px}.hg{grid-template-columns:1fr 1fr}.g2,.g3{grid-template-columns:1fr}.fl{flex-direction:column}.fs{border-radius:var(--rl)!important}.fa{transform:rotate(90deg);width:auto;height:16px}}
+</style>
+</head>
+<body>
+<div class="hdr"><div class="hdr-logo">Mora</div><div class="hdr-r"><div class="hdr-tag">Nước hoa pha chế · Việt Nam</div><div class="hdr-tag">Tài liệu dành cho nhà đầu tư · v3</div></div></div>
+
+<div class="hero"><div class="hero-inner">
+  <div class="hero-ey">Nước hoa pha chế cao cấp · Giá tiếp cận được</div>
+  <h1>Mọi thứ đều có lý do —<br><em>bắt đầu từ một chai nước hoa</em></h1>
+  <p class="hero-p">Mô hình nước hoa pha chế cá nhân hoá — lấy cảm hứng từ các thương hiệu quốc tế, tối ưu cho bối cảnh và nguyên liệu bản địa Việt Nam. Đã chứng minh: doanh thu đỉnh 2,2 tỷ/tháng, biên lợi nhuận gộp 80%+, chi phí tiếp thị chỉ 7–9% doanh thu. Đang xây dựng lại với hệ thống hoàn chỉnh.</p>
+  <div class="hg">
+    <div><div class="hg-v">2,2 tỷ</div><div class="hg-l">VNĐ/tháng · đã chứng minh</div></div>
+    <div><div class="hg-v">80–90%</div><div class="hg-l">Biên lợi nhuận gộp</div></div>
+    <div><div class="hg-v">7–9%</div><div class="hg-l">Chi phí tiếp thị / doanh thu</div></div>
+    <div><div class="hg-v">&lt;3 tháng</div><div class="hg-l">Hoàn vốn đầu tư</div></div>
+  </div>
+</div></div>
+
+<div class="tw"><div class="tabs" id="tabs">
+  <div class="tab a" onclick="sw(0,this)">① Tổng quan</div>
+  <div class="tab" onclick="sw(1,this)">② Cơ hội thị trường</div>
+  <div class="tab" onclick="sw(2,this)">③ Sản phẩm & Mô hình</div>
+  <div class="tab" onclick="sw(3,this)">④ Dữ liệu thực tế</div>
+  <div class="tab" onclick="sw(4,this)">⑤ Doanh thu & Kinh tế đơn vị</div>
+  <div class="tab" onclick="sw(5,this)">⑥ Lợi thế cạnh tranh</div>
+  <div class="tab" onclick="sw(6,this)">⑦ Người sáng lập</div>
+  <div class="tab" onclick="sw(7,this)">⑧ Tài chính & Đề xuất đầu tư</div>
+  <div class="tab" onclick="sw(8,this)">⑨ Hỏi đáp</div>
+</div></div>
+
+<div class="main" id="ct"></div>
+<div class="foot">Mora · Tài liệu dành cho nhà đầu tư · Bảo mật · Tháng 4/2026</div>
+
+<script>
+function sw(i,el){document.querySelectorAll('.pnl').forEach(p=>p.classList.remove('v'));document.getElementById('p'+i).classList.add('v');document.querySelectorAll('.tab').forEach(t=>t.classList.remove('a'));el.classList.add('a');window.scrollTo({top:document.getElementById('tabs').offsetTop-46,behavior:'smooth'})}
+
+const P=[
+// ═══ 0 · TỔNG QUAN ═══
+`<div class="sp">Phần I</div>
+<h2 class="sh">Mora — trong 60 giây</h2>
+<p class="ss">Thương hiệu nước hoa pha chế cá nhân hoá tại Việt Nam. Khách bước vào, chọn hương, xem pha chế trước mặt, nhận chai mang tên mình. Nguyên liệu đạt chuẩn IFRA (tiêu chuẩn an toàn quốc tế). Giá 1–1,79 triệu VNĐ — mô hình lấy cảm hứng từ các thương hiệu pha chế quốc tế, tối ưu cho thị trường Việt Nam.</p>
+
+<div class="co-ink co">
+  Mora bán 30–40 phút trải nghiệm được thiết kế cho 5 giác quan + một chai nước hoa mang tên bạn — trong một không gian nơi mọi chi tiết đều có chủ đích. Mô hình đã được kiểm chứng bằng dữ liệu thực. Đang gọi vốn để xây dựng lại đúng cách.
+</div>
+
+<h3 class="sub">Tóm tắt đề xuất đầu tư</h3>
+<table class="tb">
+  <tr><td style="width:40%"><span class="nm">Định giá trước gọi vốn</span></td><td><strong>19,5 tỷ VNĐ</strong></td></tr>
+  <tr><td><span class="nm">Vốn cần gọi</span></td><td><strong>2,66 tỷ VNĐ</strong></td></tr>
+  <tr><td><span class="nm">Tỷ lệ sở hữu nhà đầu tư</span></td><td><strong>12%</strong> · Người sáng lập giữ 88%</td></tr>
+  <tr><td><span class="nm">Hình thức</span></td><td>Góp vốn cổ phần · Nhà đầu tư tài chính · Không tham gia vận hành</td></tr>
+  <tr><td><span class="nm">Sử dụng vốn</span></td><td>Xây dựng cửa hàng + hàng tồn kho + tiếp thị ra mắt + dự phòng vận hành 6 tháng</td></tr>
+  <tr><td><span class="nm">Dự kiến hoà vốn</span></td><td>Tháng 2–3 sau khi mở cửa (Morra 1.0: hoàn vốn tháng 2/2020, 3 tháng sau khai trương tháng 11/2019)</td></tr>
+</table>`,
+
+// ═══ 1 · CƠ HỘI THỊ TRƯỜNG ═══
+`<div class="sp">Phần II</div>
+<h2 class="sh">Cơ hội thị trường — Tại sao và tại sao ngay bây giờ</h2>
+<p class="ss">Khoảng trống lớn giữa nước hoa bình dân và xa xỉ nhập khẩu. Chưa ai giải quyết có hệ thống. Thời điểm thuận lợi nhất trong 5 năm qua.</p>
+
+<h3 class="sub">Khoảng trống chưa ai giải quyết</h3>
+<div class="g2">
+  <div class="cd" style="border-top:3px solid var(--amber)"><div class="cd-pre">Nhu cầu có thật</div><h4 class="cd-h">Người Việt sẵn sàng chi cho trải nghiệm</h4>
+    <ul><li>Tầng lớp trung lưu tăng ~10%/năm — hơn 50 triệu người (2026)</li><li>Thế hệ trẻ (Gen Z, Millennial) chi nhiều hơn cho "trải nghiệm" thay vì "sản phẩm"</li><li>Nhu cầu cá nhân hoá tăng mạnh — không muốn giống ai</li><li>Sẵn sàng chi 1–2 triệu cho trải nghiệm có ý nghĩa (quán cà phê đặc biệt, làm đẹp, nghệ thuật)</li></ul></div>
+  <div class="cd" style="border-top:3px solid var(--red)"><div class="cd-pre">Khoảng trống hiện tại</div><h4 class="cd-h">Không có lựa chọn ở giữa</h4>
+    <ul><li>Bình dân (The Face Shop, Innisfree): rẻ nhưng không trải nghiệm</li><li>Xa xỉ nhập khẩu (Le Labo, Dior): trải nghiệm tốt nhưng 7–10 triệu — ngoài tầm với đa số</li><li>Nước hoa pha chế nội địa: sao chép hình thức, không có hệ thống vận hành</li><li><strong>Chưa ai tại Việt Nam xây dựng mô hình nước hoa pha chế có hệ thống + giá tiếp cận được + tối ưu cho bối cảnh bản địa</strong></li></ul></div>
+</div>
+
+<h3 class="sub">Quy mô thị trường</h3>
+<div class="kr">
+  <div class="ki"><div class="kv">5.200 tỷ</div><div class="kl">VNĐ · Toàn bộ thị trường nước hoa VN</div></div>
+  <div class="ki"><div class="kv">~1.000 tỷ</div><div class="kl">VNĐ · Phân khúc cao cấp/đặc thù (~20%)</div></div>
+  <div class="ki"><div class="kv">~150 tỷ</div><div class="kl">VNĐ · Pha chế cá nhân hoá · TP.HCM</div></div>
+</div>
+<p class="src">Nguồn: Thị trường nước hoa Việt Nam đạt 209 triệu USD năm 2025, tăng trưởng bình quân 4,26%/năm — IMARC Group (2025). Phân khúc nước hoa đặc thù (niche/artisan) tăng nhanh hơn bình quân ngành, khoảng 8–10%/năm — Bonafide Research, Euromonitor.</p>
+
+<h3 class="sub">Tại sao ngay bây giờ — 4 yếu tố thời điểm</h3>
+<div class="g2">
+  <div class="cd"><div class="cd-pre">① Xu hướng toàn cầu</div><h4 class="cd-h">Nước hoa đặc thù tăng nhanh hơn đại trà</h4><p>Người tiêu dùng muốn sản phẩm độc đáo, có câu chuyện, thủ công — đúng với những gì Mora cung cấp.</p></div>
+  <div class="cd"><div class="cd-pre">② Thương hiệu vẫn được nhớ</div><h4 class="cd-h">Morra 1.0 tạo dấu ấn mạnh</h4><p>Báo chí đưa tin rộng rãi đầu 2020 (VnExpress, Kenh14, ZNews). Hàng nghìn khách trẻ trải nghiệm. Nhận diện thương hiệu vẫn tồn tại.</p></div>
+  <div class="cd"><div class="cd-pre">③ Thu nhập khả dụng tăng</div><h4 class="cd-h">GDP bình quân vượt 4.300 USD</h4><p>Chi tiêu cho lối sống và trải nghiệm đang ở điểm bùng phát — đúng thời điểm cho phân khúc cao cấp giá tiếp cận được.</p></div>
+  <div class="cd"><div class="cd-pre">④ Hệ thống đã sẵn sàng</div><h4 class="cd-h">Toàn bộ tài liệu vận hành đã hoàn thiện</h4><p>Khác với lần đầu: lần này có đầy đủ quy trình, hướng dẫn thương hiệu, quản trị tài chính — trước khi mở cửa.</p></div>
+</div>`,
+
+// ═══ 2 · SẢN PHẨM & MÔ HÌNH ═══
+`<div class="sp">Phần III</div>
+<h2 class="sh">Sản phẩm & Mô hình kinh doanh</h2>
+<p class="ss">Sản phẩm của Mora không phải chai nước hoa — mà là 30–40 phút trải nghiệm 5 giác quan + chai nước hoa mang tên khách. Trải nghiệm chính là mô hình kinh doanh.</p>
+
+<h3 class="sub">Hành trình khách hàng — 4 giai đoạn, 30–40 phút</h3>
+<div class="fl">
+  <div class="fs" style="border-top:3px solid var(--teal)"><div class="fn">01</div><div class="ft">Bước vào</div><div class="fd">Hương thơm → hình ảnh → lời chào. 10 giây đầu tiên. Nhiệt độ 22–24°C.</div></div>
+  <div class="fa">→</div>
+  <div class="fs" style="border-top:3px solid var(--blue)"><div class="fn">02</div><div class="ft">Khám phá</div><div class="fd">Tự do trải nghiệm. Nhân viên hướng dẫn khi được hỏi, không chào mời.</div></div>
+  <div class="fa">→</div>
+  <div class="fs" style="border-top:3px solid var(--amber)"><div class="fn">03</div><div class="ft">Pha chế</div><div class="fd">Khoảnh khắc chính. Pha chế trước mặt, kể chuyện từng lớp hương, khắc tên. 20–30 phút.</div></div>
+  <div class="fa">→</div>
+  <div class="fs" style="border-top:3px solid var(--brass)"><div class="fn">04</div><div class="ft">Trao sản phẩm</div><div class="fd">Đóng gói cẩn thận. Trao bằng hai tay. Gợi ý lần ghé thăm tiếp theo.</div></div>
+</div>
+
+<h3 class="sub">Chuỗi giá trị — Thứ khách hàng thực sự trả tiền</h3>
+<table class="tb">
+  <tr><td><span class="tg t-t">01</span></td><td><span class="nm">Được hiểu</span></td><td>Nhân viên nhận ra bạn trước khi hỏi bạn muốn gì</td></tr>
+  <tr><td><span class="tg t-t">02</span></td><td><span class="nm">Được trải nghiệm</span></td><td>5 giác quan, không xung đột: ánh sáng ấm, nhạc nhẹ, nhiệt độ dễ chịu</td></tr>
+  <tr><td><span class="tg t-t">03</span></td><td><span class="nm">Được trò chuyện thật</span></td><td>Tư vấn dựa trên sở thích — không phải kịch bản bán hàng</td></tr>
+  <tr><td><span class="tg t-t">04</span></td><td><span class="nm">Được kết nối</span></td><td>Tương tác người-với-người, không phải thương hiệu-với-khách</td></tr>
+  <tr><td><span class="tg t-t">05</span></td><td><span class="nm">Được cá nhân hoá</span></td><td>Chai pha trước mặt, mang tên bạn — không tồn tại trước khi bạn đến</td></tr>
+  <tr><td><span class="tg t-t">06</span></td><td><span class="nm">Được chứng thực</span></td><td>Những gì thấy trên mạng = những gì trải nghiệm tại cửa hàng. Không có khoảng cách.</td></tr>
+</table>
+
+<h3 class="sub">3 vòng quay tăng trưởng — Không cần quảng cáo trả phí</h3>
+<div class="g3">
+  <div class="cd" style="border-left:3px solid var(--teal)"><div class="cd-pre">Vòng quay thương hiệu</div><h4 class="cd-h">Nội dung → Tò mò → Ghé thăm</h4><p>Nội dung từ trải nghiệm thật → nhất quán trên mạng và tại cửa hàng → tạo tò mò → ghé thăm → nội dung mới. Tự vận hành.</p></div>
+  <div class="cd" style="border-left:3px solid var(--amber)"><div class="cd-pre">Vòng quay trải nghiệm</div><h4 class="cd-h">Ghé thăm → Kết nối → Giới thiệu</h4><p>Câu chuyện đủ cụ thể → khách kể cho người thân. Mỗi lần ghé tạo ra 3–5 khách mới.</p></div>
+  <div class="cd" style="border-left:3px solid var(--brass)"><div class="cd-pre">Vòng quay tài chính</div><h4 class="cd-h">Biên lợi nhuận cao → Tái đầu tư → Tốt hơn</h4><p>80%+ biên gộp → đầu tư vào trải nghiệm → khách hài lòng hơn → doanh thu tăng.</p></div>
+</div>
+<div class="co">
+  <strong>Bằng chứng:</strong> Morra 1.0 đạt 2,2 tỷ/tháng với đội nội dung 3 người (1 thiết kế + 2 nhiếp ảnh bán thời gian). Chi phí tiếp thị chỉ 7–9% doanh thu — chủ yếu sản xuất nội dung, không quảng cáo trả phí. 3 vòng quay đã hoạt động — chỉ chưa được ghi chép thành hệ thống.
+</div>`,
+
+// ═══ 3 · DỮ LIỆU THỰC TẾ ═══
+`<div class="sp">Phần IV</div>
+<h2 class="sh">Dữ liệu thực tế — Không phải dự báo</h2>
+<p class="ss">Morra 1.0 (2019–2022) đã vận hành thật. Mọi con số dưới đây đến từ dữ liệu kinh doanh thực tế, không phải giả định.</p>
+
+<h3 class="sub">Morra 1.0 — Các chỉ số vận hành</h3>
+<div class="kr">
+  <div class="ki"><div class="kv ac">2,2 tỷ</div><div class="kl">VNĐ/tháng · đỉnh</div></div>
+  <div class="ki"><div class="kv ac">80–90%</div><div class="kl">Biên lợi nhuận gộp</div></div>
+  <div class="ki"><div class="kv ac">12</div><div class="kl">Cửa hàng cao điểm</div></div>
+  <div class="ki"><div class="kv ac">2,5 năm</div><div class="kl">Từ 1 → 12 cửa hàng</div></div>
+  <div class="ki"><div class="kv ac">&lt;3 tháng</div><div class="kl">Hoàn vốn 1,2 tỷ</div></div>
+  <div class="ki"><div class="kv ac">7–9%</div><div class="kl">Chi phí tiếp thị / doanh thu</div></div>
+</div>
+
+<p class="bd">Bắt đầu bán ra từ tháng 7/2019. Khai trương cửa hàng chính thức tại 435 Hòa Hảo, Quận 10, TP.HCM vào cuối tháng 11/2019. Hoàn vốn đầu tư 1,2 tỷ trong 3 tháng — đến tháng 2/2020. Tháng 2/2020 cũng là tháng đạt đỉnh doanh thu 2,2 tỷ — trước thềm COVID-19. Không quảng cáo trả phí — toàn bộ tăng trưởng tự nhiên từ trải nghiệm thật. Nhiều khách nổi tiếng tự ghé: ca sĩ Thiều Bảo Trâm, Youtuber Fabo Nguyễn, Khoai Lang Thang, diễn viên Kiều Trinh Xíu. Được đưa tin trên nhiều tờ báo lớn.</p>
+<p class="src">Nguồn: <a href="https://vnexpress.net/morra-tung-buoc-khang-dinh-thuong-hieu-nuoc-hoa-cua-nguoi-viet-4036472.html" target="_blank">VnExpress (01/2020)</a> · <a href="https://kenh14.vn/kham-pha-cua-hang-nuoc-hoa-pha-che-tai-viet-nam-20200107032115504.chn" target="_blank">Kenh14 (01/2020)</a> · <a href="https://lifestyle.znews.vn/kham-pha-cua-hang-nuoc-hoa-tu-pha-che-giua-long-sai-thanh-post1033670.html" target="_blank">ZNews (01/2020)</a></p>
+
+<h3 class="sub">Bài học — Tại sao Morra 1.0 dừng lại</h3>
+<div class="co co-a">
+  <strong>Morra 1.0 dừng vì thiếu hệ thống khi mở rộng, không phải vì thiếu khách hàng.</strong> Cụ thể: không có thoả thuận cổ đông rõ ràng (tranh chấp quyền sở hữu), không có bảng lãi lỗ theo từng cửa hàng (mở rộng mà không biết cửa hàng nào có lãi), không có quy trình vận hành chuẩn (12 cửa hàng vận hành 12 cách khác nhau). Người sáng lập mất quyền kiểm soát công ty mình tạo ra.
+</div>
+
+<h3 class="sub">Mora 2.0 — Tài liệu đã hoàn thiện trước khi gọi vốn</h3>
+<table class="tb">
+  <thead><tr><th>Tài liệu</th><th>Nội dung</th><th>Trạng thái</th></tr></thead>
+  <tr><td><span class="nm">Hướng dẫn thương hiệu phiên bản 2</span></td><td>9 phần, đầy đủ mã màu in ấn, tuân thủ tiêu chuẩn khả năng tiếp cận (WCAG AA), hơn 30 ứng dụng cụ thể</td><td><span class="tg t-t">Hoàn chỉnh</span></td></tr>
+  <tr><td><span class="nm">Thiết kế trải nghiệm cửa hàng</span></td><td>6 nguyên lý, 5 khu vực, thông số kỹ thuật giác quan chi tiết</td><td><span class="tg t-t">Hoàn chỉnh</span></td></tr>
+  <tr><td><span class="nm">Hệ thống vận hành</span></td><td>8 mô-đun, 8 quy trình vận hành chuẩn, bảng kiểm, quy trình xử lý sự cố, chương trình đào tạo 5 ngày</td><td><span class="tg t-t">Hoàn chỉnh</span></td></tr>
+  <tr><td><span class="nm">Hồ sơ kinh doanh</span></td><td>Định vị, 3 chân dung khách hàng, phân tích cạnh tranh, mô hình tài chính, vòng quay tăng trưởng</td><td><span class="tg t-t">Hoàn chỉnh</span></td></tr>
+  <tr><td><span class="nm">Khung quản trị</span></td><td>Điều khoản đầu tư, ma trận phân quyền, 6 điều khoản bảo vệ người sáng lập</td><td><span class="tg t-t">Hoàn chỉnh</span></td></tr>
+</table>
+<p class="bd">Không startup giai đoạn đầu nào tại Việt Nam có mức tài liệu vận hành này trước khi gọi vốn. Đây là tài sản trí tuệ có giá trị thực — không phải bài thuyết trình.</p>`,
+
+// ═══ 4 · DOANH THU & KINH TẾ ĐƠN VỊ ═══
+`<div class="sp">Phần V</div>
+<h2 class="sh">Mô hình doanh thu & Kinh tế đơn vị</h2>
+<p class="ss">6 nguồn doanh thu, 3 mức giá, cấu trúc biên lợi nhuận vượt trội so với ngành bán lẻ.</p>
+
+<h3 class="sub">6 nguồn doanh thu</h3>
+<table class="tb">
+  <thead><tr><th>Nguồn</th><th>Mô tả</th><th>Biên gộp</th><th>Thời điểm</th></tr></thead>
+  <tr><td><span class="nm">① Pha chế cá nhân</span></td><td>Pha chế tại chỗ + khắc tên. Nguồn doanh thu chính.</td><td><strong>80–90%</strong></td><td>Ngay từ đầu</td></tr>
+  <tr><td><span class="nm">② Đóng gói quà tặng</span></td><td>Hộp, ruy băng, thiệp. Tự động kèm theo.</td><td><strong>75–85%</strong></td><td>Ngay từ đầu</td></tr>
+  <tr><td><span class="nm">③ Nạp lại (refill)</span></td><td>Cùng công thức, nạp lại tại cửa hàng. Nhắc nhở qua Zalo sau 60 ngày.</td><td><strong>85–90%</strong></td><td>Tháng 3+</td></tr>
+  <tr><td><span class="nm">④ Quà tặng doanh nghiệp</span></td><td>Bộ quà cho nhân viên, khách hàng, sự kiện.</td><td><strong>55–65%</strong></td><td>Tháng 3+</td></tr>
+  <tr><td><span class="nm">⑤ Chai nhỏ trải nghiệm 10ml</span></td><td>Mức giá thấp nhất. Thu hút khách lần đầu.</td><td><strong>70–80%</strong></td><td>Ngay từ đầu</td></tr>
+  <tr><td><span class="nm">⑥ Buổi trải nghiệm nhóm</span></td><td>Pha chế theo nhóm. Tính phí theo đầu người.</td><td><strong>40–55%</strong></td><td>Tháng 6+</td></tr>
+</table>
+
+<h3 class="sub">3 mức giá</h3>
+<div class="g3">
+  <div class="cd" style="border-top:3px solid var(--teal)"><div class="cd-pre">Mức khám phá</div><h4 class="cd-h">300–500 nghìn · 10ml</h4><p>Hạ rào cản. Trải nghiệm đầy đủ. Dẫn đến mua chai 50ml lần sau.</p></div>
+  <div class="cd" style="border-top:3px solid var(--amber)"><div class="cd-pre">Mức chính · Chủ lực</div><h4 class="cd-h">1,2–1,5 triệu · 50ml</h4><p>Sản phẩm tạo doanh thu chính. Dùng hằng ngày 2–3 tháng. Biên lợi nhuận tốt nhất.</p></div>
+  <div class="cd" style="border-top:3px solid var(--brass)"><div class="cd-pre">Mức quà tặng</div><h4 class="cd-h">1,8–2,5 triệu+ · Bộ quà</h4><p>Cho dịp tặng quà. Giá trị đơn hàng gấp đôi. Cửa vào cho doanh nghiệp.</p></div>
+</div>
+
+<h3 class="sub">Kinh tế đơn vị — Bảng lãi lỗ 1 cửa hàng/tháng</h3>
+<p class="bd">Chi phí dưới đây dựa trên dữ liệu thực Morra 1.0 (thuê mặt bằng 25 triệu, thuê văn phòng 15 triệu, nhân sự 160 triệu đã gồm lương 3 đồng sáng lập). Kịch bản trung bình (70% đỉnh = 1,54 tỷ/tháng) làm cơ sở.</p>
+
+<div class="wf">
+  <div class="wf-t">Cấu trúc lãi lỗ thực tế — 1 cửa hàng/tháng · Kịch bản trung bình</div>
+  <div class="wf-r"><span class="wf-l">Doanh thu</span><div class="wf-b" style="width:100%;background:var(--teal)">100%</div><span class="wf-v">1,54 tỷ</span></div>
+  <div class="wf-r"><span class="wf-l">Giá vốn sản phẩm</span><div class="wf-b" style="width:15%;background:var(--amber)">~15%</div><span class="wf-v">−231 triệu</span></div>
+  <div class="wf-r"><span class="wf-l">= Lợi nhuận gộp</span><div class="wf-b" style="width:85%;background:var(--teal-d)">~85%</div><span class="wf-v">1,31 tỷ</span></div>
+  <hr class="wf-div">
+  <div class="wf-r"><span class="wf-l">Tiếp thị (7–9%)</span><div class="wf-b" style="width:24%;background:rgba(255,255,255,.12)">~8%</div><span class="wf-v">−123 triệu</span></div>
+  <div class="wf-r"><span class="wf-l">Nhân sự (gồm 3 NSL)</span><div class="wf-b" style="width:32%;background:rgba(255,255,255,.12)">~10,4%</div><span class="wf-v">−160 triệu</span></div>
+  <div class="wf-r"><span class="wf-l">Thuê CH 25tr + VP 15tr</span><div class="wf-b" style="width:8%;background:rgba(255,255,255,.08)">~2,6%</div><span class="wf-v">−40 triệu</span></div>
+  <div class="wf-r"><span class="wf-l">Điện, nước, vận hành</span><div class="wf-b" style="width:3%;background:rgba(255,255,255,.08)">~1%</div><span class="wf-v">−15 triệu</span></div>
+  <div class="wf-r"><span class="wf-l">Khấu hao fitout (3 năm)</span><div class="wf-b" style="width:5%;background:rgba(255,255,255,.08)">~1,4%</div><span class="wf-v">−22 triệu</span></div>
+  <hr class="wf-div">
+  <div class="wf-r wf-total"><span class="wf-l">= Lợi nhuận hoạt động</span><div class="wf-b" style="width:62%;background:var(--teal)">~62%</div><span class="wf-v">~950 triệu</span></div>
+</div>
+
+<div class="insight">
+  <div class="insight-h">Lưu ý về chi phí nhân sự</div>
+  <div class="insight-items">
+    <div class="insight-item"><div class="insight-num">①</div><div class="insight-text"><strong>Morra 1.0:</strong> 160 triệu/tháng = lương 3 đồng sáng lập (mỗi người 20 triệu = 60 triệu) + nhân viên còn lại (~100 triệu).</div></div>
+    <div class="insight-item"><div class="insight-num">②</div><div class="insight-text"><strong>Mora 2.0 giai đoạn đầu:</strong> Chỉ 1 người sáng lập + 3 nhân viên → ước tính ~70–90 triệu/tháng → biên lợi nhuận hoạt động cải thiện lên ~66–68%.</div></div>
+  </div>
+</div>
+
+<table class="tb">
+  <thead><tr><th>Chỉ số</th><th>Mora (dữ liệu thực)</th><th>Bán lẻ trung bình VN</th></tr></thead>
+  <tr><td><span class="nm">Biên lợi nhuận gộp (doanh thu − giá vốn)</span></td><td><strong>80–90%</strong></td><td>40–60%</td></tr>
+  <tr><td><span class="nm">Chi phí tiếp thị / doanh thu</span></td><td><strong>7–9%</strong></td><td>15–25%</td></tr>
+  <tr><td><span class="nm">Chi phí nhân sự / doanh thu</span></td><td><strong>~10%</strong> (Morra 1.0, gồm 3 co-founder)</td><td>15–25%</td></tr>
+  <tr><td><span class="nm">Chi phí thuê / doanh thu</span></td><td><strong>~2,6%</strong> (cửa hàng 25tr + VP 15tr)</td><td>8–15%</td></tr>
+  <tr><td><span class="nm">Biên lợi nhuận hoạt động (trước thuế)</span></td><td><strong>~62%</strong> (kịch bản 70% đỉnh)</td><td>5–15%</td></tr>
+  <tr><td><span class="nm">Thời gian hoàn vốn</span></td><td><strong>3 tháng</strong> (khai trương 11/2019, hoàn vốn 2/2020)</td><td>12–24 tháng</td></tr>
+  <tr><td><span class="nm">Tỷ lệ đơn hàng quà tặng</span></td><td><strong>≥30%</strong></td><td>Tự nâng giá trị đơn hàng</td></tr>
+</table>
+
+<div class="insight">
+  <div class="insight-h">Tại sao biên lợi nhuận hoạt động cao bất thường (~62%)?</div>
+  <div class="insight-items">
+    <div class="insight-item">
+      <div class="insight-num">①</div>
+      <div class="insight-text"><strong>Giá vốn nguyên liệu rất thấp.</strong> Hương liệu + chai + bao bì chỉ chiếm 10–20% giá bán. Phần còn lại (80–90%) là giá trị trải nghiệm — thứ không có giá vốn tương ứng.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">②</div>
+      <div class="insight-text"><strong>Không cần mặt bằng trung tâm thương mại.</strong> Morra 1.0 tại Quận 10, không phải Quận 1 — thuê chỉ 25 triệu/tháng mà vẫn đông khách. Trải nghiệm kéo người đến, không phải vị trí.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">③</div>
+      <div class="insight-text"><strong>Chi phí tiếp thị thấp (7–9%).</strong> Khách tự giới thiệu nhau — vòng quay tự nhiên giảm chi phí thu hút. Không cần thuê KOL hàng tháng hay chạy quảng cáo liên tục.</div>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">④</div>
+      <div class="insight-text"><strong>Biên cải thiện khi doanh thu tăng.</strong> Ở mức đỉnh (2,2 tỷ/tháng), biên hoạt động lên ~66% — vì chi phí cố định (thuê, nhân sự, khấu hao) được pha loãng trên doanh số lớn hơn.</div>
+    </div>
+  </div>
+</div>`,
+
+// ═══ 5 · LỢI THẾ CẠNH TRANH ═══
+`<div class="sp">Phần VI</div>
+<h2 class="sh">Lợi thế cạnh tranh bền vững</h2>
+<p class="ss">Đối thủ thực sự không phải thương hiệu nước hoa — mà là bất kỳ nơi nào người Việt trẻ chọn cho mình một trải nghiệm có ý nghĩa.</p>
+
+<h3 class="sub">6 lớp lợi thế — Tại sao không ai sao chép được</h3>
+<table class="tb">
+  <thead><tr><th>Lợi thế</th><th>Sao chép?</th><th>Giải thích</th></tr></thead>
+  <tr><td><span class="nm">① Hệ thống nhất quán toàn diện</span></td><td><span class="tg t-t">Không thể</span></td><td>Cùng 1 tiêu chuẩn ở mọi tầng: từ mạng xã hội đến kho hàng. Đòi hỏi tư duy hệ thống, không phải danh sách kiểm tra.</td></tr>
+  <tr><td><span class="nm">② Nhất quán trực tuyến – ngoại tuyến</span></td><td><span class="tg t-t">Không thể</span></td><td>Thấy trên mạng = trải nghiệm tại cửa hàng. Phải xây dựng đồng thời từ đầu.</td></tr>
+  <tr><td><span class="nm">③ Nhân sự được đào tạo theo chuẩn thương hiệu</span></td><td><span class="tg t-t">Không thể</span></td><td>Đào tạo văn hoá thương hiệu trước kỹ năng. Không thể mua bằng lương cao.</td></tr>
+  <tr><td><span class="nm">④ Mở rộng chậm có chủ đích</span></td><td><span class="tg t-t">Không muốn</span></td><td>Đối thủ xem là điểm yếu. Mora xem là lợi thế lớn nhất về lòng tin dài hạn.</td></tr>
+  <tr><td><span class="nm">⑤ Xử lý lỗi bằng sự minh bạch</span></td><td><span class="tg t-t">Không dám</span></td><td>Morra 1.0 giữ khách qua 4 tháng sản phẩm lỗi nhờ thừa nhận công khai và cải thiện thật.</td></tr>
+  <tr><td><span class="nm">⑥ Nguyên liệu đạt chuẩn IFRA</span></td><td><span class="tg t-a">Có thể</span></td><td>Tiêu chuẩn quốc tế về an toàn hương liệu. Nền móng uy tín — chứng minh nguyên liệu đã qua kiểm nghiệm độc lập.</td></tr>
+</table>
+<p class="src">IFRA (Hiệp hội Hương liệu Quốc tế): tổ chức đặt tiêu chuẩn an toàn cho ngành nước hoa toàn cầu. Nguyên liệu đạt chuẩn IFRA nghĩa là đã qua kiểm nghiệm độc lập về an toàn cho người dùng.</p>
+
+<h3 class="sub">Vị trí trên bản đồ cạnh tranh</h3>
+<div class="g3">
+  <div class="cd"><div class="cd-pre" style="color:var(--w600)">Bình dân</div><h4 class="cd-h">The Face Shop, Innisfree</h4><p>Rẻ, phủ rộng. Không trải nghiệm. Không cá nhân hoá.</p></div>
+  <div class="cd" style="border:2px solid var(--teal)"><div class="cd-pre" style="color:var(--teal)">Mora — phân khúc mới</div><h4 class="cd-h">1–1,79 triệu · IFRA · Pha chế tại chỗ</h4><p>Mô hình bản địa, tối ưu cho thị trường Việt Nam. Giá tiếp cận được. Trải nghiệm cá nhân hoá. Chưa ai xây dựng có hệ thống.</p></div>
+  <div class="cd"><div class="cd-pre" style="color:var(--w600)">Xa xỉ nhập khẩu</div><h4 class="cd-h">Le Labo, Dior, Chanel</h4><p>7–10 triệu VNĐ. Mô hình tham khảo. Phân khúc hoàn toàn khác — không cạnh tranh trực tiếp.</p></div>
+</div>`,
+
+// ═══ 6 · NGƯỜI SÁNG LẬP ═══
+`<div class="sp">Phần VII</div>
+<h2 class="sh">Người sáng lập & Đội ngũ</h2>
+<p class="ss">Ở giai đoạn sớm, nhà đầu tư đặt cược vào con người. Đây là người đứng sau Mora — và tại sao người này là người phù hợp nhất để xây dựng nó.</p>
+
+<h3 class="sub">Trần Thanh Kiên — Người sáng lập</h3>
+<div class="cd" style="border-left:3px solid var(--teal)">
+  <h4 class="cd-h">Người đã xây dựng, mất, và quyết tâm làm lại đúng cách</h4>
+  <ul>
+    <li><strong>Sáng lập Morra (2019–2022):</strong> Ấp ủ ý tưởng từ 2016, bắt đầu bán ra tháng 7/2019, khai trương cửa hàng chính thức tại Hòa Hảo, Quận 10 vào cuối tháng 11/2019. Xây dựng từ 0 lên doanh thu đỉnh 2,2 tỷ/tháng (tháng 2/2020), hoàn vốn trong 3 tháng, mở rộng lên 12 cửa hàng. Tăng trưởng hoàn toàn tự nhiên — chi phí tiếp thị chỉ 7–9% doanh thu. Thương hiệu nước hoa pha chế cá nhân hoá đầu tiên tại Việt Nam — mô hình lấy cảm hứng từ các thương hiệu quốc tế, tối ưu hoàn toàn cho bối cảnh và nguyên liệu bản địa.</li>
+    <li><strong>Được báo chí đưa tin rộng rãi:</strong> VnExpress, Kenh14, ZNews đều đưa tin đầu 2020. Hàng nghìn khách trẻ, nhiều người nổi tiếng tự ghé trải nghiệm.</li>
+    <li><strong>Bài học đắt giá nhất:</strong> Mất quyền kiểm soát công ty vì thiếu thoả thuận cổ đông, thiếu quy trình vận hành chuẩn khi mở rộng. Biết chính xác nguyên nhân — và đã xây dựng toàn bộ hệ thống để ngăn ngừa.</li>
+    <li><strong>Xây dựng Mora 2.0:</strong> Toàn bộ hướng dẫn thương hiệu, quy trình vận hành, khung quản trị, hồ sơ tài chính — đã hoàn thiện trước khi gọi vốn. Không phải "sẽ làm sau" — đã có và có thể xem ngay.</li>
+  </ul>
+</div>
+<p class="src">Tham khảo: <a href="https://vnexpress.net/morra-tung-buoc-khang-dinh-thuong-hieu-nuoc-hoa-cua-nguoi-viet-4036472.html" target="_blank">VnExpress — "Morra từng bước khẳng định thương hiệu nước hoa của người Việt"</a> · <a href="https://kenh14.vn/kham-pha-cua-hang-nuoc-hoa-pha-che-tai-viet-nam-20200107032115504.chn" target="_blank">Kenh14 — "Khám phá cửa hàng nước hoa pha chế tại Việt Nam"</a></p>
+
+<h3 class="sub">Kế hoạch tuyển dụng</h3>
+<table class="tb">
+  <thead><tr><th>Vị trí</th><th>Thời điểm</th><th>Yêu cầu</th></tr></thead>
+  <tr><td><span class="nm">Quản lý cửa hàng</span></td><td>6 tuần trước khi mở</td><td>Đào tạo tại cửa hàng do người sáng lập vận hành. Vượt qua bài kiểm tra bí mật (khách hàng giả). Có thể vận hành độc lập.</td></tr>
+  <tr><td><span class="nm">Nhân viên pha chế</span></td><td>4 tuần trước khi mở</td><td>Chương trình đào tạo 5 ngày: văn hoá thương hiệu → quan sát → kiến thức sản phẩm → thực hành → kiểm tra chứng nhận.</td></tr>
+  <tr><td><span class="nm">Nhân viên nội dung</span></td><td>2 tuần trước khi mở</td><td>Nhiếp ảnh + mạng xã hội. Hiểu rõ hướng dẫn thương hiệu. Ghi lại từ trải nghiệm thật.</td></tr>
+</table>
+
+<div class="co">
+  <strong>Tại sao chỉ có 1 người sáng lập lúc này không phải điểm yếu:</strong> Toàn bộ quy trình đã được ghi chép đủ chi tiết. Chương trình đào tạo đã có. Quản lý cửa hàng được huấn luyện trước khi mở cửa. Một người tập trung ở giai đoạn 1 = thực thi nhanh và nhất quán. Đội ngũ lớn lên khi doanh thu cho phép.
+</div>`,
+
+// ═══ 7 · TÀI CHÍNH & ĐỀ XUẤT ĐẦU TƯ ═══
+`<div class="sp">Phần VIII</div>
+<h2 class="sh">Tài chính, Kế hoạch tiếp thị & Đề xuất đầu tư</h2>
+<p class="ss">Gọi 2,66 tỷ VNĐ. Phân bổ rõ ràng: xây dựng gì, tiếp thị thế nào, dự phòng bao nhiêu. Kịch bản lợi nhuận dựa trên dữ liệu thật.</p>
+
+<h3 class="sub">Đề xuất đầu tư</h3>
+<div class="kr">
+  <div class="ki"><div class="kv ac">19,5 tỷ</div><div class="kl">VNĐ · Định giá trước gọi vốn</div></div>
+  <div class="ki"><div class="kv ac">2,66 tỷ</div><div class="kl">VNĐ · Vốn cần gọi</div></div>
+  <div class="ki"><div class="kv ac">12%</div><div class="kl">Tỷ lệ sở hữu nhà đầu tư</div></div>
+  <div class="ki"><div class="kv ac">88%</div><div class="kl">Người sáng lập giữ lại</div></div>
+</div>
+
+<h3 class="sub">Phân bổ vốn — 5 hạng mục</h3>
+<table class="tb">
+  <thead><tr><th>Hạng mục</th><th>Tỷ lệ</th><th>~VNĐ</th><th>Chi tiết</th></tr></thead>
+  <tr><td><span class="nm">① Xây dựng cửa hàng</span></td><td><strong>30%</strong></td><td>~800 triệu</td><td>Quầy pha chế (đá/gỗ), hệ thống chiếu sáng, điều hoà, hệ thống khuếch tán hương, âm thanh, nội thất. Tiêu chuẩn giác quan, không phải tiêu chuẩn trang trí.</td></tr>
+  <tr><td><span class="nm">② Hàng tồn kho & bao bì</span></td><td><strong>15%</strong></td><td>~400 triệu</td><td>Hương liệu IFRA, chai, nắp, nhãn, hộp, túi, ruy băng. Dự trữ 4 tuần cho 15+ giao dịch/ngày.</td></tr>
+  <tr><td><span class="nm">③ Tiếp thị ra mắt</span></td><td><strong>20%</strong></td><td>~530 triệu</td><td>Sản xuất nội dung + gieo hạt trải nghiệm cho KOL/chuyên gia + phân phối đa nền tảng + công cụ kiểm soát thông điệp. Chi tiết bên dưới.</td></tr>
+  <tr><td><span class="nm">④ Pháp lý & thiết lập</span></td><td><strong>10%</strong></td><td>~266 triệu</td><td>Đăng ký kinh doanh, nhãn hiệu, đặt cọc thuê mặt bằng, hệ thống bán hàng/quản lý khách hàng, giấy phép mỹ phẩm.</td></tr>
+  <tr><td><span class="nm">⑤ Dự phòng vận hành</span></td><td><strong>25%</strong></td><td>~665 triệu</td><td>Đệm 6 tháng: thuê mặt bằng, lương nhân viên, điện nước. Đủ duy trì ngay cả khi doanh thu chậm hơn dự kiến.</td></tr>
+</table>
+
+<h3 class="sub">③ Chi tiết tiếp thị ra mắt — 530 triệu VNĐ</h3>
+<div class="co-ink co">
+  <strong>Nguyên tắc:</strong> Mora không chạy quảng cáo truyền thống. Tiếp thị ra mắt = kiểm soát thông điệp đầu tiên ra thị trường. Mọi nội dung đều qua tiêu chuẩn thương hiệu — không ai nói về Mora mà không qua hướng dẫn chuẩn. Mỗi đồng chi ra tạo tài sản nội dung tái sử dụng, không phải lượt xem một lần.
+</div>
+<table class="tb">
+  <thead><tr><th>Hạng mục</th><th>~VNĐ</th><th>Mục đích</th></tr></thead>
+  <tr><td><span class="nm">Sản xuất nội dung</span><br><span style="font-size:10px;color:var(--w600)">Ảnh + Video chuyên nghiệp</span></td><td><strong>160 triệu</strong></td><td>Bộ ảnh chính (5 chủ đề: sản phẩm, nguyên liệu, quy trình, không gian, con người). 3–5 video chính (quy trình pha chế, câu chuyện nguyên liệu, hậu trường). Theo đúng hướng dẫn nhiếp ảnh: ánh sáng tự nhiên, gam màu ấm, không giả tạo. Thư viện nội dung dùng được 6 tháng trở lên.</td></tr>
+  <tr><td><span class="nm">Gieo hạt trải nghiệm</span><br><span style="font-size:10px;color:var(--w600)">KOL, chuyên gia, nhà báo</span></td><td><strong>160 triệu</strong></td><td>20–30 người có ảnh hưởng nhỏ + 5–10 người có ảnh hưởng lớn + phóng viên chuyên mục được mời trải nghiệm mô hình thật. Không phải bài viết trả phí — là lời mời trải nghiệm + hướng dẫn cách truyền tải chuẩn. Tổ chức 2–3 sự kiện (xem trước, khai trương, truyền thông). Chi phí sản phẩm cho gieo hạt (~50 chai). Mỗi KOL nhận bộ tài liệu thương hiệu + hướng dẫn giọng nói + danh sách nên/không nên.</td></tr>
+  <tr><td><span class="nm">Phân phối đa nền tảng</span><br><span style="font-size:10px;color:var(--w600)">Instagram, TikTok, Google Maps, báo chí</span></td><td><strong>130 triệu</strong></td><td>Đẩy mạnh bài đăng tự nhiên đã có lượt tương tác tốt (không phải quảng cáo truyền thống — khuếch đại nội dung đã chứng minh). Tối ưu Google Maps + thu thập đánh giá. Đặt bài trên Kenh14, Vietcetera, Trí Thức Trẻ — góc nhìn bài báo đã chuẩn bị sẵn (6 góc nhìn). Mẫu thiết kế chuẩn cho mọi nền tảng.</td></tr>
+  <tr><td><span class="nm">Công cụ kiểm soát thông điệp</span><br><span style="font-size:10px;color:var(--w600)">Đảm bảo mọi người nói cùng câu chuyện</span></td><td><strong>80 triệu</strong></td><td>Bộ tài liệu cho KOL (hướng dẫn + mẫu + giọng nói chuẩn). Mẫu thiết kế mạng xã hội chuẩn thương hiệu. Bộ tài liệu cho báo chí. Biển hiệu, bảng thông tin tại cửa hàng. Quy trình duyệt nội dung. Tất cả để đảm bảo: mọi người nói về Mora đều nói cùng một câu chuyện.</td></tr>
+</table>
+<div class="co">
+  <strong>Tại sao cần ngân sách tiếp thị riêng khi Morra 1.0 chỉ tốn 7–9% doanh thu?</strong> Morra 1.0 tăng trưởng tự nhiên vì là thứ hoàn toàn mới lúc đó. Mora 2.0 cần ngân sách riêng biệt ban đầu vì: (1) định nghĩa lại thương hiệu — "đây là Mora mới, không phải Morra cũ," (2) kiểm soát câu chuyện từ đầu — không để thị trường tự định nghĩa, (3) xây thư viện nội dung chuẩn dùng 6+ tháng, (4) tăng tốc vòng quay ban đầu. Sau 3 tháng → vòng quay tự nhiên đã hoạt động → chi phí tiếp thị ổn định về mức 7–9% doanh thu như Morra 1.0.
+</div>
+
+<h3 class="sub">Dự báo doanh thu — Cửa hàng đầu tiên</h3>
+<table class="tb">
+  <thead><tr><th>Kịch bản</th><th>Tháng</th><th>Năm</th><th>Biên hoạt động</th><th>Lợi nhuận hoạt động/năm</th><th>Cơ sở</th></tr></thead>
+  <tr><td><span class="tg t-g">Thận trọng</span></td><td>1,1 tỷ</td><td><strong>13,2 tỷ</strong></td><td>~55–63%</td><td>~7,3–8,3 tỷ</td><td>50% đỉnh Morra 1.0</td></tr>
+  <tr><td><span class="tg t-a">Trung bình</span></td><td>1,54 tỷ</td><td><strong>18,5 tỷ</strong></td><td>~62%</td><td>~11,5 tỷ</td><td>70% đỉnh Morra 1.0</td></tr>
+  <tr><td><span class="tg t-t">Lạc quan</span></td><td>2,2 tỷ</td><td><strong>26,4 tỷ</strong></td><td>~66%</td><td>~17,4 tỷ</td><td>Bằng đỉnh Morra 1.0</td></tr>
+</table>
+<p class="src">Biên hoạt động cải thiện khi doanh thu tăng vì chi phí cố định (thuê, nhân sự, khấu hao) được pha loãng trên doanh số lớn hơn.</p>
+
+<h3 class="sub">Kịch bản lợi nhuận cho nhà đầu tư — Nếu đầu tư 2,66 tỷ cho 12%</h3>
+<table class="tb">
+  <thead><tr><th>Kịch bản</th><th>Năm 1</th><th>Năm 3 (3 cửa hàng)</th><th>Giá trị 12% của nhà đầu tư</th></tr></thead>
+  <tr><td><span class="tg t-g">Thận trọng</span></td><td>Doanh thu 13,2 tỷ</td><td>~36 tỷ, định giá ~36–54 tỷ</td><td><strong>4,3–6,5 tỷ</strong> (gấp 1,6–2,4 lần)</td></tr>
+  <tr><td><span class="tg t-a">Trung bình</span></td><td>Doanh thu 18,5 tỷ</td><td>~50 tỷ, định giá ~50–75 tỷ</td><td><strong>6–9 tỷ</strong> (gấp 2,3–3,4 lần)</td></tr>
+  <tr><td><span class="tg t-t">Lạc quan</span></td><td>Doanh thu 26,4 tỷ</td><td>~72 tỷ, định giá ~72–108 tỷ</td><td><strong>8,6–13 tỷ</strong> (gấp 3,2–4,9 lần)</td></tr>
+</table>
+
+<h3 class="sub">Các cột mốc</h3>
+<table class="tb">
+  <tr><td><span class="nm">Mở cửa hàng đầu tiên</span></td><td>Tháng 3–4 sau khi nhận vốn</td></tr>
+  <tr><td><span class="nm">Hoà vốn</span></td><td>Tháng 2–3 sau khi mở</td></tr>
+  <tr><td><span class="nm">Hoàn vốn đầu tư</span></td><td>Tháng 5–7 sau khi mở</td></tr>
+  <tr><td><span class="nm">Đánh giá sẵn sàng mở rộng</span></td><td>Tháng 9–12 sau khi mở</td></tr>
+  <tr><td><span class="nm">Cửa hàng thứ 2 (nếu đạt tiêu chuẩn)</span></td><td>Tháng 15–18</td></tr>
+  <tr><td><span class="nm">Bắt đầu chia lợi nhuận</span></td><td>Khi cửa hàng có lãi ≥3 tháng liên tiếp</td></tr>
+</table>
+
+<div class="co co-a">
+  <strong>Điều kiện đầu tư:</strong> Nhà đầu tư tài chính — không tham gia vận hành. Nhận báo cáo lãi lỗ hàng tháng + cập nhật chiến lược hàng quý. Chia lợi nhuận khi có lãi. Quyền ưu tiên mua lại nếu muốn thoái vốn. Người sáng lập giữ toàn quyền vận hành + thương hiệu. Không giảm giá, không khuyến mãi ồ ạt, không mở rộng trước khi đạt tiêu chuẩn sẵn sàng — dù nhà đầu tư muốn nhanh đến đâu.
+</div>`,
+
+// ═══ 8 · HỎI ĐÁP ═══
+`<div class="sp">Phần IX</div>
+<h2 class="sh">Hỏi đáp — Những câu hỏi thường gặp</h2>
+<p class="ss">Trả lời thẳng, không né tránh.</p>
+<div id="qaL"></div>`
+];
+
+const QA=[
+{q:'Morra 1.0 đã mất. Tại sao lần này sẽ khác?',a:'Mất vì <strong>thiếu hệ thống khi mở rộng</strong> — không phải vì thiếu sản phẩm hay khách hàng. Cụ thể: không có thoả thuận cổ đông, không có quy trình vận hành chuẩn, không có bảng lãi lỗ theo cửa hàng. Mora 2.0 đã xây dựng tất cả trước khi gọi vốn: khung quản trị với điều khoản bảo vệ người sáng lập, hệ thống vận hành 8 mô-đun, kiến trúc tài chính hoàn chỉnh. Đã có và có thể xem ngay.'},
+{q:'Người sáng lập chỉ có 1 — nếu không thể tiếp tục thì sao?',a:'3 lớp giảm thiểu rủi ro: <strong>(1)</strong> Toàn bộ quy trình đã được ghi chép đủ chi tiết để người thứ 2 vận hành được. <strong>(2)</strong> Quản lý cửa hàng được tuyển và đào tạo trước khi mở cửa. <strong>(3)</strong> Tài sản trí tuệ thuộc về công ty (pháp nhân), không thuộc cá nhân.'},
+{q:'Tại sao định giá 19,5 tỷ khi chưa có doanh thu?',a:'Đây không phải startup chưa chứng minh gì. Là mô hình kinh doanh đã tạo ra <strong>2,2 tỷ/tháng (đỉnh tháng 2/2020), biên lợi nhuận gộp 80%+, chi phí tiếp thị chỉ 7–9% doanh thu</strong> — dữ liệu thật từ 12 cửa hàng trong 2,5 năm. Mức 19,5 tỷ bằng khoảng 74% doanh thu năm đỉnh đã chứng minh (26,4 tỷ). Nhà đầu tư nhận 12% cổ phần với 2,66 tỷ — và dữ liệu cho thấy hoàn vốn đầu tư trong 3 tháng khi cửa hàng vận hành.'},
+{q:'Nhà đầu tư có quyền gì?',a:'<strong>Nhà đầu tư tài chính.</strong> Được nhận: báo cáo lãi lỗ hàng tháng, cập nhật chiến lược hàng quý, chia lợi nhuận khi có lãi, quyền ưu tiên mua lại. Không được: thay đổi tiêu chuẩn thương hiệu, yêu cầu giảm giá, thúc đẩy mở rộng trước khi đạt tiêu chuẩn, can thiệp vận hành. Đây là bài học trực tiếp từ Morra 1.0 khi đối tác có quyền vận hành dẫn đến xung đột.'},
+{q:'Tại sao không chạy quảng cáo trả phí cho nhanh?',a:'Thời điểm vận hành Morra 1.0, chi phí tiếp thị chỉ chiếm <strong>7–9% doanh thu/tháng</strong> — chủ yếu cho sản xuất nội dung, không phải quảng cáo trả phí. Doanh thu đỉnh 2,2 tỷ/tháng đạt được nhờ khách hàng giới thiệu tự nhiên. Ngân sách tiếp thị ra mắt 530 triệu là để <strong>kiểm soát câu chuyện ban đầu</strong> và tăng tốc vòng quay — không phải để mua khách. Sau 3 tháng → vòng quay tự nhiên đã hoạt động → chi phí tiếp thị về lại mức 7–9% doanh thu.'},
+{q:'Le Labo hoặc thương hiệu lớn vào thị trường Việt Nam thì sao?',a:'Le Labo là <strong>mô hình tham khảo</strong>, không phải đối thủ trực tiếp. Mora xây dựng phiên bản Việt Nam — tối ưu cho nguyên liệu, bối cảnh và nhu cầu bản địa. Giá 1–1,79 triệu so với 7–10 triệu — phân khúc hoàn toàn khác. Các thương hiệu xa xỉ không thể giảm giá xuống phân khúc của Mora mà không phá huỷ định vị của họ. Lợi thế thực sự của Mora không phải giá — mà là hệ thống vận hành nhất quán + nhân sự được đào tạo + gắn kết với thị trường bản địa.'},
+{q:'Bán lẻ vật lý đang khó khăn — tại sao mở cửa hàng?',a:'Bán lẻ <strong>bán sản phẩm</strong> đang khó. Bán lẻ <strong>bán trải nghiệm</strong> đang tăng. Marou Chocolate mở thêm Maison Marou (cửa hàng trải nghiệm), Pizza 4P\'s mở rộng nhà hàng trải nghiệm. Cùng xu hướng: bán lẻ trải nghiệm cao cấp tại Việt Nam đang phát triển mạnh.'},
+{q:'530 triệu tiếp thị có đủ không?',a:'<strong>Đủ vì:</strong> (1) Không chạy quảng cáo trả phí truyền thống — gieo hạt trải nghiệm + nội dung có kiểm soát. (2) Tạo thư viện nội dung dùng 6+ tháng, không phải lượt xem 1 lần. (3) Sau 3 tháng vòng quay tự nhiên hoạt động. (4) Morra 1.0 chứng minh: chi phí tiếp thị chỉ 7–9% doanh thu mà vẫn đạt 2,2 tỷ/tháng — 530 triệu là chất xúc tác ban đầu, sau đó về lại mức 7–9%.'},
+{q:'Cơ chế thoái vốn như thế nào?',a:'Không cam kết thời hạn thoái vốn cụ thể. Mora được xây để tăng trưởng bền vững. Các hướng: <strong>Chia lợi nhuận</strong> (biên gộp 80%+ = có ý nghĩa sớm), <strong>Mua lại</strong> (người sáng lập có quyền ưu tiên mua lại cổ phần), <strong>Nhà đầu tư chiến lược</strong> (Mekong Capital đã đầu tư Marou Chocolate — cùng hướng tiếp cận), <strong>Nhượng quyền</strong> (phí nhượng quyền + phần trăm doanh thu tạo doanh thu định kỳ). Cam kết: báo cáo minh bạch, kinh doanh biên lợi nhuận cao, người sáng lập gắn bó dài hạn.'},
+{q:'Có thể xem tài liệu chi tiết không?',a:'Toàn bộ sẵn sàng: Hướng dẫn thương hiệu v2.0 (9 phần), Hồ sơ kinh doanh v2.0 (6 tài liệu), Thiết kế trải nghiệm cửa hàng, Hệ thống vận hành (8 mô-đun), Khung quản trị. <strong>Không phải bài thuyết trình — là tài liệu vận hành thật, có thể triển khai ngay khi ký thuê mặt bằng.</strong>'}
+];
+
+document.getElementById('ct').innerHTML=P.map((h,i)=>`<div class="pnl${i===0?' v':''}" id="p${i}">${h}</div>`).join('');
+document.getElementById('qaL').innerHTML=QA.map((q,i)=>`<div class="qa" onclick="this.classList.toggle('open')"><div class="qa-q"><span class="qa-n">${String(i+1).padStart(2,'0')}</span><span class="qa-t">${q.q}</span><span class="qa-ar">▸</span></div><div class="qa-a">${q.a}</div></div>`).join('');
+</script>
+</body>
+</html>
