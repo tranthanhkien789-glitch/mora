@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mora · Packaging & Print System</title>
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/300.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/300-italic.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/400.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/400-italic.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/500-italic.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/dm-mono@5/400.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/dm-mono@5/400-italic.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/300.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/400.css" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A1916;--ink55:rgba(26,25,22,.55);--ink25:rgba(26,25,22,.18);
+  --teal:#0F6E56;--teal-dk:#085041;--teal-lt:#E1F5EE;--teal-xlt:#F0FAF6;
+  --amber:#854F0B;--amber-lt:#FAEEDA;
+  --cream:#FAF9F6;--linen:#E8DFD0;--linen-dk:#C4B49A;--kraft:#C9A97A;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fm:'DM Mono','Courier New',monospace;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:15px}
+body{background:var(--cream);color:var(--ink);font-family:var(--fm)}
+
+/* ─ HEADER ─ */
+.doc-hd{padding:18px 44px;border-bottom:1px solid var(--linen);display:flex;align-items:center;justify-content:space-between;background:var(--cream);position:sticky;top:0;z-index:100}
+.hd-l{display:flex;align-items:center;gap:18px}
+.hd-wm{font-family:var(--fd);font-size:22px;font-weight:300;letter-spacing:.12em;color:var(--ink)}
+.hd-sep{width:1px;height:22px;background:var(--linen-dk)}
+.hd-title{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal)}
+.hd-r{display:flex;gap:8px;align-items:center}
+.doc-id{font-size:10px;letter-spacing:.1em;color:var(--ink55)}
+.ph-badge{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:var(--teal-lt);color:var(--teal-dk)}
+
+/* ─ TAB NAV ─ */
+.tab-nav{display:flex;background:var(--cream);border-bottom:1px solid var(--linen);padding:0 44px;position:sticky;top:57px;z-index:99;overflow-x:auto}
+.tab-btn{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink55);background:none;border:none;cursor:pointer;padding:13px 16px;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--fm)}
+.tab-btn:hover{color:var(--teal);background:var(--teal-xlt)}
+.tab-btn.active{color:var(--teal-dk);border-bottom-color:var(--teal)}
+
+/* ─ PANELS ─ */
+.panel{display:none;padding:36px 44px 80px;max-width:1100px;margin:0 auto}
+.panel.active{display:block}
+
+/* ─ SECTION HERO ─ */
+.sec-ey{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--amber);margin-bottom:7px}
+.sec-ti{font-family:var(--fd);font-size:40px;font-weight:300;line-height:1.1;margin-bottom:8px}
+.sec-sub{font-size:13px;color:var(--teal-dk);margin-bottom:28px;max-width:600px;line-height:1.65;font-family:var(--fb);font-weight:300}
+
+/* ─ CONTROLS ─ */
+.ctrl-row{display:flex;gap:8px;margin-bottom:28px;align-items:center;flex-wrap:wrap}
+.ctrl-lbl{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink55);margin-right:4px}
+.btn{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:2px;border:0.5px solid var(--linen-dk);background:none;cursor:pointer;color:var(--ink55);transition:all .15s;font-family:var(--fm)}
+.btn:hover{border-color:var(--teal);color:var(--teal)}
+.btn.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+
+/* ─ DEMO STAGE ─ */
+.demo-stage{display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap}
+.demo-col{display:flex;flex-direction:column;gap:0}
+.demo-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink55);margin-bottom:10px}
+.demo-row{display:flex;gap:18px;align-items:flex-start}
+
+/* ─ PHYSICAL OBJECT — hardcoded Mora colors ─ */
+.po{background:var(--cream);border:0.5px solid var(--ink);position:relative}
+.po.dark{background:var(--ink);border-color:var(--ink)}
+
+/* LABEL */
+.lbl-50{width:210px;padding:17px 15px 15px}
+.lbl-10{width:138px;padding:12px 11px 11px}
+
+/* BOX FACE */
+.box-50{width:158px;padding:16px 14px 14px}
+.box-10{width:110px;padding:12px 10px 10px}
+
+/* SPINE */
+.spine{background:var(--cream);border:0.5px solid var(--ink);display:flex;align-items:center;justify-content:center}
+.spine.dark{background:var(--ink);border-color:var(--ink)}
+.spine-50{width:36px;height:218px}
+.spine-10{width:26px;height:162px}
+
+/* BAG */
+.bag-wrap{display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap}
+
+/* CARD */
+.card-tc{width:220px;padding:22px 22px 20px}
+.card-care{width:220px;padding:20px 20px 18px}
+.card-biz{width:200px;padding:18px 18px 16px}
+
+/* ─ LABEL ELEMENTS ─ */
+.l-wm{font-family:var(--fd);font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
+.dark .l-wm{color:var(--cream)}
+.l-rule{height:0.5px;background:var(--ink);border:none;margin:0}
+.dark .l-rule{background:rgba(250,249,246,.5)}
+.l-soft{height:0.5px;background:var(--linen);border:none;margin:0}
+.dark .l-soft{background:rgba(250,249,246,.15)}
+.l-dash{height:0.5px;background:none;border:none;border-top:0.5px dashed var(--linen);margin:0}
+.dark .l-dash{border-color:rgba(250,249,246,.2)}
+.l-sg{font-family:var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.dark .l-sg{color:#5DCAA5}
+.l-name{font-family:var(--fd);font-weight:400;font-style:italic;color:var(--ink);line-height:1.05}
+.dark .l-name{color:var(--cream)}
+.l-col{font-family:var(--fm);letter-spacing:.13em;text-transform:uppercase;color:var(--ink)}
+.dark .l-col{color:rgba(250,249,246,.85)}
+.l-ver{font-family:var(--fm);color:var(--ink55)}
+.dark .l-ver{color:rgba(250,249,246,.5)}
+.l-type{font-family:var(--fb);font-weight:300;color:var(--ink55)}
+.dark .l-type{color:rgba(250,249,246,.5)}
+.l-vol{font-family:var(--fm);color:var(--ink)}
+.dark .l-vol{color:rgba(250,249,246,.75)}
+.l-ori{font-family:var(--fm);color:var(--ink55)}
+.dark .l-ori{color:rgba(250,249,246,.4)}
+.l-notes{font-family:var(--fm);color:var(--ink55);letter-spacing:.04em}
+.dark .l-notes{color:rgba(250,249,246,.4)}
+.l-mf{font-family:var(--fm);letter-spacing:.13em;text-transform:uppercase;color:var(--teal)}
+.dark .l-mf{color:#5DCAA5}
+.l-pname{font-family:var(--fd);font-weight:300;font-style:italic;color:var(--ink)}
+.dark .l-pname{color:var(--cream)}
+.l-date{font-family:var(--fm);color:var(--ink55)}
+.dark .l-date{color:rgba(250,249,246,.4)}
+.vdp-zone{margin-top:9px;padding-top:8px}
+.vdp-tag{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;display:inline-block;padding:1px 6px;background:rgba(15,110,86,.1);color:var(--teal);border-radius:2px;margin-bottom:7px}
+.dark .vdp-tag{background:rgba(93,202,165,.12);color:#5DCAA5}
+
+/* ─ ANNOTATIONS ─ */
+.ann-col{flex-direction:column;gap:5px;min-width:130px;display:none}
+.ann-col.show{display:flex}
+.ann{font-size:11px;color:#888780;border-left:2px solid #D3D1C7;padding-left:8px;line-height:1.5}
+.ann b{font-size:11px;color:#5F5E5A;font-weight:500;display:block}
+.ann.vdp-ann{border-left-color:var(--teal)}
+.ann.vdp-ann b{color:var(--teal)}
+
+/* ─ SPINE TEXT ROTATION ─ */
+.spine-text{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--fd);font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+.dark .spine-text{color:var(--cream)}
+
+/* ─ SYSTEM GRID ─ */
+.sys-cols{display:flex;gap:16px;flex-wrap:wrap}
+.sys-ph{flex:1;min-width:260px}
+.sys-ph-head{font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:7px 13px;border-radius:2px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+.ph1-head{background:var(--teal);color:var(--cream)}
+.ph2-head{background:var(--linen);color:var(--ink)}
+.sys-grp{margin-bottom:14px}
+.sys-grp-t{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);padding-bottom:6px;border-bottom:1px solid var(--teal-lt);margin-bottom:8px}
+.sys-item{display:flex;gap:10px;padding:8px 10px;border:0.5px solid var(--linen);border-radius:3px;margin-bottom:5px;background:var(--cream)}
+.sys-item.hero{border-color:var(--teal);border-width:1px;background:var(--teal-lt)}
+.sys-item.dim{opacity:.45;background:var(--cream)}
+.item-n{font-size:10px;color:var(--teal);min-width:26px;flex-shrink:0;font-family:var(--fm)}
+.dim .item-n{color:var(--ink55)}
+.item-bd{flex:1}
+.item-nm{font-size:12px;color:var(--ink);margin-bottom:2px;font-family:var(--fm)}
+.item-s{font-size:11px;color:var(--ink55);line-height:1.4;font-family:var(--fb);font-weight:300}
+.itag{font-size:10px;padding:2px 7px;border-radius:2px;align-self:flex-start;flex-shrink:0;font-family:var(--fm)}
+.t-hero{background:var(--teal);color:var(--cream)}
+.t-core{background:var(--linen);color:var(--ink)}
+.t-gift{background:var(--amber-lt);color:var(--amber)}
+.t-p2{background:var(--linen);color:var(--ink55)}
+.sys-order{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.ord-step{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink55);font-family:var(--fm)}
+.ord-n{width:22px;height:22px;border-radius:50%;background:var(--teal);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.sys-note{background:var(--teal-lt);border-left:3px solid var(--teal);padding:10px 14px;border-radius:0 3px 3px 0;font-size:11px;color:var(--teal-dk);line-height:1.6;margin-top:4px;font-family:var(--fb);font-weight:300}
+
+/* ─ BAG SVG ─ */
+.bag-demo{display:flex;gap:20px;align-items:flex-end;flex-wrap:wrap}
+.bag-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink55);margin-top:8px;text-align:center}
+
+/* ─ CARD DEMOS ─ */
+.cards-row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.card-stack{display:flex;flex-direction:column;gap:0}
+.card-tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink55);margin-bottom:10px}
+.flip-btn{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:0.5px solid var(--linen-dk);background:none;cursor:pointer;color:var(--ink55);font-family:var(--fm);border-radius:2px;margin-top:8px;transition:all .15s}
+.flip-btn:hover{color:var(--teal);border-color:var(--teal)}
+.card-face{display:none}
+.card-face.show{display:block}
+
+/* ─ GIFT DEMO ─ */
+.gift-row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+
+/* ─ LEGEND ─ */
+.legend{margin-top:36px;padding-top:20px;border-top:1px solid var(--linen);display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.leg{border-left:2px solid var(--linen);padding-left:12px}
+.leg-n{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink55);margin-bottom:4px;font-family:var(--fm)}
+.leg-s{font-size:11px;color:var(--ink55);line-height:1.5;margin-bottom:5px;font-family:var(--fb);font-weight:300}
+.leg-ex{color:var(--ink)}
+
+hr.div{border:none;border-top:1px solid var(--linen);margin:36px 0}
+</style>
+</head>
+<body>
+
+<header class="doc-hd">
+  <div class="hd-l">
+    <span class="hd-wm">Mora</span>
+    <span class="hd-sep"></span>
+    <span class="hd-title">Packaging & Print System</span>
+  </div>
+  <div class="hd-r">
+    <span class="doc-id">MORA-PKG-001 · v1.0</span>
+    <span class="ph-badge">Phase 1</span>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="s0">00 · System</button>
+  <button class="tab-btn" data-tab="s1">A01–02 · Label</button>
+  <button class="tab-btn" data-tab="s2">A03–04 · Box</button>
+  <button class="tab-btn" data-tab="s3">A05 · Bag</button>
+  <button class="tab-btn" data-tab="s4">A06–08 · Cards</button>
+  <button class="tab-btn" data-tab="s5">A09–10 · Gift</button>
+</nav>
+
+<main>
+
+<!-- ══════ S0 · SYSTEM ══════ -->
+<div class="panel active" id="s0">
+  <div class="sec-ey">00 · System overview</div>
+  <h2 class="sec-ti">Packaging & Print</h2>
+  <p class="sec-sub">Phase 1 — digital print, standard bottles, focus trên tính nhất quán và chiều sâu. Label là hero. Mọi thứ khác support và frame label.</p>
+
+  <div class="sys-cols">
+    <div class="sys-ph">
+      <div class="sys-ph-head ph1-head">
+        <span>Phase 1 — in scope</span>
+        <span style="opacity:.7;font-size:10px;margin-left:auto">Digital print · Standard bottles</span>
+      </div>
+
+      <div class="sys-grp">
+        <div class="sys-grp-t">Label system — hero của phase này</div>
+        <div class="sys-item hero">
+          <span class="item-n">A01</span>
+          <div class="item-bd"><div class="item-nm">Label 50ml</div><div class="item-s">Wordmark · tên mùi · version · collection · notes · origin · VDP name + date</div></div>
+          <span class="itag t-hero">Hero</span>
+        </div>
+        <div class="sys-item hero">
+          <span class="item-n">A02</span>
+          <div class="item-bd"><div class="item-nm">Label 10ml</div><div class="item-s">Condensed version — cùng hierarchy, adapted cho kích thước nhỏ hơn</div></div>
+          <span class="itag t-hero">Hero</span>
+        </div>
+      </div>
+
+      <div class="sys-grp">
+        <div class="sys-grp-t">Container system</div>
+        <div class="sys-item">
+          <span class="item-n">A03</span>
+          <div class="item-bd"><div class="item-nm">Box / carton 50ml</div><div class="item-s">Folding carton cross-dieline · digital print · cream/ink variants</div></div>
+          <span class="itag t-core">Core</span>
+        </div>
+        <div class="sys-item">
+          <span class="item-n">A04</span>
+          <div class="item-bd"><div class="item-nm">Box / carton 10ml</div><div class="item-s">Scaled-down · cùng cấu trúc với 50ml</div></div>
+          <span class="itag t-core">Core</span>
+        </div>
+        <div class="sys-item">
+          <span class="item-n">A05</span>
+          <div class="item-bd"><div class="item-nm">Shopping bag</div><div class="item-s">Kraft hoặc linen · rope handle · minimal logo placement</div></div>
+          <span class="itag t-core">Core</span>
+        </div>
+      </div>
+
+      <div class="sys-grp">
+        <div class="sys-grp-t">Cards & collateral</div>
+        <div class="sys-item">
+          <span class="item-n">A06</span>
+          <div class="item-bd"><div class="item-nm">Thank you card</div><div class="item-s">Handwriting-ready · double-sided · A6</div></div>
+          <span class="itag t-core">Core</span>
+        </div>
+        <div class="sys-item">
+          <span class="item-n">A07</span>
+          <div class="item-bd"><div class="item-nm">Care & wear card</div><div class="item-s">"Hướng dẫn mang mùi hương của bạn" · uncoated</div></div>
+          <span class="itag t-core">Core</span>
+        </div>
+        <div class="sys-item">
+          <span class="item-n">A08</span>
+          <div class="item-bd"><div class="item-nm">Business card</div><div class="item-s">Founder card + brand card · 2 variants</div></div>
+          <span class="itag t-core">Core</span>
+        </div>
+      </div>
+
+      <div class="sys-grp">
+        <div class="sys-grp-t">Gift configuration</div>
+        <div class="sys-item">
+          <span class="item-n">A09</span>
+          <div class="item-bd"><div class="item-nm">Gift set (2-bottle)</div><div class="item-s">50ml + 10ml hoặc 2×50ml · ribbon · message card slot</div></div>
+          <span class="itag t-gift">Gift</span>
+        </div>
+        <div class="sys-item">
+          <span class="item-n">A10</span>
+          <div class="item-bd"><div class="item-nm">B2B gifting kit</div><div class="item-s">Band/sleeve · insert card · bulk pack spec</div></div>
+          <span class="itag t-gift">Gift</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sys-ph" style="max-width:250px">
+      <div class="sys-ph-head ph2-head"><span>Phase 2 — defer</span></div>
+      <div class="sys-grp">
+        <div class="sys-grp-t" style="color:var(--ink55)">Custom & upgrade</div>
+        <div class="sys-item dim"><span class="item-n">—</span><div class="item-bd"><div class="item-nm">Custom bottle design</div><div class="item-s">Form Mora riêng · MOQ cao · R&D dài</div></div><span class="itag t-p2">Phase 2</span></div>
+        <div class="sys-item dim"><span class="item-n">—</span><div class="item-bd"><div class="item-nm">Foil / letterpress labels</div><div class="item-s">Upgrade finish sau khi design locked</div></div><span class="itag t-p2">Phase 2</span></div>
+        <div class="sys-item dim"><span class="item-n">—</span><div class="item-bd"><div class="item-nm">Rigid box (lid-off)</div><div class="item-s">Upgrade từ folding carton</div></div><span class="itag t-p2">Phase 2</span></div>
+        <div class="sys-item dim"><span class="item-n">—</span><div class="item-bd"><div class="item-nm">Tissue paper custom</div><div class="item-s">Teal với Mora watermark</div></div><span class="itag t-p2">Phase 2</span></div>
+        <div class="sys-item dim"><span class="item-n">—</span><div class="item-bd"><div class="item-nm">Expanded sizes</div><div class="item-s">30ml · travel set · refill</div></div><span class="itag t-p2">Phase 2</span></div>
+      </div>
+      <div class="sys-note">Phase 1 tập trung vào tính nhất quán và chiều sâu — không phải số lượng item. Label phải exceptional dù chai là standard.</div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <div style="font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink55);margin-bottom:10px">Thứ tự thiết kế</div>
+  <div class="sys-order">
+    <div class="ord-step"><span class="ord-n">1</span>Label A01+02</div>
+    <span style="color:var(--ink55)">→</span>
+    <div class="ord-step"><span class="ord-n">2</span>Box A03+04</div>
+    <span style="color:var(--ink55)">→</span>
+    <div class="ord-step"><span class="ord-n">3</span>Bag A05</div>
+    <span style="color:var(--ink55)">→</span>
+    <div class="ord-step"><span class="ord-n">4</span>Cards A06–08</div>
+    <span style="color:var(--ink55)">→</span>
+    <div class="ord-step"><span class="ord-n">5</span>Gift A09–10</div>
+  </div>
+</div>
+
+
+<!-- ══════ S1 · LABEL ══════ -->
+<div class="panel" id="s1">
+  <div class="sec-ey">A01 · A02 · Label system</div>
+  <h2 class="sec-ti">Label</h2>
+  <p class="sec-sub">Label là hero của packaging Phase 1. Chai standard — label phải exceptional. VDP (variable data printing) cho tên người mua và ngày tạo được in trực tiếp vào từng label theo order.</p>
+
+  <div class="ctrl-row">
+    <span class="ctrl-lbl">View</span>
+    <button class="btn" id="s1-ann">Annotated</button>
+    <button class="btn" id="s1-dark">Dark variant</button>
+  </div>
+
+  <div class="demo-stage">
+
+    <!-- 50ml label -->
+    <div class="demo-col">
+      <div class="demo-label">A01 · 50ml · ~55×90mm</div>
+      <div class="demo-row">
+        <div class="po lbl-50" id="l50">
+          <div class="l-wm" style="font-size:13px;margin-bottom:8px">Mora</div>
+          <hr class="l-rule">
+          <div style="margin:11px 0 0">
+            <div class="l-sg" style="font-size:11px;margin-bottom:4px">Nhóm hương gỗ tươi mát</div>
+            <div class="l-name" style="font-size:30px;margin-bottom:5px">Cedar Musk</div>
+            <div class="l-col" style="font-size:11px;margin-bottom:2px">1st Collection</div>
+            <div class="l-ver" style="font-size:11px">No. 01</div>
+          </div>
+          <hr class="l-soft" style="margin:11px 0">
+          <div class="l-type" style="font-size:12px;margin-bottom:3px">Eau de Parfum · Natural spray</div>
+          <div class="l-vol" style="font-size:11px;margin-bottom:2px">50ml · 1.6 fl.oz</div>
+          <div class="l-ori" style="font-size:11px;margin-bottom:9px">Created in Saigon, Vietnam</div>
+          <div class="l-notes" style="font-size:11px">Cedarwood · Vetiver · Ambroxan</div>
+          <div class="vdp-zone">
+            <hr class="l-dash">
+            <div style="padding-top:8px">
+              <span class="vdp-tag">VDP — variable data</span>
+              <div class="l-mf" style="font-size:11px;margin-bottom:4px">Made for</div>
+              <div class="l-pname" style="font-size:15px;margin-bottom:3px">Nguyễn Thanh Hà</div>
+              <div class="l-date" style="font-size:11px">01 · 04 · 2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="ann-col" id="ann-l50">
+          <div class="ann"><b>Wordmark</b>Cormorant 300 · 13px · ls.22em</div>
+          <div class="ann"><b>Scent group</b>DM Mono · 11px · teal · uppercase</div>
+          <div class="ann"><b>Fragrance name</b>Cormorant 400 italic · 30px · dominant</div>
+          <div class="ann"><b>Collection</b>DM Mono · 11px · uppercase · ls.13em</div>
+          <div class="ann"><b>Version</b>DM Mono · 11px · muted</div>
+          <div class="ann"><b>Type / format</b>DM Sans 300 · 12px · 55% opacity</div>
+          <div class="ann"><b>Volume</b>DM Mono · 11px</div>
+          <div class="ann"><b>Origin</b>DM Mono · 11px · muted</div>
+          <div class="ann"><b>Scent notes</b>DM Mono · 11px · muted · tracked</div>
+          <div class="ann vdp-ann"><b>Made for (VDP)</b>DM Mono · 11px · teal · uppercase</div>
+          <div class="ann vdp-ann"><b>Name (VDP)</b>Cormorant 300 italic · 15px</div>
+          <div class="ann vdp-ann"><b>Date (VDP)</b>DM Mono · 11px · muted</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10ml label -->
+    <div class="demo-col">
+      <div class="demo-label">A02 · 10ml · ~35×60mm</div>
+      <div class="demo-row">
+        <div class="po lbl-10" id="l10">
+          <div class="l-wm" style="font-size:11px;margin-bottom:6px">Mora</div>
+          <hr class="l-rule">
+          <div style="margin:9px 0 0">
+            <div class="l-sg" style="font-size:11px;margin-bottom:3px">Gỗ tươi mát</div>
+            <div class="l-name" style="font-size:20px;margin-bottom:4px">Cedar Musk</div>
+            <div class="l-col" style="font-size:11px;margin-bottom:1px">1st Collection</div>
+            <div class="l-ver" style="font-size:11px">No. 01</div>
+          </div>
+          <hr class="l-soft" style="margin:9px 0">
+          <div class="l-vol" style="font-size:11px;margin-bottom:2px">10ml · Saigon, Vietnam</div>
+          <div class="l-notes" style="font-size:11px">Cedarwood · Vetiver</div>
+          <div class="vdp-zone">
+            <hr class="l-dash">
+            <div style="padding-top:7px">
+              <span class="vdp-tag" style="font-size:9px">VDP</span>
+              <div class="l-mf" style="font-size:11px;margin:5px 0 3px">Made for</div>
+              <div class="l-pname" style="font-size:13px;margin-bottom:2px">N. Thanh Hà</div>
+              <div class="l-date" style="font-size:11px">01.04.2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="ann-col" id="ann-l10">
+          <div class="ann"><b>Wordmark</b>Cormorant 300 · 11px</div>
+          <div class="ann"><b>Scent group</b>DM Mono · 11px · teal · condensed</div>
+          <div class="ann"><b>Fragrance name</b>Cormorant italic · 20px</div>
+          <div class="ann"><b>Collection + Ver</b>DM Mono · 11px · 2 dòng</div>
+          <div class="ann"><b>Volume + Origin</b>DM Mono · 11px · 1 dòng</div>
+          <div class="ann"><b>Notes</b>DM Mono · 11px · abbreviated</div>
+          <div class="ann vdp-ann"><b>Name (VDP)</b>Cormorant italic · 13px</div>
+          <div class="ann vdp-ann"><b>Date (VDP)</b>DM Mono · 11px · condensed</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <div class="leg">
+      <div class="leg-n">Cormorant Garamond</div>
+      <div class="leg-s">Display · Weight 300/400<br>Dominant element + tên người mua</div>
+      <div class="leg-ex" style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:20px;font-weight:400">Cedar Musk</div>
+    </div>
+    <div class="leg">
+      <div class="leg-n">DM Mono</div>
+      <div class="leg-s">Labels · Codes · Specs<br>Collection · Version · Notes · VDP</div>
+      <div class="leg-ex" style="font-family:'DM Mono','Courier New',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase">1st Collection · No. 01</div>
+    </div>
+    <div class="leg">
+      <div class="leg-n">DM Sans</div>
+      <div class="leg-s">Weight 300 · Secondary info<br>Product type · muted role only</div>
+      <div class="leg-ex" style="font-family:'DM Sans',system-ui,sans-serif;font-weight:300;font-size:12px;color:var(--ink55)">Eau de Parfum · Natural spray</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════ S2 · BOX ══════ -->
+<div class="panel" id="s2">
+  <div class="sec-ey">A03 · A04 · Box / carton</div>
+  <h2 class="sec-ti">Box</h2>
+  <p class="sec-sub">Folding carton cross-dieline, digital print. Mặt trước chứa full brand hierarchy. Mặt sau chứa ingredients và IFRA. Spine mang wordmark dọc. Phase 1 dùng uncoated paper.</p>
+
+  <div class="ctrl-row">
+    <span class="ctrl-lbl">View</span>
+    <button class="btn" id="s2-ann">Annotated</button>
+    <button class="btn" id="s2-dark">Dark variant</button>
+  </div>
+
+  <div class="demo-stage">
+
+    <!-- 50ml box -->
+    <div class="demo-col">
+      <div class="demo-label">A03 · Box 50ml · spread (spine · front · spine)</div>
+      <div class="demo-row" style="gap:0">
+        <!-- Left spine -->
+        <div class="spine spine-50" id="box50-spL"><span class="spine-text" style="font-size:11px">Mora</span></div>
+        <!-- Front face -->
+        <div class="po box-50" id="box50" style="border-left:none;border-right:none">
+          <div class="l-wm" style="font-size:12px;margin-bottom:7px">Mora</div>
+          <hr class="l-rule">
+          <div style="margin:10px 0 0">
+            <div class="l-sg" style="font-size:11px;margin-bottom:4px">Nhóm hương gỗ tươi mát</div>
+            <div class="l-name" style="font-size:26px;margin-bottom:5px">Cedar Musk</div>
+            <div class="l-col" style="font-size:11px;margin-bottom:2px">1st Collection</div>
+            <div class="l-ver" style="font-size:11px">No. 01</div>
+          </div>
+          <hr class="l-soft" style="margin:10px 0">
+          <div class="l-type" style="font-size:11px;margin-bottom:3px">Eau de Parfum</div>
+          <div class="l-vol" style="font-size:11px;margin-bottom:2px">50ml · 1.6 fl.oz</div>
+          <div class="l-ori" style="font-size:11px;margin-bottom:8px">Created in Saigon, Vietnam</div>
+          <div class="l-notes" style="font-size:11px">Cedarwood · Vetiver · Ambroxan</div>
+          <hr class="l-dash" style="margin:10px 0">
+          <div class="l-mf" style="font-size:11px;margin-bottom:4px">Made for</div>
+          <div class="l-pname" style="font-size:13px;margin-bottom:3px">Nguyễn Thanh Hà</div>
+          <div class="l-date" style="font-size:11px">01 · 04 · 2026</div>
+        </div>
+        <!-- Right spine -->
+        <div class="spine spine-50" id="box50-spR"><span class="spine-text" style="font-size:11px">Mora</span></div>
+        <!-- Annotation -->
+        <div class="ann-col" id="ann-box50" style="margin-left:14px">
+          <div class="ann"><b>Mặt trước</b>Full brand hierarchy — cùng logic với label</div>
+          <div class="ann"><b>Spine × 2</b>Mora wordmark dọc — visible khi để trên kệ</div>
+          <div class="ann"><b>Mặt sau (không hiện)</b>Ingredients · IFRA · barcode · origin</div>
+          <div class="ann"><b>Top / bottom tuck</b>Blank hoặc minimal Mora mark</div>
+          <div class="ann vdp-ann"><b>VDP zone</b>Tên + ngày in theo order — cuối mặt trước</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10ml box -->
+    <div class="demo-col">
+      <div class="demo-label">A04 · Box 10ml · front face</div>
+      <div class="demo-row" style="gap:0">
+        <div class="spine spine-10" id="box10-spL"><span class="spine-text" style="font-size:11px">M</span></div>
+        <div class="po box-10" id="box10" style="border-left:none;border-right:none">
+          <div class="l-wm" style="font-size:11px;margin-bottom:6px">Mora</div>
+          <hr class="l-rule">
+          <div style="margin:8px 0 0">
+            <div class="l-sg" style="font-size:11px;margin-bottom:3px">Gỗ tươi mát</div>
+            <div class="l-name" style="font-size:18px;margin-bottom:4px">Cedar Musk</div>
+            <div class="l-col" style="font-size:11px;margin-bottom:1px">1st Collection</div>
+            <div class="l-ver" style="font-size:11px">No. 01</div>
+          </div>
+          <hr class="l-soft" style="margin:8px 0">
+          <div class="l-vol" style="font-size:11px;margin-bottom:2px">10ml · Saigon</div>
+          <div class="l-notes" style="font-size:11px">Cedarwood · Vetiver</div>
+          <hr class="l-dash" style="margin:8px 0">
+          <div class="l-mf" style="font-size:11px;margin-bottom:3px">Made for</div>
+          <div class="l-pname" style="font-size:12px;margin-bottom:2px">N. Thanh Hà</div>
+          <div class="l-date" style="font-size:11px">01.04.2026</div>
+        </div>
+        <div class="spine spine-10" id="box10-spR"><span class="spine-text" style="font-size:11px">M</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════ S3 · BAG ══════ -->
+<div class="panel" id="s3">
+  <div class="sec-ey">A05 · Shopping bag</div>
+  <h2 class="sec-ti">Bag</h2>
+  <p class="sec-sub">Kraft hoặc linen texture. Rope handle. Mora wordmark minimal — không có tagline. Hai variants: natural (kraft) và brand (teal). Kích thước đủ để ôm box 50ml + care card.</p>
+
+  <div class="ctrl-row">
+    <span class="ctrl-lbl">Variant</span>
+    <button class="btn on" id="s3-kraft" onclick="setBag('kraft')">Kraft</button>
+    <button class="btn" id="s3-teal" onclick="setBag('teal')">Teal</button>
+  </div>
+
+  <div class="bag-demo">
+    <!-- Kraft bag -->
+    <div id="bag-k">
+      <svg width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="44" width="140" height="148" rx="2" fill="#C9A97A" stroke="#1A1916" stroke-width="0.5"/>
+        <path d="M10 52 L10 44 L150 44 L150 52" fill="#B89060" stroke="#1A1916" stroke-width="0.5"/>
+        <path d="M48 44 Q54 14 80 14 Q106 14 112 44" fill="none" stroke="#6B4E2A" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="48" y1="38" x2="48" y2="44" stroke="#6B4E2A" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="112" y1="38" x2="112" y2="44" stroke="#6B4E2A" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="80" y="125" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="300" letter-spacing="6" fill="#1A1916">Mora</text>
+        <line x1="52" y1="133" x2="108" y2="133" stroke="#1A1916" stroke-width="0.5"/>
+        <line x1="10" y1="52" x2="150" y2="52" stroke="#1A1916" stroke-width="0.5" opacity="0.3"/>
+      </svg>
+      <div class="bag-label">Kraft · Natural</div>
+    </div>
+    <!-- Teal bag -->
+    <div id="bag-t" style="display:none">
+      <svg width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="44" width="140" height="148" rx="2" fill="#0F6E56" stroke="#085041" stroke-width="0.5"/>
+        <path d="M10 52 L10 44 L150 44 L150 52" fill="#085041" stroke="#085041" stroke-width="0.5"/>
+        <path d="M48 44 Q54 14 80 14 Q106 14 112 44" fill="none" stroke="#FAF9F6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+        <line x1="48" y1="38" x2="48" y2="44" stroke="#FAF9F6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+        <line x1="112" y1="38" x2="112" y2="44" stroke="#FAF9F6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+        <text x="80" y="125" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="18" font-weight="300" letter-spacing="6" fill="#FAF9F6">Mora</text>
+        <line x1="52" y1="133" x2="108" y2="133" stroke="#FAF9F6" stroke-width="0.5" opacity="0.6"/>
+        <line x1="10" y1="52" x2="150" y2="52" stroke="#FAF9F6" stroke-width="0.5" opacity="0.2"/>
+      </svg>
+      <div class="bag-label">Teal · Brand moment</div>
+    </div>
+
+    <!-- Large size -->
+    <div id="bag-k-lg">
+      <svg width="200" height="240" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="50" width="180" height="180" rx="2" fill="#C9A97A" stroke="#1A1916" stroke-width="0.5"/>
+        <path d="M10 60 L10 50 L190 50 L190 60" fill="#B89060" stroke="#1A1916" stroke-width="0.5"/>
+        <path d="M58 50 Q66 16 100 16 Q134 16 142 50" fill="none" stroke="#6B4E2A" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="58" y1="44" x2="58" y2="50" stroke="#6B4E2A" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="142" y1="44" x2="142" y2="50" stroke="#6B4E2A" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="100" y="148" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="22" font-weight="300" letter-spacing="7" fill="#1A1916">Mora</text>
+        <line x1="62" y1="158" x2="138" y2="158" stroke="#1A1916" stroke-width="0.5"/>
+        <line x1="10" y1="60" x2="190" y2="60" stroke="#1A1916" stroke-width="0.5" opacity="0.3"/>
+      </svg>
+      <div class="bag-label">Kraft · Large · Gift config</div>
+    </div>
+    <div id="bag-t-lg" style="display:none">
+      <svg width="200" height="240" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="50" width="180" height="180" rx="2" fill="#0F6E56" stroke="#085041" stroke-width="0.5"/>
+        <path d="M10 60 L10 50 L190 50 L190 60" fill="#085041" stroke="#085041" stroke-width="0.5"/>
+        <path d="M58 50 Q66 16 100 16 Q134 16 142 50" fill="none" stroke="#FAF9F6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+        <line x1="58" y1="44" x2="58" y2="50" stroke="#FAF9F6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+        <line x1="142" y1="44" x2="142" y2="50" stroke="#FAF9F6" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+        <text x="100" y="148" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="22" font-weight="300" letter-spacing="7" fill="#FAF9F6">Mora</text>
+        <line x1="62" y1="158" x2="138" y2="158" stroke="#FAF9F6" stroke-width="0.5" opacity="0.6"/>
+        <line x1="10" y1="60" x2="190" y2="60" stroke="#FAF9F6" stroke-width="0.5" opacity="0.2"/>
+      </svg>
+      <div class="bag-label">Teal · Large · Gift config</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════ S4 · CARDS ══════ -->
+<div class="panel" id="s4">
+  <div class="sec-ey">A06 · A07 · A08 · Cards & collateral</div>
+  <h2 class="sec-ti">Cards</h2>
+  <p class="sec-sub">Ba loại card, cùng material system: uncoated cream hoặc kraft. DM Mono + Cormorant Garamond. Tone: educate không lecture, warm không sycophantic.</p>
+
+  <div class="ctrl-row">
+    <span class="ctrl-lbl">View</span>
+    <button class="btn" id="s4-dark">Dark variant</button>
+  </div>
+
+  <div class="cards-row">
+
+    <!-- A06 Thank you card -->
+    <div class="card-stack">
+      <div class="card-tag">A06 · Thank you card · A6 (148×105mm)</div>
+      <div>
+        <div class="card-face show" id="tc-front">
+          <div class="po card-tc" id="tc">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:140px;text-align:center">
+              <div class="l-wm" style="font-size:15px;letter-spacing:.25em;margin-bottom:8px">Mora</div>
+              <hr class="l-rule" style="width:60px">
+              <div class="l-name" style="font-size:14px;margin-top:10px;letter-spacing:.04em">Cảm ơn bạn đã đến.</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-face" id="tc-back">
+          <div class="po card-tc" id="tc-b">
+            <div class="l-sg" style="font-size:11px;margin-bottom:10px">A note for you</div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="height:1px;background:var(--linen)"></div>
+              <div style="height:1px;background:var(--linen)"></div>
+              <div style="height:1px;background:var(--linen)"></div>
+              <div style="height:1px;background:var(--linen)"></div>
+              <div style="height:1px;background:var(--linen)"></div>
+              <div style="height:1px;background:var(--linen)"></div>
+            </div>
+            <div class="l-ori" style="font-size:11px;margin-top:16px;text-align:right">— Mora · Saigon</div>
+          </div>
+        </div>
+      </div>
+      <button class="flip-btn" onclick="flipCard('tc')">Flip →</button>
+    </div>
+
+    <!-- A07 Care card -->
+    <div class="card-stack">
+      <div class="card-tag">A07 · Care card · DL (99×210mm)</div>
+      <div class="po card-care" id="care">
+        <div class="l-name" style="font-size:16px;margin-bottom:10px;line-height:1.3">Hướng dẫn mang mùi hương của bạn</div>
+        <hr class="l-rule" style="margin-bottom:14px">
+        <div class="l-sg" style="font-size:11px;margin-bottom:5px">Bảo quản</div>
+        <div class="l-type" style="font-size:12px;margin-bottom:12px;line-height:1.55">Tránh ánh nắng trực tiếp và nhiệt độ cao. Nhiệt độ lý tưởng: dưới 25°C.</div>
+        <div class="l-sg" style="font-size:11px;margin-bottom:5px">Sử dụng</div>
+        <div class="l-type" style="font-size:12px;margin-bottom:12px;line-height:1.55">Xịt lên điểm mạch (cổ, cổ tay). Không chà xát — để hương phát triển tự nhiên.</div>
+        <div class="l-sg" style="font-size:11px;margin-bottom:5px">Thời hạn</div>
+        <div class="l-type" style="font-size:12px;line-height:1.55">Sử dụng trong 24 tháng kể từ ngày pha chế. Ngày tạo ra có trên nhãn chai của bạn.</div>
+        <hr class="l-soft" style="margin:14px 0">
+        <div class="l-ori" style="font-size:11px">Mora · Created in Saigon, Vietnam</div>
+      </div>
+    </div>
+
+    <!-- A08 Business card -->
+    <div class="card-stack">
+      <div class="card-tag">A08 · Business card · 85×54mm</div>
+      <div>
+        <div class="card-face show" id="biz-front">
+          <div class="po card-biz" id="biz">
+            <div class="l-wm" style="font-size:15px;letter-spacing:.22em;margin-bottom:6px">Mora</div>
+            <hr class="l-soft" style="margin-bottom:10px">
+            <div class="l-type" style="font-size:11px;margin-bottom:2px">Thanh Thanh</div>
+            <div class="l-ori" style="font-size:11px;margin-bottom:10px">Founder</div>
+            <div class="l-ori" style="font-size:11px;line-height:1.6">mora.vn<br>hello@mora.vn</div>
+          </div>
+        </div>
+        <div class="card-face" id="biz-back">
+          <div class="po card-biz" id="biz-b" style="display:flex;align-items:center;justify-content:center;height:112px">
+            <div style="text-align:center">
+              <div class="l-wm" style="font-size:15px;letter-spacing:.22em;margin-bottom:5px">Mora</div>
+              <div class="l-ori" style="font-size:11px;letter-spacing:.08em">Created in Saigon, Vietnam</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="flip-btn" onclick="flipCard('biz')">Flip →</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════ S5 · GIFT ══════ -->
+<div class="panel" id="s5">
+  <div class="sec-ey">A09 · A10 · Gift configuration</div>
+  <h2 class="sec-ti">Gift</h2>
+  <p class="sec-sub">Hai gift configurations. A09: gift set B2C — 2 bottles trong một hộp, ribbon, message card. A10: B2B corporate kit — band/sleeve system, insert card, bulk packaging.</p>
+
+  <div class="gift-row">
+
+    <!-- A09 Gift set -->
+    <div>
+      <div class="demo-label">A09 · Gift set · 2-bottle</div>
+      <div class="po" style="width:260px;padding:20px 18px 18px">
+        <div class="l-wm" style="font-size:12px;margin-bottom:6px;text-align:center">Mora · Gift Set</div>
+        <hr class="l-rule" style="margin-bottom:16px">
+        <div style="display:flex;gap:12px;justify-content:center;margin-bottom:16px">
+          <!-- bottle 50ml simplified -->
+          <div style="text-align:center">
+            <svg width="44" height="72" viewBox="0 0 44 72"><rect x="8" y="14" width="28" height="50" rx="14" fill="#FAF9F6" stroke="#1A1916" stroke-width="0.5"/><rect x="14" y="4" width="16" height="14" rx="2" fill="#1A1916"/><text x="22" y="43" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-style="italic" font-size="8" fill="#1A1916">Mora</text></svg>
+            <div class="l-ori" style="font-size:11px;margin-top:3px">50ml</div>
+          </div>
+          <!-- bottle 10ml simplified -->
+          <div style="text-align:center">
+            <svg width="28" height="56" viewBox="0 0 28 56"><rect x="5" y="10" width="18" height="38" rx="9" fill="#FAF9F6" stroke="#1A1916" stroke-width="0.5"/><rect x="9" y="3" width="10" height="10" rx="2" fill="#1A1916"/></svg>
+            <div class="l-ori" style="font-size:11px;margin-top:3px">10ml</div>
+          </div>
+        </div>
+        <!-- ribbon representation -->
+        <div style="text-align:center;margin-bottom:14px">
+          <div style="height:1px;background:var(--linen-dk);position:relative">
+            <div style="position:absolute;left:50%;top:-4px;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--linen-dk)"></div>
+          </div>
+        </div>
+        <!-- message card slot -->
+        <div class="po" style="padding:8px 10px;background:var(--linen)">
+          <div class="l-ori" style="font-size:11px;margin-bottom:3px">Message card</div>
+          <div style="height:0.5px;background:var(--ink25);margin:4px 0"></div>
+          <div style="height:0.5px;background:var(--ink25);margin:4px 0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A10 B2B kit -->
+    <div>
+      <div class="demo-label">A10 · B2B corporate gifting kit</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <!-- Sleeve/band -->
+        <div class="po" style="width:220px;padding:14px 16px">
+          <div class="l-sg" style="font-size:11px;margin-bottom:8px">Band / sleeve</div>
+          <div style="border:0.5px solid var(--linen-dk);padding:10px 12px;background:var(--linen)">
+            <div class="l-wm" style="font-size:12px;letter-spacing:.18em;text-align:center">Mora</div>
+            <hr class="l-soft" style="margin:6px 0">
+            <div class="l-ori" style="font-size:11px;text-align:center">Corporate Gift</div>
+          </div>
+          <div class="l-ori" style="font-size:11px;margin-top:8px">Wraps around standard Mora box · can accommodate company name below wordmark</div>
+        </div>
+        <!-- Insert card -->
+        <div class="po" style="width:220px;padding:14px 16px">
+          <div class="l-sg" style="font-size:11px;margin-bottom:8px">Insert card</div>
+          <div style="border:0.5px solid var(--linen);padding:10px 12px">
+            <div class="l-name" style="font-size:13px;margin-bottom:6px">Tặng trải nghiệm, không chỉ tặng sản phẩm.</div>
+            <div class="l-type" style="font-size:11px;line-height:1.5">Chai này được tạo ra tại Saigon. Đặt lịch trải nghiệm đầy đủ tại mora.vn</div>
+            <div class="l-ori" style="font-size:11px;margin-top:8px">mora.vn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<script>
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.panel');
+
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabs.forEach(b => b.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+// S1 — Label controls
+let s1Ann = false, s1Dark = false;
+document.getElementById('s1-ann').onclick = function(){
+  s1Ann = !s1Ann;
+  this.classList.toggle('on', s1Ann);
+  ['ann-l50','ann-l10'].forEach(id => {
+    document.getElementById(id).classList.toggle('show', s1Ann);
+  });
+};
+document.getElementById('s1-dark').onclick = function(){
+  s1Dark = !s1Dark;
+  this.classList.toggle('on', s1Dark);
+  ['l50','l10'].forEach(id => {
+    document.getElementById(id).classList.toggle('dark', s1Dark);
+  });
+};
+
+// S2 — Box controls
+let s2Ann = false, s2Dark = false;
+document.getElementById('s2-ann').onclick = function(){
+  s2Ann = !s2Ann;
+  this.classList.toggle('on', s2Ann);
+  document.getElementById('ann-box50').classList.toggle('show', s2Ann);
+};
+document.getElementById('s2-dark').onclick = function(){
+  s2Dark = !s2Dark;
+  this.classList.toggle('on', s2Dark);
+  ['box50','box10','box50-spL','box50-spR','box10-spL','box10-spR'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('dark', s2Dark);
+  });
+};
+
+// S3 — Bag variant
+function setBag(v){
+  document.getElementById('s3-kraft').classList.toggle('on', v==='kraft');
+  document.getElementById('s3-teal').classList.toggle('on', v==='teal');
+  document.getElementById('bag-k').style.display = v==='kraft' ? 'block' : 'none';
+  document.getElementById('bag-t').style.display = v==='teal' ? 'block' : 'none';
+  document.getElementById('bag-k-lg').style.display = v==='kraft' ? 'block' : 'none';
+  document.getElementById('bag-t-lg').style.display = v==='teal' ? 'block' : 'none';
+}
+
+// S4 — Cards dark + flip
+let s4Dark = false;
+document.getElementById('s4-dark').onclick = function(){
+  s4Dark = !s4Dark;
+  this.classList.toggle('on', s4Dark);
+  ['tc','tc-b','care','biz','biz-b'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('dark', s4Dark);
+  });
+};
+
+const flipState = {tc: false, biz: false};
+function flipCard(id){
+  flipState[id] = !flipState[id];
+  const isBack = flipState[id];
+  document.getElementById(id+'-front').classList.toggle('show', !isBack);
+  document.getElementById(id+'-back').classList.toggle('show', isBack);
+}
+
+// Init: show first card faces
+document.querySelectorAll('.card-face.show').forEach(el => el.style.display = 'block');
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.card-face').forEach(el => {
+    el.style.display = el.classList.contains('show') ? 'block' : 'none';
+  });
+});
+// Fix card face display after script runs
+document.querySelectorAll('.card-face').forEach(el => {
+  el.style.display = el.classList.contains('show') ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
