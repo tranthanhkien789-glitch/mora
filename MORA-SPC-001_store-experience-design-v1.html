@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mora · Store Experience Design · Space × Visual × Sensory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF9F6;--cream-dark:#F2EFE9;--cream-mid:#E8DFD0;
+  --ink:#1A1916;--ink-80:rgba(26,25,22,.8);
+  --ink-60:rgba(26,25,22,.6);--ink-30:rgba(26,25,22,.3);
+  --ink-12:rgba(26,25,22,.12);--ink-06:rgba(26,25,22,.06);
+  --teal:#0F6E56;--teal-dark:#085041;--teal-light:#E1F5EE;--teal-mid:#5DCAA5;
+  --amber:#854F0B;--amber-light:#FAEEDA;
+  --stone:#C4B49A;--stone-light:#F5F0E8;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.6}
+
+/* ── TOP NAV ── */
+.topbar{position:sticky;top:0;z-index:200;background:var(--ink);height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+.topbar-brand{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--cream);letter-spacing:.06em}
+.topbar-nav{display:flex;overflow-x:auto;scrollbar-width:none;gap:0}
+.topbar-nav::-webkit-scrollbar{display:none}
+.tb{flex-shrink:0;padding:0 14px;height:50px;font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:rgba(250,249,246,.45);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap}
+.tb:hover{color:var(--cream)}
+.tb.a{color:var(--teal-mid);border-bottom-color:var(--teal-mid)}
+
+/* ── HERO ── */
+.hero{max-width:1080px;margin:0 auto;padding:80px 48px 64px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;border-bottom:1px solid var(--ink-12)}
+@media(max-width:720px){.hero{grid-template-columns:1fr;padding:48px 28px 40px}}
+.hero-left{}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-60);margin-bottom:16px}
+.hero-title{font-family:var(--serif);font-size:clamp(48px,7vw,88px);font-weight:300;line-height:1.02;letter-spacing:-.02em;color:var(--ink)}
+.hero-title em{font-style:italic;color:var(--teal)}
+.hero-right{padding-bottom:4px}
+.hero-lead{font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.75;font-style:italic;color:var(--ink-80);margin-bottom:28px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border:1px solid var(--ink-30);color:var(--ink-60);border-radius:2px}
+
+/* ── LAYOUT ── */
+.main{max-width:1080px;margin:0 auto;padding:0 48px 120px}
+@media(max-width:720px){.main{padding:0 24px 80px}}
+.sec{display:none;padding-top:64px}
+.sec.a{display:block;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TYPOGRAPHY ── */
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-60);margin-bottom:12px}
+h2{font-family:var(--serif);font-size:clamp(36px,5vw,60px);font-weight:300;line-height:1.05;letter-spacing:-.015em;margin-bottom:20px}
+h2 em{font-style:italic;color:var(--teal)}
+h3{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--ink);margin:52px 0 14px}
+h4{font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);margin:28px 0 10px}
+.lead{font-family:var(--serif);font-size:18px;font-weight:300;font-style:italic;line-height:1.75;color:var(--ink);margin-bottom:28px;max-width:680px}
+.body{font-size:14px;color:var(--ink-60);line-height:1.8}
+.body strong{color:var(--ink);font-weight:500}
+hr{border:none;border-top:1px solid var(--ink-12);margin:52px 0}
+
+/* ── STATEMENT ── */
+.stmt{border-left:2px solid var(--teal);padding:22px 28px;margin:24px 0;background:var(--teal-light)}
+.stmt p{font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.75;color:var(--ink)}
+.stmt p em{color:var(--teal);font-style:italic}
+.note{border-left:2px solid var(--amber);padding:14px 20px;margin:16px 0;background:var(--amber-light)}
+.note p{font-size:13px;color:var(--amber);line-height:1.6}
+
+/* ── SPEC TABLE ── */
+.stbl{width:100%;border-collapse:collapse;margin:16px 0}
+.stbl th{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-60);padding:9px 14px;border-bottom:1px solid var(--ink-12);background:var(--ink-06);text-align:left;font-weight:400}
+.stbl td{font-size:13px;padding:11px 14px;border-bottom:1px solid var(--ink-12);vertical-align:top;line-height:1.55;color:var(--ink)}
+.stbl td.spec{font-family:var(--mono);font-size:12px;color:var(--teal)}
+.stbl td.muted{color:var(--ink-60);font-size:12px}
+.stbl tr.hd td{background:var(--ink-06);font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-60);padding:5px 14px}
+
+/* ── ZONE SYSTEM ── */
+.zone-flow{display:flex;align-items:stretch;gap:0;margin:28px 0;overflow-x:auto}
+.zone{flex:1;min-width:140px;padding:20px 18px;border-right:1px solid var(--ink-12);display:flex;flex-direction:column;gap:8px}
+.zone:last-child{border-right:none}
+.zone-num{font-family:var(--mono);font-size:10px;color:var(--ink-30);letter-spacing:.06em}
+.zone-name{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--ink);line-height:1.2}
+.zone-role{font-size:11px;color:var(--ink-60);line-height:1.55;font-style:italic}
+.zone-measure{font-family:var(--mono);font-size:10px;color:var(--teal);margin-top:4px}
+.zone.peak{background:var(--ink);border-right:none}
+.zone.peak .zone-num{color:rgba(250,249,246,.3)}
+.zone.peak .zone-name{color:var(--cream)}
+.zone.peak .zone-role{color:rgba(250,249,246,.5)}
+.zone.peak .zone-measure{color:var(--teal-mid)}
+
+/* ── MATERIAL PALETTE ── */
+.mat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin:20px 0;border:1px solid var(--ink-12);border-radius:4px;overflow:hidden}
+@media(max-width:600px){.mat-grid{grid-template-columns:repeat(3,1fr)}}
+.mat{display:flex;flex-direction:column}
+.mat-swatch{height:72px}
+.mat-info{padding:10px 10px 12px;background:#fff;border-top:1px solid var(--ink-12)}
+.mat-name{font-size:11px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.mat-role{font-size:10px;color:var(--ink-60);line-height:1.4}
+.mat:not(:last-child){border-right:1px solid var(--ink-12)}
+
+/* ── SENSORY GRID ── */
+.sense-full{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0}
+@media(max-width:600px){.sense-full{grid-template-columns:1fr}}
+.sense-block{border:1px solid var(--ink-12);border-radius:4px;overflow:hidden}
+.sense-header{padding:16px 20px;border-bottom:1px solid var(--ink-12);display:flex;align-items:center;gap:12px}
+.sense-icon{font-size:18px}
+.sense-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-60)}
+.sense-title{font-size:13px;font-weight:500;color:var(--ink);margin-left:auto;font-style:italic;font-family:var(--serif)}
+.sense-body{padding:16px 20px}
+.sense-spec-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--ink-12)}
+.sense-spec-row:last-child{border-bottom:none}
+.sense-spec-label{font-size:12px;color:var(--ink-60)}
+.sense-spec-val{font-family:var(--mono);font-size:12px;color:var(--teal);text-align:right}
+.sense-philosophy{font-family:var(--serif);font-size:14px;font-weight:300;font-style:italic;color:var(--ink-60);line-height:1.65;margin-top:12px;padding-top:12px;border-top:1px solid var(--ink-12)}
+
+/* ── COUNTER ANATOMY ── */
+.counter-anatomy{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink-12);border-radius:4px;overflow:hidden;margin:24px 0}
+.ca-visual{background:var(--ink);padding:40px 32px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px}
+.ca-diagram{width:160px;height:120px;position:relative}
+.ca-specs{padding:20px 24px;display:flex;flex-direction:column;gap:0}
+.ca-spec-row{padding:10px 0;border-bottom:1px solid var(--ink-12);display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:baseline}
+.ca-spec-row:last-child{border-bottom:none}
+.ca-spec-label{font-size:12px;color:var(--ink-60)}
+.ca-spec-val{font-family:var(--mono);font-size:12px;color:var(--teal);text-align:right}
+
+/* ── JOURNEY NARRATIVE ── */
+.journey{display:flex;flex-direction:column;gap:0;margin:24px 0}
+.j-item{display:grid;grid-template-columns:80px 1fr;gap:0;border-top:1px solid var(--ink-12)}
+.j-item:last-child{border-bottom:1px solid var(--ink-12)}
+.j-time{padding:20px 0;font-family:var(--mono);font-size:10px;color:var(--ink-30);letter-spacing:.06em;line-height:1.5}
+.j-content{padding:20px 0 20px 24px;border-left:1px solid var(--ink-12)}
+.j-stage{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.j-desc{font-size:13px;color:var(--ink-60);line-height:1.65}
+.j-detail{font-family:var(--serif);font-size:14px;font-weight:300;font-style:italic;color:var(--ink-60);margin-top:6px;line-height:1.6}
+.j-script{font-size:12px;color:var(--teal);margin-top:6px;padding:6px 10px;background:var(--teal-light);border-radius:3px;line-height:1.5;font-style:italic}
+.j-item.peak .j-time{color:var(--teal-mid)}
+.j-item.peak .j-stage{color:var(--teal)}
+
+/* ── PRINCIPLE CARDS ── */
+.principle-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:24px 0}
+@media(max-width:600px){.principle-grid{grid-template-columns:1fr}}
+.principle{padding:20px 22px;border:1px solid var(--ink-12);border-radius:4px}
+.principle-num{font-family:var(--mono);font-size:10px;color:var(--ink-30);margin-bottom:8px;letter-spacing:.06em}
+.principle-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.principle-body{font-size:12px;color:var(--ink-60);line-height:1.65}
+.principle.teal{background:var(--teal-light);border-color:var(--teal)}
+.principle.teal .principle-title{color:var(--teal-dark)}
+
+/* ── SPATIAL DIMENSIONS ── */
+.dims-block{background:var(--ink-06);border-radius:4px;padding:24px 28px;margin:20px 0}
+.dims-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:16px}
+@media(max-width:600px){.dims-grid{grid-template-columns:1fr 1fr}}
+.dim-item{}
+.dim-val{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--ink);margin-bottom:4px}
+.dim-unit{font-family:var(--mono);font-size:11px;color:var(--ink-60)}
+.dim-label{font-size:12px;color:var(--ink-60);margin-top:2px}
+
+/* ── LIGHTING ── */
+.light-zones{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink-12);border-radius:4px;overflow:hidden;margin:20px 0}
+@media(max-width:600px){.light-zones{grid-template-columns:1fr 1fr}}
+.lz{padding:18px 14px;border-right:1px solid var(--ink-12)}
+.lz:last-child{border-right:none}
+.lz-temp{font-family:var(--mono);font-size:22px;font-weight:300;color:var(--ink);margin-bottom:4px}
+.lz-zone{font-size:11px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.lz-role{font-size:11px;color:var(--ink-60);line-height:1.5}
+.lz-swatch{height:8px;border-radius:2px;margin-bottom:12px}
+
+/* ── VISUAL IN SPACE ── */
+.vis-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.vis-card{border:1px solid var(--ink-12);border-radius:4px;overflow:hidden}
+.vis-demo{height:160px;display:flex;align-items:center;justify-content:center;padding:24px}
+.vis-label{padding:14px 16px;border-top:1px solid var(--ink-12);background:#fff}
+.vis-label-name{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.vis-label-spec{font-family:var(--mono);font-size:10px;color:var(--ink-60)}
+
+/* ── DO / DONT ── */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:4px;overflow:hidden;margin:20px 0}
+.do-side{background:var(--teal-light);padding:20px 22px}
+.dn-side{background:#FFF8F8;padding:20px 22px}
+.dd-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.do-side .dd-lbl{color:var(--teal)}
+.dn-side .dd-lbl{color:#A32D2D}
+.dd-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.dd-list li{font-size:13px;line-height:1.55;padding-left:18px;position:relative}
+.do-side .dd-list li{color:var(--ink-60)}
+.dn-side .dd-list li{color:#791F1F}
+.do-side .dd-list li::before{content:"✓";position:absolute;left:0;color:var(--teal)}
+.dn-side .dd-list li::before{content:"×";position:absolute;left:0;color:#A32D2D}
+
+/* ── FOOTER ── */
+.footer{max-width:1080px;margin:0 auto;padding:40px 48px;border-top:1px solid var(--ink-12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-brand{font-family:var(--serif);font-size:20px;font-weight:300}
+.footer-note{font-family:var(--mono);font-size:10px;color:var(--ink-60);letter-spacing:.05em}
+
+/* ── UTILS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:600px){.g2,.g3{grid-template-columns:1fr}}
+.chain{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.ci{display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--ink-12);align-items:flex-start}
+.ci:last-child{border-bottom:1px solid var(--ink-12)}
+.cn{font-family:var(--mono);font-size:10px;color:var(--ink-30);min-width:28px;padding-top:2px;flex-shrink:0}
+.ct{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.cd{font-size:12px;color:var(--ink-60);line-height:1.55}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topbar">
+  <span class="topbar-brand">Mora · Store Experience</span>
+  <div class="topbar-nav">
+    <button class="tb a" onclick="sw('concept',this)">01 · Concept</button>
+    <button class="tb" onclick="sw('space',this)">02 · Space</button>
+    <button class="tb" onclick="sw('visual',this)">03 · Visual</button>
+    <button class="tb" onclick="sw('sensory',this)">04 · Sensory</button>
+    <button class="tb" onclick="sw('counter',this)">05 · Counter</button>
+    <button class="tb" onclick="sw('journey',this)">06 · Journey</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Mora · Store Experience Design · v1.0</div>
+    <h1 class="hero-title">Space<br>× Visual<br>× <em>Sensory</em></h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-lead">Cửa hàng không phải nơi bán hàng. Đó là nơi đạo Mora được thể hiện bằng không gian, ánh sáng, và mọi thứ người ta có thể chạm vào. Mỗi quyết định thiết kế đều trace về Codex.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Creative Brief</span>
+      <span class="hero-tag">Spatial Design</span>
+      <span class="hero-tag">Sensory Architecture</span>
+      <span class="hero-tag">Brand Experience</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- ══ 01 CONCEPT ══ -->
+<div id="sec-concept" class="sec a">
+  <div class="eyebrow">Section 01</div>
+  <h2>The <em>Concept</em></h2>
+  <p class="lead">Một không gian atelier — không phải cửa hàng. Khách không mua, họ được trao. Không gian không trưng bày sản phẩm, không gian biểu hiện một thế giới quan.</p>
+
+  <div class="stmt"><p>Cửa hàng Mora là <em>bằng chứng vật lý</em> rằng một thế giới khác tồn tại. Mọi thứ khách chạm vào, ngửi thấy, nghe, nhìn đều nhất quán với những gì họ đã cảm từ màn hình. Không có gap. Đây là tính toàn vẹn đón chờ — được thể hiện bằng không gian.</p></div>
+
+  <hr>
+  <h3>Triết học thiết kế — 6 nguyên lý không đổi</h3>
+  <div class="principle-grid">
+    <div class="principle teal">
+      <div class="principle-num">01</div>
+      <div class="principle-title">Process is Display</div>
+      <div class="principle-body">Quy trình pha chế là thứ được trưng bày — không phải sản phẩm. Tools, nguyên liệu, chai lọ đều visible và có thẩm quyền. Không có gì được giấu vào ngăn kéo vì xấu hổ về craft.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">02</div>
+      <div class="principle-title">Không gian thở</div>
+      <div class="principle-body">Negative space là luxury signal. Kệ không bao giờ đầy hơn 70%. Không có gì chèn ép nhau. Mỗi sản phẩm có zone riêng để "thở" — giống như typesetting của Mora.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">03</div>
+      <div class="principle-title">Không có bề mặt vô nghĩa</div>
+      <div class="principle-body">Mỗi bề mặt, góc, texture đều là quyết định thương hiệu. Không có chỗ nào là "background." Từ mặt sau của kệ đến underside của counter đều được thiết kế có chủ đích.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">04</div>
+      <div class="principle-title">Counter là đỉnh điểm</div>
+      <div class="principle-body">Toàn bộ spatial layout hướng về counter. Mọi zone, mọi đường đi, mọi ánh nhìn đều dẫn đến khoảnh khắc pha chế. Đây là stage — mọi thứ khác là backstory.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">05</div>
+      <div class="principle-title">Materials are honest</div>
+      <div class="principle-body">Không có vật liệu giả. Không fake wood, không fake marble, không laminate cố tình. Mora nói về sự thật — vật liệu phải thật. Vết xước theo thời gian là story, không phải khuyết điểm.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">06</div>
+      <div class="principle-title">Warm không phải fancy</div>
+      <div class="principle-body">Mora không muốn người bước vào cảm thấy "phải xứng đáng." Warmth được design cố ý — ánh sáng, nhiệt độ, scent, cách nhân sự đứng — tất cả signal: "bạn thuộc về đây."</div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Cửa hàng như một câu chuyện</h3>
+  <p class="body" style="margin-bottom:20px">Khách hàng không đi mua sắm — họ đi qua một narrative. Không gian được thiết kế như một câu chuyện có 4 chương, mỗi chương có cảm xúc và mục đích riêng.</p>
+
+  <div class="zone-flow" style="border:1px solid var(--ink-12);border-radius:4px;overflow:hidden">
+    <div class="zone">
+      <div class="zone-num">Ch. 01</div>
+      <div class="zone-name">Ngưỡng cửa</div>
+      <div class="zone-role">Decompression — bước ra khỏi thế giới cũ, bước vào thế giới Mora</div>
+      <div class="zone-measure">0 → 3 giây</div>
+    </div>
+    <div class="zone">
+      <div class="zone-num">Ch. 02</div>
+      <div class="zone-name">Khám phá</div>
+      <div class="zone-role">Discovery — tò mò, học hỏi, không áp lực quyết định</div>
+      <div class="zone-measure">3 phút tự do</div>
+    </div>
+    <div class="zone peak">
+      <div class="zone-num">Ch. 03</div>
+      <div class="zone-name">Nghi lễ</div>
+      <div class="zone-role">The peak — pha chế, khắc tên, trao — emotional high point</div>
+      <div class="zone-measure">20–30 phút</div>
+    </div>
+    <div class="zone">
+      <div class="zone-num">Ch. 04</div>
+      <div class="zone-name">Tiễn biệt</div>
+      <div class="zone-role">The send-off — packaging, handover, return seed được gieo</div>
+      <div class="zone-measure">Cảm giác cuối</div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Một câu duy nhất</h3>
+  <div style="padding:32px 40px;border:1px solid var(--ink-12);border-radius:4px;background:var(--ink-06);text-align:center">
+    <p style="font-family:var(--serif);font-size:22px;font-weight:300;font-style:italic;color:var(--ink);line-height:1.6;max-width:600px;margin:0 auto">"Nếu Mora biến mất vào ngày mai, đây sẽ là nơi duy nhất người ta nhớ — không phải vì nó đẹp, mà vì nó thật."</p>
+  </div>
+</div>
+
+<!-- ══ 02 SPACE ══ -->
+<div id="sec-space" class="sec">
+  <div class="eyebrow">Section 02</div>
+  <h2>Space <em>Design</em></h2>
+  <p class="lead">Kiến trúc không gian, vật liệu, và tỷ lệ. Mỗi quyết định về kích thước, vị trí và vật liệu đều được derive từ triết học thiết kế — không phải từ trend.</p>
+
+  <hr>
+  <h3>Dimensions — Không gian lý tưởng</h3>
+  <div class="dims-block">
+    <div class="dims-grid">
+      <div class="dim-item">
+        <div class="dim-val">35–55</div>
+        <div class="dim-unit">m²</div>
+        <div class="dim-label">Tổng diện tích · đủ intimate, không quá lớn</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-val">3.2–4.0</div>
+        <div class="dim-unit">m ceiling</div>
+        <div class="dim-label">Chiều cao trần · tạo cảm giác thoáng, không bị chèn ép</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-val">60–70</div>
+        <div class="dim-unit">%</div>
+        <div class="dim-label">Tỷ lệ negative space · kệ, counter, floor không bao giờ "đầy"</div>
+      </div>
+      <div class="dim-item">
+        <div class="dim-val">1</div>
+        <div class="dim-unit">focal point</div>
+        <div class="dim-label">Counter là đỉnh điểm duy nhất · không cạnh tranh visual</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--ink-60);font-style:italic">Diện tích nhỏ hơn không phải limitation — là advantage. Intimacy là tài sản của Mora. 35m² với layout đúng làm được nhiều hơn 80m² với layout sai.</p>
+  </div>
+
+  <hr>
+  <h3>Zoning — Phân vùng không gian</h3>
+  <table class="stbl">
+    <tr><th>Zone</th><th>Vị trí</th><th>Diện tích</th><th>Chức năng</th></tr>
+    <tr class="hd"><td colspan="4">Entry & threshold</td></tr>
+    <tr>
+      <td><strong>Z1 · Threshold</strong></td>
+      <td class="muted">Ngay cửa vào, 1.5–2m đầu tiên</td>
+      <td class="spec">3–5 m²</td>
+      <td class="muted">Decompression zone. Scent hits first. Không có sản phẩm, không có kệ — chỉ có không gian và cảm giác.</td>
+    </tr>
+    <tr class="hd"><td colspan="4">Discovery & education</td></tr>
+    <tr>
+      <td><strong>Z2 · Discovery wall</strong></td>
+      <td class="muted">Bên trái hoặc phải của không gian chính</td>
+      <td class="spec">8–12 m²</td>
+      <td class="muted">Kệ trưng bày ingredients, scent library. Educational zone — câu chuyện hương. Không phải sales zone.</td>
+    </tr>
+    <tr>
+      <td><strong>Z3 · Seating / dwell</strong></td>
+      <td class="muted">Liền kề Discovery, không tranh vị trí counter</td>
+      <td class="spec">4–6 m²</td>
+      <td class="muted">1–2 ghế ngồi. Khu vực để khách ngồi trong lúc companion đang làm ritual. Không phải "waiting area" — là "being present area."</td>
+    </tr>
+    <tr class="hd"><td colspan="4">Ritual & counter</td></tr>
+    <tr>
+      <td><strong>Z4 · Counter ritual</strong></td>
+      <td class="muted">Điểm focal chính của không gian, có thể nhìn thấy từ cửa vào</td>
+      <td class="spec">6–10 m²</td>
+      <td class="muted">Counter + 2 bên đứng cho khách xem + không gian cho nhân sự di chuyển. Stage của toàn bộ không gian.</td>
+    </tr>
+    <tr class="hd"><td colspan="4">Operations (hidden)</td></tr>
+    <tr>
+      <td><strong>Z5 · Back of house</strong></td>
+      <td class="muted">Phía sau counter, không visible với khách</td>
+      <td class="spec">4–6 m²</td>
+      <td class="muted">Storage, additional ingredients, packaging materials, cleaning. Hoàn toàn ẩn khỏi line of sight của khách ở bất kỳ vị trí nào trong Z1–Z4.</td>
+    </tr>
+  </table>
+
+  <hr>
+  <h3>Material Palette</h3>
+
+  <div class="mat-grid">
+    <div class="mat">
+      <div class="mat-swatch" style="background:#D4C5B0"></div>
+      <div class="mat-info">
+        <div class="mat-name">Travertine / Limestone</div>
+        <div class="mat-role">Counter top · Display surfaces · Warm, aged, honest</div>
+      </div>
+    </div>
+    <div class="mat">
+      <div class="mat-swatch" style="background:#4A3728"></div>
+      <div class="mat-info">
+        <div class="mat-name">Dark-stained Oak</div>
+        <div class="mat-role">Counter frame · Cabinetry · Shelving · Warm, craft, enduring</div>
+      </div>
+    </div>
+    <div class="mat">
+      <div class="mat-swatch" style="background:#C0A060"></div>
+      <div class="mat-info">
+        <div class="mat-name">Aged Brass</div>
+        <div class="mat-role">Fixtures · Handles · Lighting trim · Không chrome, không silver</div>
+      </div>
+    </div>
+    <div class="mat">
+      <div class="mat-swatch" style="background:rgba(250,249,246,.7);border:1px solid #C4B49A"></div>
+      <div class="mat-info">
+        <div class="mat-name">Clear / Frosted Glass</div>
+        <div class="mat-role">Display shelf · Ingredient jars · Bottle display · Transparency = honesty</div>
+      </div>
+    </div>
+    <div class="mat">
+      <div class="mat-swatch" style="background:#E8DFD0"></div>
+      <div class="mat-info">
+        <div class="mat-name">Raw Linen</div>
+        <div class="mat-role">Soft surfaces · Product cushioning · Warmth, natural, craft</div>
+      </div>
+    </div>
+    <div class="mat">
+      <div class="mat-swatch" style="background:#8A8278"></div>
+      <div class="mat-info">
+        <div class="mat-name">Concrete / Terrazzo</div>
+        <div class="mat-role">Flooring · Grounding material · Matte, weighty, real</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dd" style="margin-top:20px">
+    <div class="do-side">
+      <div class="dd-lbl">Materials: có thể dùng</div>
+      <ul class="dd-list">
+        <li>Travertine, limestone, sandstone (tự nhiên)</li>
+        <li>Dark-stained oak, walnut, teak (thật)</li>
+        <li>Aged brass, matte black iron</li>
+        <li>Clear glass, frosted glass, hand-blown glass</li>
+        <li>Raw linen, cotton canvas (natural fibers only)</li>
+        <li>Concrete, terrazzo, polished cement</li>
+      </ul>
+    </div>
+    <div class="dn-side">
+      <div class="dd-lbl">Materials: không bao giờ dùng</div>
+      <ul class="dd-list">
+        <li>Acrylic, plastic bất kỳ loại nào visible</li>
+        <li>High-gloss lacquer finish</li>
+        <li>Chrome, silver, cold metals</li>
+        <li>Fake wood laminate, vinyl wrap</li>
+        <li>Foam display risers màu trắng</li>
+        <li>Neon, LED RGB color-changing</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Ceiling & Floor Logic</h3>
+  <div class="chain">
+    <div class="ci"><span class="cn">Trần</span><div><div class="ct">Exposed concrete hoặc plaster — không trần thạch cao thông thường</div><div class="cd">Nếu trần cao ≥3.5m: để exposed. Nếu không: plaster có texture, paint matte warm. Không bao giờ: suspended ceiling tiles thương mại, trần nhựa.</div></div></div>
+    <div class="ci"><span class="cn">Tường</span><div><div class="ct">Plaster hoặc lime wash — không sơn bóng, không wallpaper có pattern</div><div class="cd">Màu: Mora Cream #FAF9F6 hoặc warm white gần đó. Texture nhẹ: không hoàn toàn phẳng — một chút grain là đúng. Feature wall: có thể dark (gần Mora Ink) nhưng chỉ 1 tường duy nhất, không tất cả.</div></div></div>
+    <div class="ci"><span class="cn">Sàn</span><div><div class="ct">Concrete polished hoặc terrazzo với aggregate ấm</div><div class="cd">Tone: warm gray-beige. Không tile sứ trắng bóng. Không hardwood sáng màu (quá light). Concrete ấm với aggregate đất/stone là option tốt nhất — aged, grounded, honest.</div></div></div>
+    <div class="ci"><span class="cn">Cửa sổ</span><div><div class="ct">Maximize natural light — nhưng kiểm soát direction</div><div class="cd">Frosted film ở góc thấp nếu cần privacy nhưng vẫn cho diffused light vào. Không rèm dày. Không tint quá đậm. Natural light là ally — không phải thứ cần che.</div></div></div>
+  </div>
+</div>
+
+<!-- ══ 03 VISUAL ══ -->
+<div id="sec-visual" class="sec">
+  <div class="eyebrow">Section 03</div>
+  <h2>Visual <em>Identity in Space</em></h2>
+  <p class="lead">Cách brand elements inhabit không gian vật lý. Thứ khách nhìn thấy — và thứ họ không nhìn thấy — đều là quyết định thiết kế.</p>
+
+  <div class="stmt"><p>Branding trong không gian Mora là thứ <em>absent nhiều hơn present</em>. Không có logo ở mọi nơi. Không có sản phẩm với tag giá lộ liễu. Không có poster quảng cáo. Không gian <em>là</em> brand — không cần announce điều đó.</p></div>
+
+  <hr>
+  <h3>Signage System</h3>
+  <table class="stbl">
+    <tr><th>Touchpoint</th><th>Specification</th><th>Notes</th></tr>
+    <tr>
+      <td><strong>Exterior sign</strong></td>
+      <td class="spec">Raised brass letters · Matte finish · "MORA" only · H: 60–80mm</td>
+      <td class="muted">Không có tagline ở exterior. Tên thôi. Đặt flush với wall, không có backlit sign, không có lightbox.</td>
+    </tr>
+    <tr>
+      <td><strong>Door sign</strong></td>
+      <td class="spec">DM Mono 11px style · Giờ mở cửa + địa chỉ · Etched glass hoặc vinyl matte</td>
+      <td class="muted">Tối giản. Đủ thông tin để người đứng ngoài biết. Không có "Welcome" hay "Come in."</td>
+    </tr>
+    <tr>
+      <td><strong>Interior wayfinding</strong></td>
+      <td class="spec">Không có signage. Không cần.</td>
+      <td class="muted">Không gian đủ nhỏ để người tự navigate. Nhân sự là wayfinding. Nếu người ta cần biển chỉ đường trong một không gian 35–55m², layout chưa đúng.</td>
+    </tr>
+    <tr>
+      <td><strong>Counter card</strong></td>
+      <td class="spec">Cormorant Garamond 300 · Cream card · DM Mono specs · Teal accent line</td>
+      <td class="muted">Tên hương + mô tả sensory + price theo DM Mono. Không có "SALE" hay highlight giá.</td>
+    </tr>
+    <tr>
+      <td><strong>Ingredient labels</strong></td>
+      <td class="spec">DM Mono uppercase · Handwritten note kèm nếu muốn · Cream on dark glass</td>
+      <td class="muted">Each ingredient container có label nhỏ với tên nguyên liệu và origin. Educational, không decorative.</td>
+    </tr>
+    <tr>
+      <td><strong>Price display</strong></td>
+      <td class="spec">Không prominent. DM Mono, muted color, smaller than product name.</td>
+      <td class="muted">Price không bao giờ là focal point. Nó tồn tại vì cần thiết — không phải vì muốn người nhìn vào.</td>
+    </tr>
+  </table>
+
+  <hr>
+  <h3>Display Logic</h3>
+  <div class="principle-grid">
+    <div class="principle">
+      <div class="principle-num">Rule 01</div>
+      <div class="principle-title">Ít hơn là nhiều hơn</div>
+      <div class="principle-body">Kệ không bao giờ trưng bày quá 5–7 items một lúc. Mỗi item cần visual breathing room. Khi có hơn 7 items muốn hiển thị: chia kệ, không nhồi.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">Rule 02</div>
+      <div class="principle-title">Same height, varying depth</div>
+      <div class="principle-body">Tất cả items trong cùng shelf row có cùng eye height. Variation đến từ depth và spacing — không phải height. Tạo rhythm, không phải chaos.</div>
+    </div>
+    <div class="principle">
+      <div class="principle-num">Rule 03</div>
+      <div class="principle-title">No price tags on display</div>
+      <div class="principle-body">Giá không được gắn trực tiếp lên sản phẩm trưng bày. Nếu khách hỏi giá: nhân sự trả lời, hoặc counter card. Sản phẩm không phải price tag holder.</div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Lighting Architecture</h3>
+  <div class="light-zones">
+    <div class="lz">
+      <div class="lz-swatch" style="background:linear-gradient(90deg,#F5DEB3,#FFCF8B)"></div>
+      <div class="lz-temp">2700K</div>
+      <div class="lz-zone">Ambient — Toàn bộ không gian</div>
+      <div class="lz-role">Warm incandescent feel. Không có vùng nào bị "cold." Background light level thấp, inviting.</div>
+    </div>
+    <div class="lz">
+      <div class="lz-swatch" style="background:linear-gradient(90deg,#FFE4B5,#FFD580)"></div>
+      <div class="lz-temp">3000K</div>
+      <div class="lz-zone">Accent — Discovery & kệ</div>
+      <div class="lz-role">Slightly warmer than ambient. Spotlights nhỏ chiếu vào từng section của kệ — không flood light.</div>
+    </div>
+    <div class="lz">
+      <div class="lz-swatch" style="background:linear-gradient(90deg,#FFFAF0,#FFF8DC)"></div>
+      <div class="lz-temp">4000K</div>
+      <div class="lz-zone">Task — Counter ritual</div>
+      <div class="lz-role">Focused, slightly theatrical. Neutral daylight cho colour accuracy khi pha chế. Counter nổi bật. Stage lighting.</div>
+    </div>
+    <div class="lz">
+      <div class="lz-swatch" style="background:linear-gradient(90deg,#2C2A26,#1A1916)"></div>
+      <div class="lz-temp">No light</div>
+      <div class="lz-zone">Darkness — Back of house</div>
+      <div class="lz-role">Khu vực operations không có ánh sáng tràn vào không gian khách. Hard separation.</div>
+    </div>
+  </div>
+
+  <div class="note"><p><strong>Critical:</strong> Không bao giờ dùng LED trắng lạnh (>5000K) trong bất kỳ vùng nào khách có thể thấy. Không dùng fluorescent. Không dùng RGB color-changing. Ánh sáng của Mora phải luôn warm — không có exception.</p></div>
+
+  <hr>
+  <h3>Visual Touches — Chi tiết nhỏ tạo nên thế giới</h3>
+  <div class="chain">
+    <div class="ci"><span class="cn">01</span><div><div class="ct">Tờ giấy gói / tissue</div><div class="cd">Matte, warm cream, slightly textured. Không glossy. Khi gấp — nghe tiếng giấy "đặc." Tissue paper quality là cảm giác đầu tiên người nhận quà có với Mora.</div></div></div>
+    <div class="ci"><span class="cn">02</span><div><div class="ct">Ribbon / twine</div><div class="cd">Linen twine hoặc thin ribbon in Mora Teal hoặc unbleached. Không satin ribbon glossy. Knot là knot thật — không phải bow công nghiệp.</div></div></div>
+    <div class="ci"><span class="cn">03</span><div><div class="ct">Counter surface khi không có khách</div><div class="cd">Sạch hoàn toàn. Không có gì để ngẫu nhiên. Tools được đặt theo một pattern có chủ đích — như một still life. Mỗi công cụ biết vị trí của mình.</div></div></div>
+    <div class="ci"><span class="cn">04</span><div><div class="ct">Kệ ingredient</div><div class="cd">Các lọ thuỷ tinh đồng bộ về hình dạng, khác nhau về màu liquid. Labels handwritten hoặc DM Mono. Không mix nhiều kiểu lọ. Tính consistency là tính toàn vẹn.</div></div></div>
+    <div class="ci"><span class="cn">05</span><div><div class="ct">Góc khuất</div><div class="cd">Underside của counter, mặt sau kệ, bên trong ngăn kéo — đều được finish đúng. Không để rough. Vì nhân sự nhìn thấy mỗi ngày. Và đạo Mora không có vùng không áp dụng.</div></div></div>
+  </div>
+</div>
+
+<!-- ══ 04 SENSORY ══ -->
+<div id="sec-sensory" class="sec">
+  <div class="eyebrow">Section 04</div>
+  <h2>Sensory <em>Architecture</em></h2>
+  <p class="lead">5 giác quan được thiết kế như 5 kênh truyền tải cùng một thông điệp: bạn đang ở trong một thế giới được tạo ra với sự chú tâm đầy đủ.</p>
+
+  <div class="stmt"><p>Sensory design không phải về việc làm mọi thứ "dễ chịu." Đó là về việc tạo ra một <em>thế giới nhất quán</em> — nơi không có giác quan nào bị contradicted bởi giác quan khác. Khi ánh sáng warm nhưng nhạc lại upbeat tense — incongruence phá vỡ trải nghiệm trước khi não người kịp xử lý.</p></div>
+
+  <hr>
+  <h3>The Coherence Test</h3>
+  <p class="body" style="margin-bottom:20px">Trước khi mở cửa mỗi ngày, hỏi: <strong>"Nếu có người bịt mắt bước vào đây — chỉ nghe, ngửi, và chạm — họ có cảm thấy đang ở trong cùng một thế giới với những gì họ thấy trên Instagram của Mora không?"</strong></p>
+
+  <div class="sense-full">
+
+    <div class="sense-block">
+      <div class="sense-header">
+        <span class="sense-icon">👃</span>
+        <span class="sense-label">Khứu giác</span>
+        <span class="sense-title">Scent Architecture</span>
+      </div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">Ambient scent direction</span><span class="sense-spec-val">Warm · Clean · Botanical</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Intensity</span><span class="sense-spec-val">15–20% presence</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Refresh cadence</span><span class="sense-spec-val">Tối đa 4h / lần</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Counter zone</span><span class="sense-spec-val">Clear — product scent only</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Không bao giờ</span><span class="sense-spec-val">Food smell / mùi cleaning agent</span></div>
+        <div class="sense-philosophy">Ambient scent không phải "hương thơm dễ chịu." Đó là scent signature của Mora — thứ người ta nhớ lại mỗi khi mở chai nước hoa ở nhà.</div>
+      </div>
+    </div>
+
+    <div class="sense-block">
+      <div class="sense-header">
+        <span class="sense-icon">👂</span>
+        <span class="sense-label">Thính giác</span>
+        <span class="sense-title">Sound Design</span>
+      </div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">BPM range</span><span class="sense-spec-val">60–70 BPM</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Volume</span><span class="sense-spec-val">45–50 dB</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Genre direction</span><span class="sense-spec-val">Acoustic · Jazz · Ambient</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Conversation audibility</span><span class="sense-spec-val">Phải nghe qua nhạc bình thường</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Không bao giờ</span><span class="sense-spec-val">Radio / Playlist không được approve</span></div>
+        <div class="sense-philosophy">Nhạc không tạo ra energy — nhạc tạo ra không gian. 60–70 BPM là nhịp tim khi người ta thư giãn và chú ý. Đây không phải café hay boutique thời trang.</div>
+      </div>
+    </div>
+
+    <div class="sense-block">
+      <div class="sense-header">
+        <span class="sense-icon">👁</span>
+        <span class="sense-label">Thị giác</span>
+        <span class="sense-title">Light Temperature</span>
+      </div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">Ambient zones</span><span class="sense-spec-val">2700K warm white</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Display accent</span><span class="sense-spec-val">3000K focused spots</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Counter ritual</span><span class="sense-spec-val">4000K directional task</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Natural light</span><span class="sense-spec-val">Diffused — welcome, control shadows</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Không bao giờ</span><span class="sense-spec-val">Cold white &gt;5000K / Fluorescent</span></div>
+        <div class="sense-philosophy">Light temperature là emotional signal trực tiếp. 2700K = warmth, safety, intimacy. 4000K ở counter = focus, precision, ritual. Gradient này dẫn dắt emotional arc của không gian.</div>
+      </div>
+    </div>
+
+    <div class="sense-block">
+      <div class="sense-header">
+        <span class="sense-icon">✋</span>
+        <span class="sense-label">Xúc giác</span>
+        <span class="sense-title">Touch Design</span>
+      </div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">Counter top</span><span class="sense-spec-val">Cool, smooth stone — precision signal</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Chair / bench</span><span class="sense-spec-val">Warm linen — no cold metal seating</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Bottle handover</span><span class="sense-spec-val">Substantial weight · Cap satisfying</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Packaging</span><span class="sense-spec-val">Matte paper · Thick · Quiet rustle</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Door handle</span><span class="sense-spec-val">Brass or iron · Not lightweight</span></div>
+        <div class="sense-philosophy">Touch design bắt đầu trước khi vào — cảm giác nắm tay cầm cửa là first physical interaction với Mora. Phải feel substantial. Phải feel like a choice was made about it.</div>
+      </div>
+    </div>
+
+    <div class="sense-block">
+      <div class="sense-header">
+        <span class="sense-icon">🌡</span>
+        <span class="sense-label">Nhiệt độ</span>
+        <span class="sense-title">Climate as Signal</span>
+      </div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">Store temperature</span><span class="sense-spec-val">22–24°C · Slightly cool</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Air quality</span><span class="sense-spec-val">Fresh · Clean · No stuffiness</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Contrast với bên ngoài</span><span class="sense-spec-val">Đủ để cảm nhận threshold crossing</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Humidity</span><span class="sense-spec-val">40–60% — scent stability zone</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Không bao giờ</span><span class="sense-spec-val">Warm / stuffy — hurries người ra</span></div>
+        <div class="sense-philosophy">Bước qua cửa, nhiệt độ thay đổi — một cách subtle nhưng perceptible. Đây là physical confirmation rằng đã bước vào một thế giới khác. Lạnh nhẹ = clarity, presence, attention.</div>
+      </div>
+    </div>
+
+    <div class="sense-block">
+      <div class="sense-header">
+        <span class="sense-icon">✦</span>
+        <span class="sense-label">Tổng thể</span>
+        <span class="sense-title">Sensory Coherence</span>
+      </div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">Drift detection</span><span class="sense-spec-val">Kiểm tra mỗi 90 phút / ca</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Coherence audit</span><span class="sense-spec-val">Weekly — mystery check</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Priority khi conflict</span><span class="sense-spec-val">Scent → Temperature → Light → Sound</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Reset trigger</span><span class="sense-spec-val">Bất kỳ 1 sense drift = action ngay</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Guest test</span><span class="sense-spec-val">Nhân sự blind-check mỗi sáng</span></div>
+        <div class="sense-philosophy">Sensory coherence không phải "mọi thứ đều tốt." Đó là "không có gì contradicts nhau." Nhạc tốt + scent mạnh quá = contradiction. Ánh sáng đẹp + nhiệt độ ngột ngạt = contradiction.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+  <h3>Curated Playlist Direction</h3>
+  <p class="body" style="margin-bottom:16px">Không phải genre cụ thể — là cảm giác cụ thể. Playlist Mora phải pass được test này:</p>
+  <div class="g2">
+    <div class="sense-block">
+      <div class="sense-header"><span class="sense-label">Pass — nếu nhạc khiến người ta</span></div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">Dừng lại và lắng nghe</span><span class="sense-spec-val">✓</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Cảm thấy như đang ở đâu đó đặc biệt</span><span class="sense-spec-val">✓</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Không cần nhận ra bài để cảm thấy right</span><span class="sense-spec-val">✓</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Nhạc support conversation, không compete</span><span class="sense-spec-val">✓</span></div>
+      </div>
+    </div>
+    <div class="sense-block">
+      <div class="sense-header"><span class="sense-label">Fail — nếu nhạc khiến người ta</span></div>
+      <div class="sense-body">
+        <div class="sense-spec-row"><span class="sense-spec-label">Nói to hơn để nghe được</span><span class="sense-spec-val">×</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Nhận ra bài và mất focus</span><span class="sense-spec-val">×</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Cảm thấy như đang ở café thông thường</span><span class="sense-spec-val">×</span></div>
+        <div class="sense-spec-row"><span class="sense-spec-label">Muốn rời đi sớm hơn dự định</span><span class="sense-spec-val">×</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 05 COUNTER ══ -->
+<div id="sec-counter" class="sec">
+  <div class="eyebrow">Section 05</div>
+  <h2>The <em>Counter</em></h2>
+  <p class="lead">Counter không phải nơi bán hàng. Đó là stage — nơi diễn ra khoảnh khắc quan trọng nhất trong hành trình của khách. Mọi quyết định về counter đều phải bắt đầu từ điều này.</p>
+
+  <div class="stmt"><p>Khi thiết kế counter, hỏi một câu duy nhất: <em>"Một người đang làm nghề pha chế thủ công, người coi trọng craft của mình, sẽ muốn làm việc ở đây không?"</em> Nếu câu trả lời là có — counter đúng rồi.</p></div>
+
+  <hr>
+  <h3>Counter Specifications</h3>
+  <div class="counter-anatomy" style="grid-template-columns:1fr 1fr">
+    <div class="ca-visual">
+      <!-- SVG diagram of counter -->
+      <svg width="200" height="140" viewBox="0 0 200 140" style="opacity:.9">
+        <!-- Counter top surface -->
+        <rect x="20" y="50" width="160" height="12" rx="2" fill="#D4C5B0"/>
+        <!-- Counter frame/body -->
+        <rect x="20" y="62" width="160" height="60" rx="0" fill="#4A3728"/>
+        <!-- Counter inner shelf -->
+        <rect x="24" y="75" width="152" height="8" rx="1" fill="#3A2A1E"/>
+        <!-- Left tool area -->
+        <rect x="30" y="56" width="40" height="6" rx="1" fill="rgba(250,249,246,.1)"/>
+        <!-- Right tool area -->
+        <rect x="130" y="56" width="40" height="6" rx="1" fill="rgba(250,249,246,.1)"/>
+        <!-- Lighting: focused spot above counter -->
+        <ellipse cx="100" cy="44" rx="25" ry="4" fill="rgba(255,220,130,.15)"/>
+        <line x1="100" y1="0" x2="100" y2="44" stroke="rgba(255,220,130,.3)" stroke-width="1" stroke-dasharray="3 2"/>
+        <!-- Height annotation -->
+        <line x1="8" y1="62" x2="8" y2="130" stroke="rgba(250,249,246,.3)" stroke-width="1"/>
+        <line x1="5" y1="62" x2="11" y2="62" stroke="rgba(250,249,246,.3)" stroke-width="1"/>
+        <line x1="5" y1="130" x2="11" y2="130" stroke="rgba(250,249,246,.3)" stroke-width="1"/>
+        <text x="2" y="100" fill="rgba(250,249,246,.4)" font-family="monospace" font-size="8" text-anchor="middle" transform="rotate(-90,2,100)">90–95cm</text>
+        <!-- Width annotation -->
+        <line x1="20" y1="135" x2="180" y2="135" stroke="rgba(250,249,246,.3)" stroke-width="1"/>
+        <line x1="20" y1="132" x2="20" y2="138" stroke="rgba(250,249,246,.3)" stroke-width="1"/>
+        <line x1="180" y1="132" x2="180" y2="138" stroke="rgba(250,249,246,.3)" stroke-width="1"/>
+        <text x="100" y="140" fill="rgba(250,249,246,.4)" font-family="monospace" font-size="8" text-anchor="middle">Min 120cm width</text>
+      </svg>
+      <div style="font-family:var(--mono);font-size:9px;color:rgba(250,249,246,.3);letter-spacing:.07em;text-transform:uppercase">Counter anatomy — cross section</div>
+    </div>
+    <div class="ca-specs">
+      <div class="ca-spec-row"><span class="ca-spec-label">Height</span><span class="ca-spec-val">90–95 cm</span></div>
+      <div class="ca-spec-row"><span class="ca-spec-label">Width minimum</span><span class="ca-spec-val">120 cm</span></div>
+      <div class="ca-spec-row"><span class="ca-spec-label">Depth</span><span class="ca-spec-val">65–70 cm (working zone)</span></div>
+      <div class="ca-spec-row"><span class="ca-spec-label">Top surface</span><span class="ca-spec-val">Travertine / stone · Matte</span></div>
+      <div class="ca-spec-row"><span class="ca-spec-label">Frame material</span><span class="ca-spec-val">Dark-stained oak</span></div>
+      <div class="ca-spec-row"><span class="ca-spec-label">Task lighting</span><span class="ca-spec-val">4000K · Directional · Focused</span></div>
+      <div class="ca-spec-row"><span class="ca-spec-label">Payment POS</span><span class="ca-spec-val">Hidden · Discrete · Below eyeline</span></div>
+      <div class="ca-spec-row"><span class="ca-spec-label">Tools visible?</span><span class="ca-spec-val">Yes — craft on display, always</span></div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>Counter Eye Level Principle</h3>
+  <p class="body" style="margin-bottom:16px">Height 90–95cm không phải ngẫu nhiên. Đây là height của bar counter, surgical scrub station, và atelier workbench — tất cả đều nơi hai người đứng và làm việc cùng nhau như equals.</p>
+
+  <div class="g2">
+    <div style="border:1px solid var(--teal);border-radius:4px;padding:18px 20px;background:var(--teal-light)">
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--teal);margin-bottom:8px">Đúng — 90–95cm</div>
+      <div style="font-size:13px;color:var(--ink-60);line-height:1.65">Khách và nhân sự đứng ngang nhau. Eye contact tự nhiên. Cảm giác "làm việc cùng nhau" — không phải "được phục vụ." Counter là workspace được chia sẻ, không phải barrier.</div>
+    </div>
+    <div style="border:1px solid var(--ink-12);border-radius:4px;padding:18px 20px;background:#FFF8F8">
+      <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#A32D2D;margin-bottom:8px">Sai — &lt;85cm hoặc &gt;100cm</div>
+      <div style="font-size:13px;color:var(--ink-60);line-height:1.65">Thấp quá: nhân sự phải nhìn xuống. Cao quá: nhân sự và sản phẩm bị elevated, khách bị diminished. Cả hai đều tạo ra power dynamic không phù hợp với triết học Mora.</div>
+    </div>
+  </div>
+
+  <hr>
+  <h3>What's on the Counter — Always</h3>
+  <div class="chain">
+    <div class="ci"><span class="cn">Visible</span><div><div class="ct">Tools pha chế — measuring beakers, pipettes, stoppers</div><div class="cd">Tất cả tools để ngay trên counter hoặc trong tầm nhìn. Craft không được giấu. Người ta đến để thấy — cho họ thấy.</div></div></div>
+    <div class="ci"><span class="cn">Visible</span><div><div class="ct">2–3 ingredient vials / sample jars</div><div class="cd">Những gì đang được dùng hôm nay, hoặc hương seasonal. Tạo câu chuyện "hôm nay có gì đặc biệt" mà không cần nói ra.</div></div></div>
+    <div class="ci"><span class="cn">Visible</span><div><div class="ct">Một engraving tool hoặc setup khi đang dùng</div><div class="cd">Được đặt theo cách có chủ đích — không phải "để tạm." Như một calligrapher đặt bút.</div></div></div>
+    <div class="ci"><span class="cn">Hidden</span><div><div class="ct">POS / payment terminal</div><div class="cd">Dưới counter, không visible từ phía khách. Pull ra khi cần, cất đi khi xong. Transaction không được là focal point.</div></div></div>
+    <div class="ci"><span class="cn">Never</span><div><div class="ct">Phone của nhân sự · Paper clutter · Coffee cup · Personal items</div><div class="cd">Counter khi không có khách phải ở trạng thái "sẵn sàng được chụp ảnh." Không có exception.</div></div></div>
+  </div>
+</div>
+
+<!-- ══ 06 JOURNEY ══ -->
+<div id="sec-journey" class="sec">
+  <div class="eyebrow">Section 06</div>
+  <h2>Spatial <em>Narrative Arc</em></h2>
+  <p class="lead">Từ khoảnh khắc khách nhìn thấy cửa hàng từ xa đến lúc họ bước ra và nhìn lại lần cuối — toàn bộ là một narrative được thiết kế có chủ đích.</p>
+
+  <hr>
+  <h3>The Full Arc — Minute by minute</h3>
+
+  <div class="journey">
+
+    <div class="j-item">
+      <div class="j-time">T−60s<br>Bên ngoài</div>
+      <div class="j-content">
+        <div class="j-stage">First sighting — cửa hàng từ xa</div>
+        <div class="j-desc">Khách nhìn thấy biển hiệu MORA brass trước — không nhìn thấy trong. Window display (nếu có) là một tableau tĩnh, không phải "sale 50% sign."</div>
+        <div class="j-detail">Đây là brand promise đầu tiên trong không gian vật lý. Mọi thứ từ xa phải đồng bộ với những gì họ thấy trên social.</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">T−5s<br>Cửa</div>
+      <div class="j-content">
+        <div class="j-stage">The door — first physical touch</div>
+        <div class="j-desc">Tay cầm cửa: brass hoặc iron, substantial. Nghe tiếng cửa mở — quiet, controlled, không rít. Scent bắt đầu drift ra ngoài ngay khi cửa mở.</div>
+        <div class="j-detail">Cảm giác cầm nắm tay cửa là first physical interaction với Mora. Phải feel như một lựa chọn đã được đưa ra về nó.</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">T+0–3s<br>Threshold</div>
+      <div class="j-content">
+        <div class="j-stage">Crossing the threshold — sensory shift</div>
+        <div class="j-desc">Nhiệt độ thay đổi subtle. Scent hits — botanical, warm, clean. Sound: nhạc 60 BPM, 45dB. Không gian mở ra. Không có nhân sự ngay lập tức.</div>
+        <div class="j-detail">3 giây này là khoảnh khắc quan trọng nhất trong toàn bộ journey. Não đang quyết định: "đây có phải là nơi tôi muốn ở lại không?" Mọi sensory element phải đồng thuận: có.</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">T+5–10s<br>Z1</div>
+      <div class="j-content">
+        <div class="j-stage">Acknowledge — eye contact, không approach ngay</div>
+        <div class="j-desc">Nhân sự nhìn lên, eye contact, nod nhẹ. Không nói gì. Không approach. Không "Bạn cần hỗ trợ gì không?" Khách được phép định hướng trong không gian.</div>
+        <div class="j-script">[Nội tâm nhân sự]: "Họ vừa bước vào. Tôi đã thấy. Tôi ở đây. Nhưng thế giới này của họ trước — không phải của tôi."</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">T+1–5 phút<br>Z2</div>
+      <div class="j-content">
+        <div class="j-stage">Discovery — tự khám phá</div>
+        <div class="j-desc">Khách di chuyển về phía kệ ingredient hoặc display. Họ pick up chai, đọc label, ngửi tester. Nhân sự observe — không shadow.</div>
+        <div class="j-detail">Intervention trigger: khách dừng &gt;30 giây tại 1 điểm, pick up sản phẩm, hoặc nhìn về phía nhân sự. Không phải khi khách im lặng — im lặng là đang process.</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">T+5–8 phút<br>Z2→Z4</div>
+      <div class="j-content">
+        <div class="j-stage">The conversation — education, không sales</div>
+        <div class="j-desc">Nhân sự approach sau trigger. Câu đầu không phải "Bạn muốn gì?" mà là câu hỏi mở về người đó. Cuộc trò chuyện về hương, về dịp, về cảm giác.</div>
+        <div class="j-script">"Bạn đã từng đến Mora chưa?" — câu duy nhất nhân sự cần để biết mình đang nói chuyện với ai.</div>
+      </div>
+    </div>
+
+    <div class="j-item peak">
+      <div class="j-time">T+8–35 phút<br>Z4 · Counter</div>
+      <div class="j-content">
+        <div class="j-stage">The ritual — emotional peak của toàn bộ journey</div>
+        <div class="j-desc">Pha chế. Narrate. Invite khách smell ingredients. Engraving. Handover. Mỗi bước được thực hiện với full presence — không rush vì có khách tiếp theo.</div>
+        <div class="j-detail">Counter lighting: 4000K directional. Nhân sự và khách đứng cùng một bên — không đối diện nhau như transaction. "Bên cùng nhau" về mặt vật lý.</div>
+        <div class="j-script">"Chai này không tồn tại trước khi bạn đến đây hôm nay."</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">T+35–40 phút<br>Z4→Exit</div>
+      <div class="j-content">
+        <div class="j-stage">Packaging — continuation of ritual</div>
+        <div class="j-desc">Tissue, box, ribbon — tất cả được làm từ từ và có chủ đích. Không phải logistics — đây là phần cuối của ritual. Khách xem. Không rush.</div>
+        <div class="j-detail">Mỗi fold của tissue là một lần nữa nhân sự nói: "thứ này quan trọng." Khi khách nhìn thấy sự cẩn thận này — họ cảm nhận được sản phẩm trong túi có giá trị.</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">Exit<br>Cửa ra</div>
+      <div class="j-content">
+        <div class="j-stage">The send-off — last memory</div>
+        <div class="j-desc">Handover: 2 tay, eye contact, câu cụ thể về họ — không generic. Khi khách bước ra, nếu họ nhìn lại: nhân sự still present, nod. Không gọi to theo.</div>
+        <div class="j-script">"Chúc bạn enjoy lớp middle note của [tên hương]. Nó sẽ mở ra rõ nhất sau 15–20 phút."</div>
+        <div class="j-detail">Câu cuối cùng khách nghe phải là về họ — không phải về Mora, không phải về sản phẩm, không phải "Cảm ơn bạn đã ghé." Về họ.</div>
+      </div>
+    </div>
+
+    <div class="j-item">
+      <div class="j-time">T+3 ngày<br>Digital</div>
+      <div class="j-content">
+        <div class="j-stage">D3 follow-up — không phải marketing, là curiosity</div>
+        <div class="j-desc">Zalo: "Bạn đã dùng hương mới chưa? Lớp base note của [tên hương] sẽ mở ra rõ nhất vào ngày thứ 3–5." Không CTA. Không link. Không promo.</div>
+        <div class="j-detail">Đây là bước khép narrative arc của physical visit lại. Khi khách nhận được tin nhắn này, họ sẽ xịt lại — và lần đó họ cũng ở với Mora.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+  <h3>Moments to Design Explicitly</h3>
+  <p class="body" style="margin-bottom:16px">5 khoảnh khắc nhỏ thường bị bỏ qua nhưng tạo ra memory disproportionate:</p>
+  <div class="chain">
+    <div class="ci"><span class="cn">01</span><div><div class="ct">Tiếng cửa mở</div><div class="cd">Acoustic của cánh cửa phải được kiểm tra. Rít hoặc chói = brand promise bị phá vỡ trước khi vào đến trong. Oil hinge nếu cần — mỗi ngày.</div></div></div>
+    <div class="ci"><span class="cn">02</span><div><div class="ct">Khoảnh khắc nhân sự đặt chai xuống counter lần đầu</div><div class="cd">Đây là lần đầu khách thấy sản phẩm "thật" của họ. Nhân sự đặt chai nhẹ, chính xác, không thả bịch. Chai có weight — counter có sound khi chai chạm. Tính toán cả điều này.</div></div></div>
+    <div class="ci"><span class="cn">03</span><div><div class="ct">Cap closing sound</div><div class="cd">Khi đóng nắp chai sau khi pha chế — âm thanh này là completion signal. Phải nghe rõ, satisfying, precision. Đây là âm thanh của "xong."</div></div></div>
+    <div class="ci"><span class="cn">04</span><div><div class="ct">Lúc nhìn thấy tên khắc lần đầu</div><div class="cd">Engraving được làm trước mặt khách. Khoảnh khắc tên họ xuất hiện trên chai — nhân sự không nói gì. Để khoảnh khắc đó thở.</div></div></div>
+    <div class="ci"><span class="cn">05</span><div><div class="ct">Khi khách rời đi và nhìn lại</div><div class="cd">Nhiều khách sẽ nhìn lại sau khi bước ra cửa. Cả không gian phải still look right từ góc nhìn đó. Nhân sự vẫn present, không đang cúi đầu nhìn điện thoại.</div></div></div>
+  </div>
+</div>
+
+</main>
+
+<footer class="footer">
+  <span class="footer-brand">Mora</span>
+  <span class="footer-note">Store Experience Design v1.0 · Space × Visual × Sensory · Derived từ Codex · Companion document to Operations System</span>
+</footer>
+
+<script>
+function sw(id, btn) {
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('a'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('a'));
+  document.getElementById('sec-'+id).classList.add('a');
+  btn.classList.add('a');
+  window.scrollTo({top:document.querySelector('.topbar').offsetHeight,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
