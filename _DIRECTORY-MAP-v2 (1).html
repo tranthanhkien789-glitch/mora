@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Master Directory Map v2 — Operating OS × Mora</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1A1916;--teal:#0F6E56;--amber:#854F0B;--cream:#FAF9F6;--linen:#E8DFD0;--teal-d:#085041;--amber-d:#633806;--teal-m:#5DCAA5;--amber-m:#EF9F27;--teal-l:#E1F5EE;--amber-l:#FAEEDA;--blue:#185FA5;--blue-l:#E8F0FA;--w600:#8C7A62;--g50:#FAFAF9;--g100:#F5F5F4;--g200:#E7E5E4;--g400:#A8A29E;--g500:#78716C;--g600:#57534E;--g700:#44403C;--fd:'Cormorant Garamond',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;--fm:'DM Mono',monospace;--r:4px;--div:1px solid rgba(26,25,22,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased;hyphens:none}
+.hdr{background:var(--ink);color:var(--cream);padding:48px 56px 36px}
+.hdr h1{font-family:var(--fd);font-size:32px;font-weight:300;margin-bottom:8px}
+.hdr h1 em{font-style:normal;color:var(--teal-m)}
+.hdr p{font-size:14px;color:rgba(250,249,246,.6);max-width:680px}
+.kpi{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(250,249,246,.06);margin:0 56px;border-radius:var(--r);overflow:hidden;transform:translateY(-18px)}
+.kpi div{background:var(--ink);padding:14px 12px;text-align:center}
+.kpi strong{font-family:var(--fd);font-size:22px;font-weight:300;color:var(--teal-m);display:block}
+.kpi span{font-family:var(--fm);font-size:9px;color:var(--g400);text-transform:uppercase;letter-spacing:.06em}
+.tabs{display:flex;background:var(--ink);padding:0 56px;position:sticky;top:0;z-index:10;overflow-x:auto;border-bottom:1px solid rgba(250,249,246,.06)}
+.tabs button{font-family:var(--fm);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--g400);background:none;border:none;padding:14px 18px 12px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent}
+.tabs button:hover{color:var(--cream)}.tabs button.on{color:var(--cream);border-bottom-color:var(--teal)}
+.pane{display:none;padding:32px 56px 56px;max-width:1060px;margin:0 auto}.pane.on{display:block}
+h2{font-family:var(--fd);font-size:24px;font-weight:400;margin-bottom:4px}
+.lbl{font-family:var(--fm);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.10em;color:var(--w600);display:block;margin-bottom:20px}
+/* Directory */
+.dir{margin-bottom:28px}
+.dir-h{font-family:var(--fm);font-size:13px;font-weight:500;color:var(--ink);padding:10px 0;border-bottom:2px solid var(--teal);margin-bottom:0;display:flex;align-items:baseline;gap:8px}
+.dir-h small{font-weight:400;font-size:11px;color:var(--w600)}
+.sub-h{font-family:var(--fm);font-size:11px;font-weight:500;color:var(--w600);padding:8px 0 4px 16px;border-bottom:var(--div)}
+.f{display:grid;grid-template-columns:1fr auto;gap:8px;padding:5px 0 5px 16px;border-bottom:var(--div);align-items:baseline;font-size:13px}
+.f:last-child{border-bottom:none}
+.fn{font-family:var(--fm);font-size:11px;color:var(--ink);word-break:break-all}
+.fd{color:var(--g600);font-size:12px}
+.s{font-family:var(--fm);font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.s-ok{background:var(--teal-l);color:var(--teal-d)}
+.s-pt{background:var(--amber-l);color:var(--amber-d)}
+.s-td{background:var(--g100);color:var(--g500)}
+.s-ar{background:#FEF2F2;color:#991B1B}
+.empty{font-family:var(--fm);font-size:11px;color:var(--g400);padding:4px 0 4px 16px;font-style:italic}
+/* Priority */
+.pri{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:8px 0;border-bottom:var(--div);align-items:start}
+.pri-b{font-family:var(--fm);font-size:10px;font-weight:500;color:var(--cream);width:32px;height:22px;border-radius:var(--r);display:flex;align-items:center;justify-content:center}
+.pri p{font-size:13px;color:var(--g700)}.pri strong{color:var(--ink)}
+.note{padding:16px 20px;border-radius:var(--r);margin-bottom:20px;font-size:14px;line-height:1.8;background:var(--teal-l);border-left:2px solid var(--teal);color:var(--teal-d)}
+.note h4{font-family:var(--fm);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.10em;margin-bottom:6px;color:var(--teal-d)}
+.foot{padding:24px 56px;text-align:center;font-family:var(--fm);font-size:10px;color:var(--w600);border-top:var(--div);letter-spacing:.04em}
+@media(max-width:900px){.hdr,.tabs,.pane,.foot,.kpi{padding-left:20px;padding-right:20px;margin-left:0;margin-right:0}.kpi{grid-template-columns:repeat(3,1fr)}.f{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hdr">
+<h1>Master Directory <em>Map</em> · v2.0</h1>
+<p>2 sản phẩm, 1 hệ thống. Mỗi file có duy nhất 1 vị trí. File .html = hoàn thiện. File .md = cần hoàn thiện.</p>
+</div>
+<div class="kpi">
+<div><strong>162</strong><span>Tổng files</span></div>
+<div><strong>49</strong><span>Files .html</span></div>
+<div><strong>109</strong><span>Files .md</span></div>
+<div><strong>22</strong><span>Thư mục chính</span></div>
+<div><strong>4</strong><span>Mảng chuỗi cung ứng</span></div>
+</div>
+<div class="tabs">
+<button class="on" data-t="mora">Mora</button>
+<button data-t="oos">OOS</button>
+<button data-t="gov">Governance</button>
+<button data-t="pri">Priority</button>
+<button data-t="naming">Naming</button>
+</div>
+
+<!-- ═══════════ MORA ═══════════ -->
+<div class="pane on" id="mora">
+<h2>MORA_MASTER — Bespoke Fragrance Brand</h2>
+<span class="lbl">Product B · 14 thư mục · 94 files (21 .html + 73 .md)</span>
+
+<div class="dir">
+<div class="dir-h">00_CODEX <small>Brand DNA · Bất biến</small></div>
+<div class="f"><div><span class="fn">mora-codex.html</span><br><span class="fd">Codex cá nhân founder · 7 invariants · Chuỗi di sản</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-COD-001_codex-v2.md</span><br><span class="fd">7 invariants + belief system consolidate</span></div><span class="s s-td">Cần tạo · P0</span></div>
+<div class="f"><div><span class="fn">MORA-COD-002_brand-voice-guide.md</span><br><span class="fd">Tone, language rules, Vietnamese handling, scent description</span></div><span class="s s-td">Cần tạo · P0</span></div>
+<div class="f"><div><span class="fn">MORA-COD-003_dao-mora-principles.md</span><br><span class="fd">5 nguyên lý fractal vận hành</span></div><span class="s s-td">Cần tạo · P0</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">01_BRAND <small>Visual + Verbal Identity</small></div>
+<div class="f"><div><span class="fn">MORA-BRD-001_brand-guidelines-v2.html</span><br><span class="fd">9 sections: Foundation → Applications</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BRD-002_brand-experience-design-v2.html</span><br><span class="fd">Physical × Digital experience design</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BRD-010_packaging-print-system-v1.html</span><br><span class="fd">Packaging & print design — label, box, card, VDP</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="sub-h">assets/</div>
+<div class="empty">logo/ · colour-swatches/ · typography/ · photography-references/ — chưa có file</div>
+<div class="sub-h">templates/</div>
+<div class="empty">packaging/ · print/ · social/ — chưa có file</div>
+</div>
+
+<div class="dir">
+<div class="dir-h">02_BUSINESS <small>Strategy & Logic</small></div>
+<div class="f"><div><span class="fn">MORA-BIZ-001_business-dossier-v2.html</span><br><span class="fd">6 documents: Positioning → Flywheel</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-010_positioning-statement-v2.html</span><br><span class="fd">Brand positioning statement</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-011_customer-archetype-v1.html</span><br><span class="fd">3 archetypes: Kết Nối · Tò Mò · Trung Thành</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-012_competitive-landscape-v1.html</span><br><span class="fd">Thế giới quan đối lập + moat matrix</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-013_flywheel-system-v1.html</span><br><span class="fd">3 flywheels: Brand × Journey × Finance</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-014_investor-deck-v4.html</span><br><span class="fd">Tài liệu nhà đầu tư — 10 sections</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-002_investor-deck.md</span><br><span class="fd">Pitch deck cho Mora raise</span></div><span class="s s-td">Cần tạo · P5</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-003_competitive-matrix.md</span><br><span class="fd">Phân tích đối thủ có cấu trúc</span></div><span class="s s-td">Cần tạo · P1</span></div>
+<div class="f"><div><span class="fn">MORA-BIZ-004_growth-roadmap-3y.md</span><br><span class="fd">Timeline + milestones 3 năm</span></div><span class="s s-td">Cần tạo · P1</span></div>
+<div class="sub-h">_archive/</div>
+<div class="f"><div><span class="fn">MORA-BIZ-013_investor-deck-v3-archived.html</span><br><span class="fd">Investor deck v3 cũ — đã thay bằng v4</span></div><span class="s s-ar">Archived</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">03_PRODUCT <small>Specs & Certification</small></div>
+<div class="f"><div><span class="fn">MORA-PRD-001_product-catalogue.md</span><br><span class="fd">SKU list, formula codes, pricing, COGS, margin</span></div><span class="s s-td">Cần tạo · P1</span></div>
+<div class="f"><div><span class="fn">MORA-PRD-002_pricing-architecture.md</span><br><span class="fd">3-tier: Discovery / Signature / Gift Set</span></div><span class="s s-pt">Một phần · P1</span></div>
+<div class="f"><div><span class="fn">MORA-PRD-003_qc-protocol.md</span><br><span class="fd">Quality control per batch, per store</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-PRD-004_scent-library.md</span><br><span class="fd">Mỗi hương: ingredients, character, pairing, occasion</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="sub-h">certifications/</div>
+<div class="empty">IFRA · ISO · relevant certs — chưa có file</div>
+<div class="sub-h">formulations/</div>
+<div class="empty">R&D data — chưa có file</div>
+</div>
+
+<div class="dir">
+<div class="dir-h">04_SPACE <small>Store Design & Fitout</small></div>
+<div class="f"><div><span class="fn">MORA-SPC-001_store-experience-design-v1.html</span><br><span class="fd">Store experience — 5 zones, sensory spec</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-SPC-010_store-spatial-system-v1.html</span><br><span class="fd">Spatial system — layout, flow, zones</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-SPC-011_store-fitout-v1.html</span><br><span class="fd">Fitout specs — materials, contractor brief, MEP</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-SPC-002_floorplan.md</span><br><span class="fd">AutoCAD / SketchUp layout — cần location</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SPC-003_fitout-specs.md</span><br><span class="fd">Materials, dimensions, contractor scope</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SPC-004_equipment-list.md</span><br><span class="fd">Counter, lighting, HVAC, scent, audio, POS hardware</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SPC-005_sensory-spec-sheet.md</span><br><span class="fd">Consolidated: sight, smell, sound, touch, temp</span></div><span class="s s-pt">Một phần · P2</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">05_OPERATIONS <small>SOPs & Daily Ops · 8 modules</small></div>
+<div class="f"><div><span class="fn">MORA-OPS-001_operations-system-v1.html</span><br><span class="fd">8 modules: Nguyên lý → Staff Framework</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="sub-h">sops/</div>
+<div class="f"><div><span class="fn">MORA-SOP-001_opening-protocol.md</span><br><span class="fd">SOP mở cửa 60 phút trước giờ mở</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-SOP-002_closing-protocol.md</span><br><span class="fd">SOP đóng cửa 30 phút sau giờ đóng</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-SOP-003_customer-journey.md</span><br><span class="fd">6 zones: entrance to exit</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-SOP-004_counter-ritual.md</span><br><span class="fd">Choreography pha chế, narrate, engrave, handover</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-SOP-005_b2b-gifting.md</span><br><span class="fd">Corporate gifting process + packaging</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-SOP-006_refill-protocol.md</span><br><span class="fd">Returning customer refill experience</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-SOP-007_sensory-calibration.md</span><br><span class="fd">90-min check: scent, temp, light, sound</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-SOP-008_crisis-handling.md</span><br><span class="fd">4 loại: complaint, defect, social, staff</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="sub-h">checklists/</div>
+<div class="f"><div><span class="fn">MORA-CHK-001_daily-ops.md</span><br><span class="fd">Checklist vận hành hàng ngày</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-CHK-002_sensory-90min.md</span><br><span class="fd">Kiểm tra giác quan mỗi 90 phút</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-CHK-003_inventory-eod.md</span><br><span class="fd">Kiểm kê cuối ngày + reorder triggers</span></div><span class="s s-td">Cần tạo · P3</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">06_FINANCE <small>P&L · Cashflow · Cap Table</small></div>
+<div class="f"><div><span class="fn">MORA-FIN-010_business-model-financial-v2.html</span><br><span class="fd">Business model + financial architecture</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-FIN-001_startup-cost-model.md</span><br><span class="fd">Fitout + inventory + OpEx 6 tháng</span></div><span class="s s-td">Cần tạo · P1</span></div>
+<div class="f"><div><span class="fn">MORA-FIN-002_pl-projection-3y.md</span><br><span class="fd">Monthly Y1, quarterly Y2–3</span></div><span class="s s-td">Cần tạo · P1</span></div>
+<div class="f"><div><span class="fn">MORA-FIN-003_cashflow-model.md</span><br><span class="fd">Weekly cashflow Year 1</span></div><span class="s s-td">Cần tạo · P1</span></div>
+<div class="f"><div><span class="fn">MORA-FIN-004_unit-economics.md</span><br><span class="fd">ATV, COGS, LTV, contribution margin</span></div><span class="s s-pt">Một phần · P1</span></div>
+<div class="f"><div><span class="fn">MORA-FIN-005_equity-cap-table.md</span><br><span class="fd">Founder equity, vesting, ESOP pool</span></div><span class="s s-td">Cần tạo · P0</span></div>
+<div class="f"><div><span class="fn">MORA-FIN-006_break-even-analysis.md</span><br><span class="fd">Daily/monthly break-even per store</span></div><span class="s s-td">Cần tạo · P1</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">07_LEGAL <small>Pháp lý & Governance</small></div>
+<div class="f"><div><span class="fn">MORA-LEG-010_governance-investor-terms-v1.html</span><br><span class="fd">Solo founder governance + investor terms</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-011_legal-compliance-v1.html</span><br><span class="fd">Tổng hợp pháp lý: đăng ký, giấy phép, compliance</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-001_business-registration.md</span><br><span class="fd">Đăng ký kinh doanh, ngành nghề, vốn điều lệ</span></div><span class="s s-td">Cần tạo · P0</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-002_trademark-application.md</span><br><span class="fd">Tên Mora + logo — nộp trước khi public</span></div><span class="s s-td">Cần tạo · P0</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-003_partner-agreement.md</span><br><span class="fd">Equity, vesting, decision rights, exit</span></div><span class="s s-td">Cần tạo · P0</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-004_operating-agreement.md</span><br><span class="fd">Co-founder roles, compensation</span></div><span class="s s-td">Cần tạo · P0</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-005_lease-template.md</span><br><span class="fd">Notice period, fit-out allowance</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-006_cosmetics-license.md</span><br><span class="fd">Giấy phép mỹ phẩm VN</span></div><span class="s s-td">Cần tạo · P4</span></div>
+<div class="f"><div><span class="fn">MORA-LEG-007_model-release-template.md</span><br><span class="fd">Cho staff/customer trong content</span></div><span class="s s-td">Cần tạo · P4</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">08_HR <small>People & Training</small></div>
+<div class="f"><div><span class="fn">MORA-HR-001_org-chart.md</span><br><span class="fd">Founder → Store Lead → Perfumer/Associate</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-HR-002_jd-store-lead-L2.md</span><br><span class="fd">Job description Store Lead</span></div><span class="s s-pt">Một phần · P3</span></div>
+<div class="f"><div><span class="fn">MORA-HR-003_jd-perfumer-L1.md</span><br><span class="fd">Job description Perfumer/Associate</span></div><span class="s s-pt">Một phần · P3</span></div>
+<div class="f"><div><span class="fn">MORA-HR-004_training-program-5day.md</span><br><span class="fd">5-day: Codex → Shadow → Product → Roleplay → Cert</span></div><span class="s s-pt">Một phần · P3</span></div>
+<div class="f"><div><span class="fn">MORA-HR-005_employee-handbook.md</span><br><span class="fd">Policies, benefits, code of conduct</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="f"><div><span class="fn">MORA-HR-006_certification-test.md</span><br><span class="fd">Mystery visit rubric + pass criteria</span></div><span class="s s-pt">Một phần · P3</span></div>
+<div class="f"><div><span class="fn">MORA-HR-007_performance-review.md</span><br><span class="fd">Daily → quarterly → annual + L1-L2 promotion</span></div><span class="s s-td">Cần tạo · P3</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">09_SUPPLY_CHAIN <small>Vendors & Inventory</small></div>
+<div class="f"><div><span class="fn">MORA-SUP-010_packaging-production-v1.html</span><br><span class="fd">Packaging manufacturing specs</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-001_vendor-list.md</span><br><span class="fd">Category, tier, backup, contact, contract status</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-002_vendor-qualification.md</span><br><span class="fd">10-criteria scoring: Tier A/B/C/Reject</span></div><span class="s s-pt">Một phần · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-003_inventory-sop.md</span><br><span class="fd">Reorder triggers, min stock, count protocol</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-004_packaging-specs.md</span><br><span class="fd">Bottle, cap, label, bag, ribbon — suppliers + lead time</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-005_ingredient-sourcing.md</span><br><span class="fd">Nhà cung cấp hương liệu IFRA-certified, MOQ, lead time</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-006_logistics-shipping-sop.md</span><br><span class="fd">Vận chuyển: nhà cung cấp → kho → cửa hàng, tracking</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-007_storage-warehouse-protocol.md</span><br><span class="fd">Bảo quản hương liệu, thành phẩm — nhiệt độ, độ ẩm, FIFO</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-008_incoming-inspection-sop.md</span><br><span class="fd">Kiểm tra chất lượng đầu vào — acceptance/rejection criteria</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-SUP-009_reorder-automation-rules.md</span><br><span class="fd">Trigger tự động đặt hàng: min stock, lead time buffer</span></div><span class="s s-td">Cần tạo · P3</span></div>
+<div class="sub-h">contracts/</div>
+<div class="empty">Hợp đồng nhà cung cấp — chưa có file</div>
+</div>
+
+<div class="dir">
+<div class="dir-h">10_MARKETING <small>Content & Campaigns</small></div>
+<div class="f"><div><span class="fn">MORA-MKT-001_content-strategy.md</span><br><span class="fd">3 pillars: Craft 40% / Story 35% / Product 25%</span></div><span class="s s-pt">Một phần · P4</span></div>
+<div class="f"><div><span class="fn">MORA-MKT-002_photography-brief.md</span><br><span class="fd">Visual grammar, shot list, specs</span></div><span class="s s-pt">Một phần · P4</span></div>
+<div class="f"><div><span class="fn">MORA-MKT-003_video-brief.md</span><br><span class="fd">Per platform: IG Reels / TikTok / YouTube</span></div><span class="s s-pt">Một phần · P4</span></div>
+<div class="f"><div><span class="fn">MORA-MKT-004_content-calendar.md</span><br><span class="fd">Monthly calendar template</span></div><span class="s s-td">Cần tạo · P5</span></div>
+<div class="f"><div><span class="fn">MORA-MKT-005_launch-plan.md</span><br><span class="fd">Pre-launch → launch day → post-launch 30 days</span></div><span class="s s-td">Cần tạo · P4</span></div>
+<div class="f"><div><span class="fn">MORA-MKT-006_pr-strategy.md</span><br><span class="fd">6 story angles + pitch template</span></div><span class="s s-pt">Một phần · P5</span></div>
+<div class="f"><div><span class="fn">MORA-MKT-007_influencer-brief.md</span><br><span class="fd">Selection criteria, brief template, measurement</span></div><span class="s s-td">Cần tạo · P5</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">11_MEASUREMENT <small>KPIs & Dashboards</small></div>
+<div class="f"><div><span class="fn">MORA-MSR-001_dashboard-design.md</span><br><span class="fd">5 daily KPIs + alert thresholds</span></div><span class="s s-pt">Một phần · P4</span></div>
+<div class="f"><div><span class="fn">MORA-MSR-002_kpi-library.md</span><br><span class="fd">27 metrics across 5 categories</span></div><span class="s s-pt">Một phần · P4</span></div>
+<div class="f"><div><span class="fn">MORA-MSR-003_nps-protocol.md</span><br><span class="fd">Survey design, cadence, action protocol</span></div><span class="s s-pt">Một phần · P5</span></div>
+<div class="f"><div><span class="fn">MORA-MSR-004_review-cadence.md</span><br><span class="fd">Daily → weekly → monthly → quarterly templates</span></div><span class="s s-pt">Một phần · P5</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">12_SCALE <small>Growth Readiness</small></div>
+<div class="f"><div><span class="fn">MORA-SCL-001_scale-gate-scorecard.md</span><br><span class="fd">8 criteria, min 14/16 to pass</span></div><span class="s s-pt">Một phần · P5</span></div>
+<div class="f"><div><span class="fn">MORA-SCL-002_replication-protocol.md</span><br><span class="fd">5 steps: audit → hire → deploy → train → launch</span></div><span class="s s-pt">Một phần · P5</span></div>
+<div class="f"><div><span class="fn">MORA-SCL-003_location-evaluation.md</span><br><span class="fd">4 categories × 4 criteria scoring</span></div><span class="s s-pt">Một phần · P5</span></div>
+<div class="f"><div><span class="fn">MORA-SCL-004_franchise-framework.md</span><br><span class="fd">Conditions, financial model, territory</span></div><span class="s s-pt">Một phần · P5</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">13_TECH <small>POS · CRM · Digital</small></div>
+<div class="f"><div><span class="fn">MORA-TCH-010_digital-system-v1.html</span><br><span class="fd">Website, social, email, booking, discovery quiz</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-TCH-011_website-v1.html</span><br><span class="fd">Website prototype — mobile-first</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-TCH-001_pos-setup.md</span><br><span class="fd">KiotViet / Shopify POS configuration</span></div><span class="s s-td">Cần tạo · P2</span></div>
+<div class="f"><div><span class="fn">MORA-TCH-002_crm-protocol.md</span><br><span class="fd">Data capture, triggers (D3 D7 D60), segmentation</span></div><span class="s s-td">Cần tạo · P4</span></div>
+<div class="f"><div><span class="fn">MORA-TCH-003_website-spec.md</span><br><span class="fd">Sitemap, UX principles, content per page</span></div><span class="s s-td">Cần tạo · P5</span></div>
+<div class="f"><div><span class="fn">MORA-TCH-004_google-maps-setup.md</span><br><span class="fd">Listing, photos, reviews protocol</span></div><span class="s s-td">Cần tạo · P4</span></div>
+</div>
+</div>
+
+<!-- ═══════════ OOS ═══════════ -->
+<div class="pane" id="oos">
+<h2>OOS_MASTER — Operating OS Methodology</h2>
+<span class="lbl">Product A · 8 thư mục · 62 files (25 .html + 36 .md)</span>
+
+<div class="dir">
+<div class="dir-h">00_METHODOLOGY <small>Core IP & Frameworks</small></div>
+<div class="f"><div><span class="fn">OOS-MTH-001_retail-model-design-system-v1.html</span><br><span class="fd">6 modules: Preparation → Sale & Commerce</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-002_brand-experience-framework-v1.html</span><br><span class="fd">Brand × Experience design framework</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-010_founders-codex-v1.html</span><br><span class="fd">7 invariants DNA — OOS version</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-011_infra-readiness-v1.html</span><br><span class="fd">Infrastructure readiness assessment v1</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-012_infra-readiness-v2.html</span><br><span class="fd">Infrastructure readiness assessment v2</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-013_talent-org-readiness-v2.html</span><br><span class="fd">Talent & org readiness assessment</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-014_business-model-revenue-journey.html</span><br><span class="fd">4 tiers × 4 stages × 3 compound loops</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-015_lo-trinh-xay-dung-v1.html</span><br><span class="fd">Lộ trình: Nhận việc → Chuẩn hoá → Mora 2.0 → OOS</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-MTH-003_methodology-overview.md</span><br><span class="fd">1-page summary cho pitch / client onboarding</span></div><span class="s s-td">Cần tạo</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">01_TOOLS <small>Execution Tools & Calculators</small></div>
+<div class="f"><div><span class="fn">OOS-TLS-001_execution-tools-v1.html</span><br><span class="fd">Vendor qualification, scorecard, checklist</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-TLS-002_measurement-system-v1.html</span><br><span class="fd">KPI framework, dashboard design</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-TLS-003_creative-production-playbook-v1.html</span><br><span class="fd">Content production methodology</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-TLS-004_scale-playbook-v1.html</span><br><span class="fd">Scale readiness, replication protocol</span></div><span class="s s-ok">Hoàn thiện</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">02_CASE_STUDIES <small>Evidence & Proof</small></div>
+<div class="f"><div><span class="fn">OOS-CSE-001_morra-case-study-v1.html</span><br><span class="fd">Morra retail model — bài học hệ thống</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-CSE-002_crv-case-study.md</span><br><span class="fd">Case study dự án — 14 documents, 7 phases</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-CSE-003_case-study-template.md</span><br><span class="fd">Reusable template cho future clients</span></div><span class="s s-td">Cần tạo</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">03_COMMERCIAL <small>Sales & Pricing</small></div>
+<div class="f"><div><span class="fn">OOS-COM-010_business-model-public.html</span><br><span class="fd">Mô hình kinh doanh — public version</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-COM-011_service-capability-v1.html</span><br><span class="fd">Service capability v1</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-COM-012_service-capability-oxford.html</span><br><span class="fd">Service capability — Oxford framework</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-COM-013_service-site-full-v1.html</span><br><span class="fd">Service site full v1</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-COM-014_service-packages-client-language.html</span><br><span class="fd">Service packages — ngôn ngữ khách hàng</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-COM-015_service-site-full-v2.html</span><br><span class="fd">Service site full v2</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-COM-016_service-capability-v2.html</span><br><span class="fd">Service capability v2</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-COM-001_engagement-model.md</span><br><span class="fd">3 tiers + pricing card</span></div><span class="s s-pt">Một phần</span></div>
+<div class="f"><div><span class="fn">OOS-COM-002_proposal-template.md</span><br><span class="fd">8-section proposal structure</span></div><span class="s s-pt">Một phần</span></div>
+<div class="f"><div><span class="fn">OOS-COM-003_pricing-card.md</span><br><span class="fd">Per-phase pricing, ROI model</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-COM-004_client-onboarding.md</span><br><span class="fd">Week 1–2 discovery protocol</span></div><span class="s s-td">Cần tạo</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">04_INVESTOR <small>Fundraising Materials</small></div>
+<div class="f"><div><span class="fn">OOS-INV-002_pitch-deck.md</span><br><span class="fd">10-slide investor deck</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-INV-003_financial-model.md</span><br><span class="fd">Revenue projection, unit economics</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-INV-004_data-room-index.md</span><br><span class="fd">Document list cho due diligence</span></div><span class="s s-td">Cần tạo</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">05_SUPPLY_CHAIN <small>Chuẩn hoá chuỗi cung ứng · MỚI</small></div>
+<div class="sub-h">content_production/</div>
+<div class="f"><div><span class="fn">OOS-SCH-001_content-vendor-scorecard.md</span><br><span class="fd">Đánh giá production house, photographer, videographer</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-002_content-brief-template.md</span><br><span class="fd">Brief mẫu chuẩn cho mọi dự án content</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-003_content-rate-benchmark.md</span><br><span class="fd">Benchmark giá theo loại công việc</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="sub-h">fitout/</div>
+<div class="f"><div><span class="fn">OOS-SCH-010_fitout-contractor-scorecard.md</span><br><span class="fd">Đánh giá nhà thầu thi công</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-011_fitout-material-benchmark.md</span><br><span class="fd">Benchmark vật liệu giá và thời gian</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-012_fitout-safety-sop.md</span><br><span class="fd">SOP an toàn thi công</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="sub-h">packaging/</div>
+<div class="f"><div><span class="fn">OOS-SCH-020_packaging-vendor-scorecard.md</span><br><span class="fd">Đánh giá nhà cung cấp bao bì</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-021_packaging-spec-template.md</span><br><span class="fd">Spec mẫu: kích thước, vật liệu, finish</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-022_moq-lead-time-benchmark.md</span><br><span class="fd">Benchmark MOQ và thời gian giao hàng</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="sub-h">events/</div>
+<div class="f"><div><span class="fn">OOS-SCH-030_events-vendor-scorecard.md</span><br><span class="fd">Đánh giá nhà thầu sự kiện</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-031_events-sop-template.md</span><br><span class="fd">SOP vận hành sự kiện chuẩn</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-032_pr-influencer-scorecard.md</span><br><span class="fd">Đánh giá PR contact và influencer</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="sub-h">_general/ <small style="font-weight:400">Cross-cutting · Toàn bộ ngành</small></div>
+<div class="f"><div><span class="fn">OOS-SCH-040_master-vendor-registry.md</span><br><span class="fd">Cơ sở dữ liệu trung tâm toàn bộ nhà cung cấp</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-041_vendor-qualification-template.md</span><br><span class="fd">Mẫu đánh giá tổng quát — 10 tiêu chí, Tier A/B/C/Reject</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-042_vendor-onboarding-protocol.md</span><br><span class="fd">Quy trình đưa nhà cung cấp mới vào hệ thống</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-043_contract-template-general.md</span><br><span class="fd">Mẫu hợp đồng: scope, payment, IP, liability, termination</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-044_quality-audit-template.md</span><br><span class="fd">Mẫu kiểm tra chất lượng đầu ra per deliverable</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-045_risk-assessment-template.md</span><br><span class="fd">Đánh giá rủi ro: single source, capacity, financial, quality</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-046_payment-terms-sop.md</span><br><span class="fd">Quy trình thanh toán: milestone, net terms, advance, escrow</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-047_compliance-certification-tracker.md</span><br><span class="fd">Theo dõi giấy phép, chứng nhận, hạn hiệu lực</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-048_vendor-performance-review.md</span><br><span class="fd">Đánh giá định kỳ: quarterly scorecard, escalation, replacement</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="sub-h">_tracking/</div>
+<div class="f"><div><span class="fn">OOS-SCH-100_gate-evaluation-tracker.md</span><br><span class="fd">Theo dõi 4 điều kiện A–D chuyển giai đoạn</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-SCH-101_quarterly-assessment-template.md</span><br><span class="fd">Mẫu báo cáo đánh giá hàng quý</span></div><span class="s s-td">Cần tạo</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">06_INTERNAL <small>Team Ops</small></div>
+<div class="f"><div><span class="fn">OOS-INT-001_team-handbook.md</span><br><span class="fd">Working norms, tools, communication</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-INT-002_delivery-sop.md</span><br><span class="fd">Client engagement step-by-step</span></div><span class="s s-td">Cần tạo</span></div>
+<div class="f"><div><span class="fn">OOS-INT-003_qa-checklist.md</span><br><span class="fd">Quality gate per deliverable type</span></div><span class="s s-td">Cần tạo</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">07_WEBSITE <small>OOS Website Build</small></div>
+<div class="f"><div><span class="fn">OOS-WEB-001_codex-blueprint-v1.html</span><br><span class="fd">Codex blueprint v1</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-WEB-002_codex-blueprint-v2.html</span><br><span class="fd">Codex blueprint v2</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-WEB-003_phase-b-fractal-map.html</span><br><span class="fd">Phase B — fractal map</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-WEB-004_phase-c-content-draft.html</span><br><span class="fd">Phase C — content draft</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">OOS-WEB-005_phase-d-calibration.html</span><br><span class="fd">Phase D — calibration</span></div><span class="s s-ok">Hoàn thiện</span></div>
+</div>
+</div>
+
+<!-- ═══════════ GOVERNANCE ═══════════ -->
+<div class="pane" id="gov">
+<h2>Governance & Cross-cutting</h2>
+<span class="lbl">Root-level · _GOVERNANCE/ · README</span>
+
+<div class="note">
+<h4>Nguyên tắc</h4>
+File ở root và _GOVERNANCE/ là governance documents — chi phối nhiều thư mục. Không duplicate — cross-reference thay vì copy. File cũ archive vào _archive/ trong cùng category.
+</div>
+
+<div class="dir">
+<div class="dir-h">Root</div>
+<div class="f"><div><span class="fn">_DIRECTORY-MAP.html</span><br><span class="fd">Bản đồ toàn bộ hệ thống — file này</span></div><span class="s s-ok">v2.0</span></div>
+<div class="f"><div><span class="fn">README.md</span><br><span class="fd">Hướng dẫn đọc thư mục</span></div><span class="s s-ok">v2.0</span></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">_GOVERNANCE/ <small>Cross-cutting & Gate documents</small></div>
+<div class="f"><div><span class="fn">MORA-BRIEF-001_creative-brief-v2.html</span><br><span class="fd">Governance Phase 1 design — packaging, store, digital</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-GATE-001_design-direction-lock-v1.html</span><br><span class="fd">Gate 1 approval — design direction locked</span></div><span class="s s-ok">Hoàn thiện</span></div>
+<div class="f"><div><span class="fn">MORA-SPEC-001_technical-specification-v1.html</span><br><span class="fd">Gate 2 prep — vendor briefing toàn bộ streams</span></div><span class="s s-ok">Hoàn thiện</span></div>
+</div>
+</div>
+
+<!-- ═══════════ PRIORITY ═══════════ -->
+<div class="pane" id="pri">
+<h2>Build Priority</h2>
+<span class="lbl">Mora: P0→P5 · OOS: Now / Next / Later</span>
+
+<div class="dir">
+<div class="dir-h">Mora — Thứ tự chuẩn bị</div>
+<div class="pri"><div><div class="pri-b" style="background:var(--teal)">P0</div></div><p><strong>Ngay bây giờ:</strong> Codex consolidation (COD-001/002/003) · Legal (đăng ký, trademark, partner, operating agreement) · Cap Table (FIN-005)</p></div>
+<div class="pri"><div><div class="pri-b" style="background:var(--teal-d)">P1</div></div><p><strong>Trước khi ký lease:</strong> Finance (startup cost, P&L, cashflow, break-even, unit economics) · Product catalogue · Competitive matrix · Growth roadmap</p></div>
+<div class="pri"><div><div class="pri-b" style="background:var(--amber)">P2</div></div><p><strong>Trước khi build:</strong> Space (floorplan, fitout, equipment, sensory) · Supply chain (vendor list, qualification, inventory, packaging) · QC · POS · Scent library</p></div>
+<div class="pri"><div><div class="pri-b" style="background:var(--amber-d)">P3</div></div><p><strong>Trước khi tuyển:</strong> HR (org chart, JDs, training, handbook, cert, review) · Operations 8 SOPs + 3 checklists</p></div>
+<div class="pri"><div><div class="pri-b" style="background:var(--w600)">P4</div></div><p><strong>Trước opening:</strong> Marketing (content strategy, photo/video, launch plan) · Measurement (dashboard, KPIs) · CRM · Google Maps · Cosmetics license</p></div>
+<div class="pri"><div><div class="pri-b" style="background:var(--g500)">P5</div></div><p><strong>Sau khi ổn định:</strong> Scale (gate, replication, location, franchise) · Content calendar · PR · Influencer · NPS · Review cadence · Website spec</p></div>
+</div>
+
+<div class="dir">
+<div class="dir-h">OOS — Thứ tự chuẩn bị</div>
+<div class="pri"><div><div class="pri-b" style="background:var(--teal)">Now</div></div><p><strong>Đang làm:</strong> Lộ trình xây dựng (MTH-015) · Supply chain framework (SCH series 14 files)</p></div>
+<div class="pri"><div><div class="pri-b" style="background:var(--amber)">Next</div></div><p><strong>Tiếp theo:</strong> Methodology overview 1-page · Case study · Proposal template · Engagement model · Pricing card · Client onboarding</p></div>
+<div class="pri"><div><div class="pri-b" style="background:var(--g500)">Later</div></div><p><strong>Sau:</strong> Investor package (pitch deck, financial model, data room) · Team handbook · Delivery SOP · QA checklist</p></div>
+</div>
+</div>
+
+<!-- ═══════════ NAMING ═══════════ -->
+<div class="pane" id="naming">
+<h2>Quy ước đặt tên</h2>
+<span class="lbl">Naming convention · Version control · Archive</span>
+
+<div class="note">
+<h4>Format</h4>
+<strong style="color:var(--teal-d)">[PRODUCT]-[CATEGORY]-[NUMBER]_[descriptive-name]-v[version].[ext]</strong><br>
+Ví dụ: MORA-BRD-001_brand-guidelines-v2.html<br>
+Đọc: Mora → Brand → File 001 → Brand Guidelines → Version 2 → HTML
+</div>
+
+<div class="dir">
+<div class="dir-h">Quy tắc bổ sung</div>
+<div class="f"><div><span class="fd"><strong>Version:</strong> v1, v2... cho major. v1.1 cho minor.</span></div></div>
+<div class="f"><div><span class="fd"><strong>Thư mục con:</strong> lowercase, gạch ngang (sops/, checklists/, contracts/)</span></div></div>
+<div class="f"><div><span class="fd"><strong>Không duplicate:</strong> Mỗi file 1 vị trí. Cross-reference thay vì copy.</span></div></div>
+<div class="f"><div><span class="fd"><strong>Archive:</strong> File cũ vào _archive/ trong cùng category — không xoá.</span></div></div>
+<div class="f"><div><span class="fd"><strong>Numbering:</strong> 001–009 cho core files. 010+ cho files thêm sau.</span></div></div>
+</div>
+</div>
+
+<div class="foot">Operating OS × Mora · Master Directory Map · v2.0 · Tháng 4/2026</div>
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');window.scrollTo({top:0,behavior:'smooth'})})});
+</script>
+</body>
+</html>
