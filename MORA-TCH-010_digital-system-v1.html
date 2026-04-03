@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mora · Digital System</title>
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/300.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/300-italic.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/400.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/400-italic.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/dm-mono@5/400.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/300.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5/400.css" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A1916;--ink55:rgba(26,25,22,.55);--ink20:rgba(26,25,22,.15);
+  --teal:#0F6E56;--teal-dk:#085041;--teal-lt:#E1F5EE;--teal-xlt:#F0FAF6;--teal-mid:#5DCAA5;
+  --amber:#854F0B;--amber-lt:#FAEEDA;--amber-mid:#EF9F27;
+  --cream:#FAF9F6;--linen:#E8DFD0;--linen-dk:#C4B49A;
+  --blue:#185FA5;--blue-lt:#E6F1FB;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fm:'DM Mono','Courier New',monospace;
+  --fb:'DM Sans',system-ui,sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--fm)}
+
+.doc-hd{padding:18px 44px;border-bottom:1px solid var(--linen);display:flex;align-items:center;justify-content:space-between;background:var(--cream);position:sticky;top:0;z-index:100}
+.hd-l{display:flex;align-items:center;gap:18px}
+.hd-wm{font-family:var(--fd);font-size:22px;font-weight:300;letter-spacing:.12em;color:var(--ink)}
+.hd-sep{width:1px;height:22px;background:var(--linen-dk)}
+.hd-title{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal)}
+.hd-r{display:flex;gap:8px;align-items:center}
+.doc-id{font-size:10px;letter-spacing:.1em;color:var(--ink55)}
+.ph-badge{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:var(--blue-lt);color:var(--blue)}
+
+.tab-nav{display:flex;background:var(--cream);border-bottom:1px solid var(--linen);padding:0 44px;position:sticky;top:57px;z-index:99;overflow-x:auto}
+.tab-btn{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink55);background:none;border:none;cursor:pointer;padding:13px 15px;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;font-family:var(--fm)}
+.tab-btn:hover{color:var(--teal);background:var(--teal-xlt)}
+.tab-btn.active{color:var(--teal-dk);border-bottom-color:var(--teal)}
+
+.panel{display:none;padding:36px 44px 80px;max-width:1100px;margin:0 auto}
+.panel.active{display:block}
+
+.sec-ey{font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--amber);margin-bottom:7px}
+.sec-ti{font-family:var(--fd);font-size:40px;font-weight:300;line-height:1.1;margin-bottom:8px}
+.sec-sub{font-size:13px;color:var(--teal-dk);margin-bottom:28px;max-width:620px;line-height:1.65;font-family:var(--fb);font-weight:300}
+hr.div{border:none;border-top:1px solid var(--linen);margin:36px 0}
+.sub-h{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--teal-lt)}
+
+.ctrl-row{display:flex;gap:8px;margin-bottom:24px;align-items:center;flex-wrap:wrap}
+.ctrl-lbl{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink55);margin-right:4px}
+.btn{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 13px;border-radius:2px;border:0.5px solid var(--linen-dk);background:none;cursor:pointer;color:var(--ink55);transition:all .15s;font-family:var(--fm)}
+.btn:hover{border-color:var(--teal);color:var(--teal)}
+.btn.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+
+/* System grid */
+.sys-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.sys-item{display:flex;gap:10px;padding:10px 12px;border:0.5px solid var(--linen);border-radius:3px;background:var(--cream)}
+.sys-item.hero{border-color:var(--teal);border-width:1px;background:var(--teal-lt)}
+.s-n{font-size:10px;color:var(--teal);min-width:26px;flex-shrink:0}
+.s-bd{flex:1}
+.s-nm{font-size:12px;color:var(--ink);margin-bottom:2px}
+.s-sub{font-size:11px;color:var(--ink55);line-height:1.4;font-family:var(--fb);font-weight:300}
+.stag{font-size:10px;padding:2px 7px;border-radius:2px;align-self:flex-start;flex-shrink:0}
+.t-hero{background:var(--teal);color:var(--cream)}
+.t-core{background:var(--linen);color:var(--ink)}
+
+/* Timeline */
+.timeline{display:flex;gap:0;margin:20px 0;overflow-x:auto}
+.tl-step{flex:1;min-width:130px;padding:14px 14px;border:0.5px solid var(--linen);position:relative}
+.tl-step:not(:last-child){border-right:none}
+.tl-step.active-step{background:var(--teal-lt);border-color:var(--teal)}
+.tl-n{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);margin-bottom:5px}
+.tl-t{font-family:var(--fd);font-size:17px;font-weight:400;margin-bottom:4px;color:var(--ink)}
+.tl-s{font-size:11px;color:var(--ink55);line-height:1.5;font-family:var(--fb);font-weight:300}
+
+/* Phone frame */
+.device-wrap{display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap}
+.device-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink55);margin-bottom:10px}
+.phone{width:290px;background:var(--ink);border-radius:36px;padding:12px;box-shadow:0 0 0 1px rgba(26,25,22,.15)}
+.phone-screen{background:var(--cream);border-radius:26px;overflow:hidden;height:560px;overflow-y:auto}
+.phone-notch{width:60px;height:6px;background:var(--ink);border-radius:3px;margin:0 auto 10px}
+.phone-home{width:40px;height:4px;background:rgba(250,249,246,.3);border-radius:2px;margin:10px auto 0}
+
+/* Desktop frame */
+.desktop{background:var(--linen);border-radius:8px;overflow:hidden;width:580px}
+.desktop-bar{height:32px;background:var(--linen);display:flex;align-items:center;padding:0 12px;gap:6px;border-bottom:1px solid var(--linen-dk)}
+.db-dot{width:8px;height:8px;border-radius:50%;background:var(--linen-dk)}
+.db-url{flex:1;margin:0 12px;background:var(--cream);height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.db-url span{font-size:10px;color:var(--ink55)}
+.desktop-screen{background:var(--cream);overflow:hidden}
+
+/* Website wireframe elements */
+.wf-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:0.5px solid var(--linen)}
+.wf-hero{padding:32px 20px;text-align:center;background:var(--ink)}
+.wf-section{padding:24px 20px;border-bottom:0.5px solid var(--linen)}
+.wf-row{display:flex;gap:12px}
+.wf-col{flex:1}
+.wf-img{background:var(--linen);border-radius:2px;display:flex;align-items:center;justify-content:center}
+.wf-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:5px;font-family:var(--fm)}
+.wf-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
+.wf-step-n{width:20px;height:20px;border-radius:50%;background:var(--teal);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;font-family:var(--fm)}
+
+/* Social grid */
+.social-frame{background:var(--ink);padding:8px;border-radius:6px;width:fit-content}
+.social-header{display:flex;align-items:center;gap:10px;padding:8px 4px;margin-bottom:6px}
+.social-avatar{width:28px;height:28px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center}
+.social-handle{font-size:11px;color:var(--cream);font-family:var(--fm)}
+.social-grid{display:grid;grid-template-columns:repeat(3,110px);gap:2px}
+.social-cell{width:110px;height:110px;display:flex;flex-direction:column;justify-content:flex-end;padding:7px;position:relative;overflow:hidden}
+.social-type{font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-family:var(--fm);padding:2px 5px;border-radius:1px;display:inline-block;margin-bottom:3px}
+.social-caption{font-size:10px;color:var(--ink);line-height:1.3;font-family:var(--fb);font-weight:400}
+.type-process{background:var(--teal-lt)}.type-process .social-type{background:var(--teal);color:var(--cream)}
+.type-edu{background:var(--amber-lt)}.type-edu .social-type{background:var(--amber);color:var(--cream)}
+.type-people{background:var(--linen)}.type-people .social-type{background:var(--linen-dk);color:var(--ink)}
+.type-product{background:var(--cream);border:0.5px solid var(--linen)}.type-product .social-type{background:var(--ink);color:var(--cream)}
+
+/* Caption framework */
+.caption-ex{background:var(--ink);border-radius:6px;padding:16px 18px;margin-top:14px;max-width:380px}
+.cap-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:8px;font-family:var(--fm)}
+.cap-text{font-size:13px;color:var(--cream);line-height:1.7;font-family:var(--fb);font-weight:300}
+.cap-hashtag{font-size:11px;color:rgba(93,202,165,.7);margin-top:8px;font-family:var(--fm)}
+
+/* CSS block */
+.code-block{background:var(--ink);color:var(--cream);padding:20px 22px;border-radius:4px;font-family:var(--fm);font-size:12px;line-height:1.9;overflow-x:auto;margin:14px 0;white-space:pre}
+.code-block .c-teal{color:#5DCAA5}.code-block .c-amber{color:#EF9F27}.code-block .c-dim{color:rgba(250,249,246,.4)}
+
+/* Type scale */
+.type-scale{display:flex;flex-direction:column;gap:16px;padding:20px;background:var(--cream);border:0.5px solid var(--linen);border-radius:4px;margin:14px 0}
+.ts-row{display:flex;align-items:flex-start;gap:24px;padding:16px 0}
+.ts-spec{font-family:var(--fm);font-size:11px;color:var(--ink55);min-width:180px;flex-shrink:0;padding-top:4px;line-height:1.6}
+
+/* Email mockups */
+.email-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.email-tab{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;border:0.5px solid var(--linen-dk);background:none;cursor:pointer;color:var(--ink55);font-family:var(--fm);transition:all .15s}
+.email-tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.email-client{background:#F0EDE8;padding:20px;border-radius:8px;max-width:480px}
+.email-window{background:white;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.email-subject-bar{background:#F8F6F3;padding:10px 16px;border-bottom:1px solid #E8E4DF}
+.email-subj{font-size:12px;color:var(--ink);margin-bottom:2px;font-family:var(--fb);font-weight:400}
+.email-prev{font-size:11px;color:var(--ink55);font-family:var(--fb);font-weight:300}
+.email-body{padding:0}
+.em-hd{background:var(--ink);padding:18px 24px;text-align:center}
+.em-hd-wm{font-family:var(--fd);font-size:20px;font-weight:300;letter-spacing:.18em;color:var(--cream)}
+.em-hd-rule{width:40px;height:0.5px;background:rgba(250,249,246,.4);margin:8px auto 0}
+.em-content{padding:24px 24px 20px}
+.em-title{font-family:var(--fd);font-size:22px;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:12px}
+.em-text{font-family:var(--fb);font-weight:300;font-size:13px;color:var(--ink55);line-height:1.75;margin-bottom:16px}
+.em-cta{display:inline-block;background:var(--teal);color:var(--cream);padding:10px 22px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;margin-bottom:16px}
+.em-detail{font-family:var(--fm);font-size:11px;color:var(--teal);margin-bottom:6px}
+.em-detail-val{font-family:var(--fb);font-weight:300;font-size:12px;color:var(--ink55);margin-bottom:12px}
+.em-footer{background:#F8F6F3;padding:14px 24px;border-top:1px solid #E8E4DF;text-align:center}
+.em-footer-text{font-family:var(--fm);font-size:10px;color:var(--ink55);line-height:1.6}
+
+/* Quiz */
+.quiz-wrap{max-width:480px}
+.quiz-progress{display:flex;gap:4px;margin-bottom:20px}
+.qp-dot{height:3px;flex:1;background:var(--linen);border-radius:2px;transition:background .3s}
+.qp-dot.done{background:var(--teal)}
+.qp-dot.cur{background:var(--teal-mid)}
+.quiz-q-n{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;font-family:var(--fm)}
+.quiz-q-text{font-family:var(--fd);font-size:26px;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:20px;line-height:1.25}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.quiz-opt{padding:14px 14px;border:0.5px solid var(--linen);border-radius:4px;cursor:pointer;font-size:13px;color:var(--ink);font-family:var(--fb);font-weight:300;transition:all .15s;text-align:left;background:var(--cream)}
+.quiz-opt:hover{border-color:var(--teal);background:var(--teal-xlt)}
+.quiz-opt.selected{border-color:var(--teal);border-width:1px;background:var(--teal-lt);color:var(--teal-dk)}
+.quiz-nav{display:flex;gap:10px;align-items:center}
+.quiz-result{display:none;padding:24px;border:1px solid var(--teal);border-radius:4px;background:var(--teal-lt)}
+.qr-tag{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;font-family:var(--fm)}
+.qr-name{font-family:var(--fd);font-size:32px;font-weight:400;font-style:italic;color:var(--teal-dk);margin-bottom:8px}
+.qr-desc{font-family:var(--fb);font-weight:300;font-size:13px;color:var(--teal-dk);line-height:1.7;margin-bottom:16px}
+.qr-notes{font-family:var(--fm);font-size:11px;color:var(--teal);letter-spacing:.06em}
+.qr-cta{margin-top:14px}
+.quiz-screen{display:block}
+</style>
+</head>
+<body>
+
+<header class="doc-hd">
+  <div class="hd-l">
+    <span class="hd-wm">Mora</span>
+    <span class="hd-sep"></span>
+    <span class="hd-title">Digital System</span>
+  </div>
+  <div class="hd-r">
+    <span class="doc-id">MORA-DIG-001 · v1.0</span>
+    <span class="ph-badge">Stream C</span>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="s0">00 · System</button>
+  <button class="tab-btn" data-tab="s1">C01 · Website</button>
+  <button class="tab-btn" data-tab="s2">C02 · Social</button>
+  <button class="tab-btn" data-tab="s3">C03 · Guidelines</button>
+  <button class="tab-btn" data-tab="s4">C04 · Email</button>
+  <button class="tab-btn" data-tab="s5">C05 · Discovery Quiz</button>
+</nav>
+
+<main>
+
+<!-- ══════ S0 · SYSTEM ══════ -->
+<div class="panel active" id="s0">
+  <div class="sec-ey">00 · System overview</div>
+  <h2 class="sec-ti">Digital System</h2>
+  <p class="sec-sub">Online và physical là hai ngôn ngữ nói cùng một câu chuyện. Người thấy Mora trên social trước khi đến — và khi đến, mọi thứ phải match. Mobile-first: C-level executives truy cập Mora từ mobile là chính.</p>
+
+  <div class="sys-grid">
+    <div class="sys-item hero"><span class="s-n">C01</span><div class="s-bd"><div class="s-nm">Website — brand site</div><div class="s-sub">Structure · content · design · development · mobile-first</div></div><span class="stag t-hero">Hero</span></div>
+    <div class="sys-item hero"><span class="s-n">C02</span><div class="s-bd"><div class="s-nm">Social content system</div><div class="s-sub">Visual templates · caption framework · content calendar structure</div></div><span class="stag t-hero">Hero</span></div>
+    <div class="sys-item"><span class="s-n">C03</span><div class="s-bd"><div class="s-nm">Brand guidelines digital</div><div class="s-sub">CSS variables · component library · do's and don'ts</div></div><span class="stag t-core">Core</span></div>
+    <div class="sys-item"><span class="s-n">C04</span><div class="s-bd"><div class="s-nm">Booking system</div><div class="s-sub">Online appointment booking với confirmation email trigger</div></div><span class="stag t-core">Core</span></div>
+    <div class="sys-item"><span class="s-n">C05</span><div class="s-bd"><div class="s-nm">Email templates</div><div class="s-sub">Welcome · post-visit · refill reminder · gifting — 4 triggers</div></div><span class="stag t-core">Core</span></div>
+    <div class="sys-item"><span class="s-n">C06</span><div class="s-bd"><div class="s-nm">DM response templates</div><div class="s-sub">Instagram DM · Zalo scripts cho các tình huống thường gặp</div></div><span class="stag t-core">Core</span></div>
+    <div class="sys-item"><span class="s-n">C07</span><div class="s-bd"><div class="s-nm">Discovery quiz / tool</div><div class="s-sub">Digital seed experience cho người chưa đến cửa hàng</div></div><span class="stag t-core">Core</span></div>
+    <div class="sys-item"><span class="s-n">C08</span><div class="s-bd"><div class="s-nm">Brand digital assets</div><div class="s-sub">Logo files · SVG · PNG · social profile templates · favicon</div></div><span class="stag t-core">Core</span></div>
+  </div>
+
+  <hr class="div">
+  <h3 class="sub-h">Online trước store — Mora playbook</h3>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-n">T − 8 tuần</div>
+      <div class="tl-t">Domain + Hosting</div>
+      <div class="tl-s">mora.vn · SSL · Setup server</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-n">T − 6 tuần</div>
+      <div class="tl-t">Social profiles</div>
+      <div class="tl-s">Instagram · Facebook · Profile hoàn chỉnh</div>
+    </div>
+    <div class="tl-step active-step">
+      <div class="tl-n">T − 4 tuần</div>
+      <div class="tl-t">Online live</div>
+      <div class="tl-s">Website · 12 posts đầu · Discovery quiz · Booking open</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-n">T − 2 tuần</div>
+      <div class="tl-t">Soft launch</div>
+      <div class="tl-s">Invite-only · Gather first UGC · Refine</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-n">T = 0</div>
+      <div class="tl-t">Store opens</div>
+      <div class="tl-s">Online đã có đám đông đang chờ</div>
+    </div>
+  </div>
+  <div style="background:var(--teal-lt);border-left:3px solid var(--teal);padding:10px 14px;border-radius:0 3px 3px 0;font-size:11px;color:var(--teal-dk);font-family:var(--fb);font-weight:300;margin-top:4px">Mora 1.0 proof: online trước store 3 tháng, đạt 600M/tháng trước khi có store vật lý — với founder làm toàn bộ content.</div>
+</div>
+
+
+<!-- ══════ S1 · WEBSITE ══════ -->
+<div class="panel" id="s1">
+  <div class="sec-ey">C01 · Website</div>
+  <h2 class="sec-ti">Website</h2>
+  <p class="sec-sub">Mobile-first. 10 giây đầu trang chủ phải trả lời: "Đây là gì?" Mọi CTA visible và tappable không cần zoom. LCP &lt; 2.5s. Booking flow tối thiểu 3 taps.</p>
+
+  <div class="ctrl-row">
+    <span class="ctrl-lbl">View</span>
+    <button class="btn on" id="s1-mobile" onclick="setDevice('mobile')">Mobile</button>
+    <button class="btn" id="s1-desktop" onclick="setDevice('desktop')">Desktop</button>
+  </div>
+
+  <div class="device-wrap">
+
+    <!-- Mobile wireframe -->
+    <div id="view-mobile">
+      <div class="device-label">Homepage · iPhone · 390px</div>
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+
+          <!-- Mobile Nav -->
+          <div class="wf-nav" style="padding:12px 16px">
+            <span style="font-family:var(--fd);font-size:18px;font-weight:300;letter-spacing:.15em;color:var(--ink)">Mora</span>
+            <div style="display:flex;flex-direction:column;gap:4px;cursor:pointer">
+              <div style="width:18px;height:1px;background:var(--ink)"></div>
+              <div style="width:14px;height:1px;background:var(--ink)"></div>
+              <div style="width:18px;height:1px;background:var(--ink)"></div>
+            </div>
+          </div>
+
+          <!-- Hero -->
+          <div style="background:var(--ink);padding:28px 20px 24px;text-align:center">
+            <div style="font-family:var(--fm);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:10px">Bespoke fragrance · Saigon</div>
+            <div style="font-family:var(--fd);font-size:34px;font-weight:300;font-style:italic;color:var(--cream);line-height:1.1;margin-bottom:8px">Chai này được tạo ra cho bạn.</div>
+            <div style="font-family:var(--fb);font-weight:300;font-size:13px;color:rgba(250,249,246,.6);margin-bottom:20px;line-height:1.6">Nước hoa bespoke pha chế tại chỗ. Nguyên liệu IFRA-certified. Mang tên bạn.</div>
+            <button style="background:var(--teal);color:var(--cream);border:none;padding:12px 24px;font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;width:100%">Đặt lịch trải nghiệm →</button>
+          </div>
+
+          <!-- How it works -->
+          <div class="wf-section">
+            <div class="wf-tag">Cách hoạt động</div>
+            <div class="wf-step">
+              <span class="wf-step-n">1</span>
+              <div>
+                <div style="font-family:var(--fb);font-size:13px;font-weight:400;margin-bottom:2px;color:var(--ink)">Đặt lịch online</div>
+                <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">Chọn thời gian, điền tên</div>
+              </div>
+            </div>
+            <div class="wf-step">
+              <span class="wf-step-n">2</span>
+              <div>
+                <div style="font-family:var(--fb);font-size:13px;font-weight:400;margin-bottom:2px;color:var(--ink)">Đến trải nghiệm</div>
+                <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">30–40 phút, pha chế tại quầy</div>
+              </div>
+            </div>
+            <div class="wf-step" style="margin-bottom:0">
+              <span class="wf-step-n">3</span>
+              <div>
+                <div style="font-family:var(--fb);font-size:13px;font-weight:400;margin-bottom:2px;color:var(--ink)">Mang về chai của bạn</div>
+                <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">Mang tên bạn. Không ai khác có.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fragrance preview -->
+          <div class="wf-section" style="background:var(--linen)">
+            <div class="wf-tag">1st Collection</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--cream);padding:12px 14px;border-radius:2px;display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-family:var(--fd);font-size:17px;font-style:italic;color:var(--ink)">Cedar Musk</div>
+                  <div style="font-family:var(--fm);font-size:10px;color:var(--teal)">Gỗ tươi mát · No. 01</div>
+                </div>
+                <div style="font-family:var(--fm);font-size:11px;color:var(--ink55)">50ml →</div>
+              </div>
+              <div style="background:var(--cream);padding:12px 14px;border-radius:2px;display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-family:var(--fd);font-size:17px;font-style:italic;color:var(--ink)">Iris Bloom</div>
+                  <div style="font-family:var(--fm);font-size:10px;color:var(--teal)">Hoa cỏ · No. 02</div>
+                </div>
+                <div style="font-family:var(--fm);font-size:11px;color:var(--ink55)">50ml →</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gift CTA -->
+          <div class="wf-section" style="text-align:center;padding:24px 20px">
+            <div style="font-family:var(--fd);font-size:24px;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:8px">Tặng trải nghiệm.</div>
+            <div style="font-family:var(--fb);font-weight:300;font-size:12px;color:var(--ink55);margin-bottom:14px">Gift set cho ngày đặc biệt — được cá nhân hoá.</div>
+            <button style="background:none;border:0.5px solid var(--ink);padding:10px 20px;font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;color:var(--ink);width:100%">Xem gift set →</button>
+          </div>
+
+          <!-- Footer -->
+          <div style="background:var(--ink);padding:20px;text-align:center">
+            <div style="font-family:var(--fd);font-size:15px;font-weight:300;letter-spacing:.15em;color:var(--cream);margin-bottom:6px">Mora</div>
+            <div style="font-family:var(--fm);font-size:10px;color:rgba(250,249,246,.5);margin-bottom:4px">mora.vn · hello@mora.vn</div>
+            <div style="font-family:var(--fm);font-size:10px;color:rgba(250,249,246,.4)">Created in Saigon, Vietnam</div>
+          </div>
+        </div>
+        <div class="phone-home"></div>
+      </div>
+    </div>
+
+    <!-- Desktop wireframe -->
+    <div id="view-desktop" style="display:none">
+      <div class="device-label">Homepage · Desktop · 1280px</div>
+      <div class="desktop">
+        <div class="desktop-bar">
+          <div class="db-dot"></div><div class="db-dot"></div><div class="db-dot"></div>
+          <div class="db-url"><span>mora.vn</span></div>
+        </div>
+        <div class="desktop-screen">
+          <!-- Desktop Nav -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:0.5px solid var(--linen)">
+            <span style="font-family:var(--fd);font-size:20px;font-weight:300;letter-spacing:.15em">Mora</span>
+            <div style="display:flex;gap:20px;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink55)">
+              <span>Trải nghiệm</span><span>Nguyên liệu</span><span>Gifting</span><span>Về chúng tôi</span>
+            </div>
+            <button style="background:var(--teal);color:var(--cream);border:none;padding:8px 18px;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px">Đặt lịch →</button>
+          </div>
+          <!-- Hero 2-col -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--ink)">
+            <div style="padding:48px 40px;display:flex;flex-direction:column;justify-content:center">
+              <div style="font-family:var(--fm);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--teal-mid);margin-bottom:12px">Bespoke fragrance · Saigon</div>
+              <div style="font-family:var(--fd);font-size:40px;font-weight:300;font-style:italic;color:var(--cream);line-height:1.1;margin-bottom:12px">Chai này được tạo ra cho bạn.</div>
+              <div style="font-family:var(--fb);font-weight:300;font-size:13px;color:rgba(250,249,246,.6);margin-bottom:24px;line-height:1.7;max-width:300px">Nước hoa bespoke pha chế tại chỗ. IFRA-certified. Mang tên bạn.</div>
+              <button style="background:var(--teal);color:var(--cream);border:none;padding:12px 22px;font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;width:fit-content">Đặt lịch trải nghiệm →</button>
+            </div>
+            <div style="background:rgba(255,255,255,.04);min-height:200px;display:flex;align-items:center;justify-content:center">
+              <span style="font-family:var(--fm);font-size:10px;color:rgba(250,249,246,.3);letter-spacing:.1em;text-transform:uppercase">Photography · Process shot</span>
+            </div>
+          </div>
+          <!-- 3-col sections -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:0.5px solid var(--linen)">
+            <div style="padding:24px;border-right:0.5px solid var(--linen);text-align:center">
+              <div style="font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:7px">IFRA Certified</div>
+              <div style="font-family:var(--fd);font-size:15px;font-weight:300;color:var(--ink)">Nguyên liệu đạt chuẩn an toàn quốc tế</div>
+            </div>
+            <div style="padding:24px;border-right:0.5px solid var(--linen);text-align:center">
+              <div style="font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:7px">Bespoke</div>
+              <div style="font-family:var(--fd);font-size:15px;font-weight:300;color:var(--ink)">Chai không tồn tại trước khi bạn đến</div>
+            </div>
+            <div style="padding:24px;text-align:center">
+              <div style="font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:7px">Created in Saigon</div>
+              <div style="font-family:var(--fd);font-size:15px;font-weight:300;color:var(--ink)">Điều kiện và bối cảnh thực tế Việt Nam</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="div">
+  <h3 class="sub-h">Site structure — 7 pages</h3>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px">
+    <div style="border:0.5px solid var(--teal);border-radius:3px;padding:10px 12px;background:var(--teal-lt)"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px">Homepage</div><div style="font-size:11px;color:var(--teal-dk);font-family:var(--fb);font-weight:300">10 giây: "Đây là gì?" Booking CTA.</div></div>
+    <div style="border:0.5px solid var(--linen);border-radius:3px;padding:10px 12px"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px">Trải nghiệm</div><div style="font-size:11px;color:var(--ink55);font-family:var(--fb);font-weight:300">Convert tò mò → booking. BTS video.</div></div>
+    <div style="border:0.5px solid var(--linen);border-radius:3px;padding:10px 12px"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px">Nguyên liệu</div><div style="font-size:11px;color:var(--ink55);font-family:var(--fb);font-weight:300">IFRA explained. Credibility.</div></div>
+    <div style="border:0.5px solid var(--linen);border-radius:3px;padding:10px 12px"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px">Gifting</div><div style="font-size:11px;color:var(--ink55);font-family:var(--fb);font-weight:300">B2C + B2B landing.</div></div>
+    <div style="border:0.5px solid var(--linen);border-radius:3px;padding:10px 12px"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px">Đặt lịch</div><div style="font-size:11px;color:var(--ink55);font-family:var(--fb);font-weight:300">Minimal friction. Calendar.</div></div>
+    <div style="border:0.5px solid var(--linen);border-radius:3px;padding:10px 12px"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px">Về chúng tôi</div><div style="font-size:11px;color:var(--ink55);font-family:var(--fb);font-weight:300">Founder story. Honest về stage.</div></div>
+    <div style="border:0.5px solid var(--linen);border-radius:3px;padding:10px 12px"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px">Liên hệ</div><div style="font-size:11px;color:var(--ink55);font-family:var(--fb);font-weight:300">Địa chỉ chi tiết. Response time.</div></div>
+    <div style="border:0.5px solid var(--linen);border-radius:3px;padding:10px 12px;background:var(--amber-lt)"><div style="font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--amber);margin-bottom:4px">Discovery Quiz</div><div style="font-size:11px;color:var(--amber-dk);font-family:var(--fb);font-weight:300">Digital seed. Lead nurture.</div></div>
+  </div>
+</div>
+
+
+<!-- ══════ S2 · SOCIAL ══════ -->
+<div class="panel" id="s2">
+  <div class="sec-ey">C02 · Social content system</div>
+  <h2 class="sec-ti">Social</h2>
+  <p class="sec-sub">4 content types theo tỷ lệ cố định. Caption phải có ít nhất một chi tiết cụ thể — tên hương, nguồn gốc, lý do. "Nước hoa đẹp" không đủ.</p>
+
+  <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+
+    <div>
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink55);margin-bottom:10px">Instagram grid — content mix demo</div>
+      <div class="social-frame">
+        <div class="social-header">
+          <div class="social-avatar"><span style="font-family:var(--fd);font-size:12px;color:var(--cream);font-weight:300">M</span></div>
+          <div>
+            <div class="social-handle">mora.saigon</div>
+            <div style="font-size:10px;color:rgba(250,249,246,.5);font-family:var(--fm)">Bespoke fragrance · Saigon</div>
+          </div>
+        </div>
+        <div class="social-grid">
+          <div class="social-cell type-process"><span class="social-type">Process</span><div class="social-caption">Tay nhân viên cân từng gram Vetiver</div></div>
+          <div class="social-cell type-people"><span class="social-type">People</span><div class="social-caption">Khoảnh khắc nhận chai đầu tiên</div></div>
+          <div class="social-cell type-edu"><span class="social-type">Education</span><div class="social-caption">IFRA là gì và tại sao quan trọng</div></div>
+          <div class="social-cell type-product"><span class="social-type">Product</span><div class="social-caption">Cedar Musk — trong ánh sáng buổi chiều</div></div>
+          <div class="social-cell type-process"><span class="social-type">Process</span><div class="social-caption">6 ingredient jars luôn sẵn sàng</div></div>
+          <div class="social-cell type-edu"><span class="social-type">Education</span><div class="social-caption">Vetiver Haiti — mùi đất sau mưa</div></div>
+          <div class="social-cell type-people"><span class="social-type">People</span><div class="social-caption">Nhóm bạn — mỗi người một chai riêng</div></div>
+          <div class="social-cell type-process"><span class="social-type">Process</span><div class="social-caption">Scale digital — chính xác 0.01g</div></div>
+          <div class="social-cell type-product"><span class="social-type">Product</span><div class="social-caption">Gift set — hai chai, một câu chuyện</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="sub-h">Content mix</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:100px;height:8px;border-radius:4px;background:var(--teal)"></div>
+          <div style="font-family:var(--fm);font-size:11px;color:var(--ink)">Process / BTS <span style="color:var(--ink55)">40%</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:62px;height:8px;border-radius:4px;background:var(--amber)"></div>
+          <div style="font-family:var(--fm);font-size:11px;color:var(--ink)">Education <span style="color:var(--ink55)">25%</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:50px;height:8px;border-radius:4px;background:var(--linen-dk)"></div>
+          <div style="font-family:var(--fm);font-size:11px;color:var(--ink)">People / Moments <span style="color:var(--ink55)">20%</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:8px;border-radius:4px;background:var(--ink)"></div>
+          <div style="font-family:var(--fm);font-size:11px;color:var(--ink)">Product <span style="color:var(--ink55)">15%</span></div>
+        </div>
+      </div>
+
+      <h3 class="sub-h">Caption example</h3>
+      <div class="caption-ex">
+        <div class="cap-tag">Process · Vetiver Haiti</div>
+        <div class="cap-text">Vetiver từ Haiti — loại vetiver được coi là tốt nhất thế giới vì đất đỏ và quá trình chưng cất cổ truyền tạo ra mùi đất ẩm, khói, và gỗ đặc trưng.<br><br>Đây là base note của Cedar Musk No. 01 — thứ giữ mùi hương ở lại với bạn sau 6–8 giờ.</div>
+        <div class="cap-hashtag">#mora #bespokeFragrance #vetiver #saigon</div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="div">
+  <h3 class="sub-h">Caption rules</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="border:1px solid var(--teal);padding:14px 16px;border-radius:4px;background:var(--teal-xlt)">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:10px">Luôn luôn</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;font-family:var(--fb);font-weight:300;color:var(--teal-dk)">
+        <div>✓ Ít nhất 1 chi tiết cụ thể (tên, nguồn gốc, lý do)</div>
+        <div>✓ Tiếng Việt trước, Anh sau nếu bilingual</div>
+        <div>✓ Natural light photography tại đúng store space</div>
+        <div>✓ Show process — hands, tools, craft visible</div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--amber);padding:14px 16px;border-radius:4px">
+      <div style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px">Không bao giờ</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;font-family:var(--fb);font-weight:300;color:var(--ink55)">
+        <div>× Emoji spam trong caption</div>
+        <div>× Countdown timer / "Chỉ còn X suất"</div>
+        <div>× Studio trắng isolated product shot</div>
+        <div>× Caption chỉ có emoji, không có nội dung</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════ S3 · GUIDELINES ══════ -->
+<div class="panel" id="s3">
+  <div class="sec-ey">C03 · Brand guidelines digital</div>
+  <h2 class="sec-ti">Digital Guidelines</h2>
+  <p class="sec-sub">CSS variables, type scale, và component rules cho mọi digital touchpoint của Mora. Copy vào mọi project. Không được hardcode màu sắc hay font ngoài hệ thống này.</p>
+
+  <h3 class="sub-h">CSS variables — copy vào mọi project</h3>
+  <div class="code-block">
+<span class="c-dim">/* Mora Digital Design System */</span>
+:root {
+  <span class="c-dim">/* Colours */</span>
+  --mora-ink:          <span class="c-teal">#1A1916</span><span class="c-dim">; /* Primary text */</span>
+  --mora-teal:         <span class="c-teal">#0F6E56</span><span class="c-dim">; /* Primary brand */</span>
+  --mora-teal-dark:    <span class="c-teal">#085041</span><span class="c-dim">; /* Hover / pressed */</span>
+  --mora-teal-light:   <span class="c-teal">#E1F5EE</span><span class="c-dim">; /* Backgrounds */</span>
+  --mora-amber:        <span class="c-amber">#854F0B</span><span class="c-dim">; /* Accent / emphasis */</span>
+  --mora-amber-light:  <span class="c-amber">#FAEEDA</span><span class="c-dim">; /* Amber backgrounds */</span>
+  --mora-cream:        <span class="c-teal">#FAF9F6</span><span class="c-dim">; /* Page background */</span>
+  --mora-linen:        <span class="c-teal">#E8DFD0</span><span class="c-dim">; /* Borders / dividers */</span>
+  --mora-warm-600:     <span class="c-teal">#8C7A62</span><span class="c-dim">; /* Muted text */</span>
+  --mora-blue:         <span class="c-teal">#185FA5</span><span class="c-dim">; /* Digital links / UI only */</span>
+
+  <span class="c-dim">/* Fonts */</span>
+  --font-display:      <span class="c-amber">'Cormorant Garamond'</span>, Georgia, serif;
+  --font-body:         <span class="c-amber">'DM Sans'</span>, system-ui, sans-serif;
+  --font-mono:         <span class="c-amber">'DM Mono'</span>, monospace;
+}</div>
+
+  <h3 class="sub-h">Typography scale</h3>
+  <div class="type-scale">
+    <div class="ts-row">
+      <div class="ts-spec">Display · H1<br>Cormorant 300 · 52px</div>
+      <div style="font-family:var(--fd);font-size:44px;font-weight:300;line-height:1.05;color:var(--ink)">Cedar Musk</div>
+    </div>
+    <div style="height:1px;background:var(--linen)"></div>
+    <div class="ts-row">
+      <div class="ts-spec">Section · H2<br>Cormorant 300 · 36px</div>
+      <div style="font-family:var(--fd);font-size:36px;font-weight:300;color:var(--ink)">Trải nghiệm pha chế</div>
+    </div>
+    <div style="height:1px;background:var(--linen)"></div>
+    <div class="ts-row">
+      <div class="ts-spec">Label · H3<br>DM Mono 400 · 11px · uppercase</div>
+      <div style="font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)">1st Collection · No. 01</div>
+    </div>
+    <div style="height:1px;background:var(--linen)"></div>
+    <div class="ts-row">
+      <div class="ts-spec">Body · P<br>DM Sans 300 · 15px · 1.75</div>
+      <div style="font-family:var(--fb);font-size:15px;font-weight:300;line-height:1.75;color:var(--ink);max-width:400px">Chai nước hoa được pha chế tại chỗ, mang tên bạn, với nguyên liệu IFRA-certified — được tạo ra cho bạn trong 30–40 phút.</div>
+    </div>
+    <div style="height:1px;background:var(--linen)"></div>
+    <div class="ts-row">
+      <div class="ts-spec">Caption · Small<br>DM Mono 400 · 12px</div>
+      <div style="font-family:var(--fm);font-size:12px;color:var(--ink55)">Created in Saigon, Vietnam · 50ml · 1.6 fl.oz</div>
+    </div>
+  </div>
+
+  <h3 class="sub-h">Colour accessibility</h3>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:4px">
+    <div style="padding:14px;background:var(--teal);border-radius:3px;text-align:center"><div style="font-family:var(--fd);font-size:16px;color:var(--cream)">Mora</div><div style="font-family:var(--fm);font-size:9px;color:rgba(250,249,246,.7);margin-top:4px">Cream on Teal · 5.9:1</div></div>
+    <div style="padding:14px;background:var(--ink);border-radius:3px;text-align:center"><div style="font-family:var(--fd);font-size:16px;color:var(--cream)">Mora</div><div style="font-family:var(--fm);font-size:9px;color:rgba(250,249,246,.7);margin-top:4px">Cream on Ink · 16.7:1</div></div>
+    <div style="padding:14px;background:var(--cream);border:0.5px solid var(--linen);border-radius:3px;text-align:center"><div style="font-family:var(--fd);font-size:16px;color:var(--teal)">Mora</div><div style="font-family:var(--fm);font-size:9px;color:var(--ink55);margin-top:4px">Teal on Cream · 5.9:1</div></div>
+    <div style="padding:14px;background:var(--cream);border:0.5px solid var(--linen);border-radius:3px;text-align:center"><div style="font-family:var(--fd);font-size:16px;color:var(--amber)">Mora</div><div style="font-family:var(--fm);font-size:9px;color:var(--ink55);margin-top:4px">Amber on Cream · 6.4:1</div></div>
+    <div style="padding:14px;background:var(--cream);border:0.5px solid var(--linen);border-radius:3px;text-align:center"><div style="font-family:var(--fd);font-size:16px;color:var(--ink)">Mora</div><div style="font-family:var(--fm);font-size:9px;color:var(--ink55);margin-top:4px">Ink on Cream · 16.7:1</div></div>
+  </div>
+</div>
+
+
+<!-- ══════ S4 · EMAIL ══════ -->
+<div class="panel" id="s4">
+  <div class="sec-ey">C04 · Email templates</div>
+  <h2 class="sec-ti">Email</h2>
+  <p class="sec-sub">4 trigger emails. Không countdown, không urgency manipulation. Mỗi email feel như được viết cho một người cụ thể — không phải broadcast.</p>
+
+  <div class="email-tabs">
+    <button class="email-tab active" onclick="showEmail('welcome')">Welcome</button>
+    <button class="email-tab" onclick="showEmail('postvisit')">Post-visit</button>
+    <button class="email-tab" onclick="showEmail('refill')">Refill reminder</button>
+    <button class="email-tab" onclick="showEmail('gifting')">Gifting</button>
+  </div>
+
+  <!-- Welcome email -->
+  <div class="email-client" id="em-welcome">
+    <div class="email-window">
+      <div class="email-subject-bar">
+        <div class="email-subj">Hẹn gặp bạn ở Mora — một vài điều bạn nên biết trước khi đến</div>
+        <div class="email-prev">Chúng tôi biết bạn sắp đến. Đây là những gì sẽ xảy ra...</div>
+      </div>
+      <div class="email-body">
+        <div class="em-hd"><div class="em-hd-wm">Mora</div><div class="em-hd-rule"></div></div>
+        <div class="em-content">
+          <div class="em-title">Hẹn gặp bạn, Thanh Hà.</div>
+          <div class="em-text">Bạn đã đặt lịch cho Thứ Ba, 08/04 lúc 15:00. Chúng tôi sẽ có mặt và sẵn sàng.<br><br>30–40 phút tới sẽ là thời gian của bạn. Không có gì phải vội, không có quyết định nào phải đưa ra ngay. Chỉ cần đến.</div>
+          <div class="em-detail">Địa chỉ</div>
+          <div class="em-detail-val">12 Nguyễn Văn Chiêm, Q.1, TP.HCM<br><span style="font-size:11px;color:var(--teal)">→ Vào hẻm nhỏ bên trái toà nhà, tầng trệt</span></div>
+          <div class="em-detail">Thời gian</div>
+          <div class="em-detail-val">Thứ Ba 08/04 · 15:00 · ~40 phút</div>
+          <a class="em-cta">Xem hướng dẫn đường vào →</a>
+          <div class="em-text" style="margin-top:8px">Nếu cần thay đổi lịch, reply email này hoặc nhắn Instagram @mora.saigon. Chúng tôi luôn ở đây.</div>
+        </div>
+        <div class="em-footer"><div class="em-footer-text">Mora · Saigon, Vietnam · mora.vn<br>Thứ 3 – Chủ Nhật · 10:00–19:00</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Post-visit email -->
+  <div class="email-client" id="em-postvisit" style="display:none">
+    <div class="email-window">
+      <div class="email-subject-bar">
+        <div class="email-subj">Chai của bạn đang trên đường về nhà</div>
+        <div class="email-prev">Cedar Musk No.01 — được pha chế 4 giờ trước. Một vài gợi ý để mùi hương kéo dài hơn.</div>
+      </div>
+      <div class="email-body">
+        <div class="em-hd"><div class="em-hd-wm">Mora</div><div class="em-hd-rule"></div></div>
+        <div class="em-content">
+          <div class="em-title">Cedar Musk của Thanh Hà.</div>
+          <div class="em-text">Chai nước hoa của bạn được pha chế 4 giờ trước. Ngay lúc này, các phân tử hương đang settle vào nhau — trong 24–48 giờ đầu mùi hương sẽ mở ra hoàn toàn.</div>
+          <div class="em-detail">Gợi ý mang mùi hương</div>
+          <div class="em-detail-val">Xịt lên cổ và cổ tay — không chà xát. Để mùi phát triển tự nhiên trên da bạn.</div>
+          <div class="em-detail">Bảo quản</div>
+          <div class="em-detail-val">Tránh ánh nắng và nhiệt độ cao. Tốt nhất để trong ngăn kéo hoặc kệ trong nhà.</div>
+          <div class="em-text" style="margin-top:16px">Nếu bạn muốn chia sẻ, tag @mora.saigon — chúng tôi rất muốn thấy chai của bạn trong cuộc sống hằng ngày.</div>
+        </div>
+        <div class="em-footer"><div class="em-footer-text">Mora · Saigon, Vietnam · mora.vn</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Refill email -->
+  <div class="email-client" id="em-refill" style="display:none">
+    <div class="email-window">
+      <div class="email-subject-bar">
+        <div class="email-subj">Cedar Musk của bạn có thể đang gần hết</div>
+        <div class="email-prev">3 tháng rồi — formula đã được lưu, không cần bắt đầu lại từ đầu.</div>
+      </div>
+      <div class="email-body">
+        <div class="em-hd"><div class="em-hd-wm">Mora</div><div class="em-hd-rule"></div></div>
+        <div class="em-content">
+          <div class="em-title">Đã 3 tháng.</div>
+          <div class="em-text">Chúng tôi đã lưu formula Cedar Musk No.01 của bạn — Vetiver Haiti, Cedarwood Atlas, Ambroxan theo tỷ lệ bạn đã chọn lần trước.<br><br>Khi bạn quay lại, chúng tôi sẽ bắt đầu từ đúng chỗ bạn đã dừng.</div>
+          <div class="em-detail">Formula đã lưu</div>
+          <div class="em-detail-val">Cedar Musk No.01 · 50ml<br>Tỷ lệ: Vetiver 30% · Cedarwood 45% · Ambroxan 25%</div>
+          <a class="em-cta">Đặt lịch refill →</a>
+        </div>
+        <div class="em-footer"><div class="em-footer-text">Mora · Saigon, Vietnam · mora.vn</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gifting email -->
+  <div class="email-client" id="em-gifting" style="display:none">
+    <div class="email-window">
+      <div class="email-subject-bar">
+        <div class="email-subj">Tặng một trải nghiệm thật — không chỉ một sản phẩm</div>
+        <div class="email-prev">Mỗi gift set tại Mora được cá nhân hoá cho người nhận. Đặt lịch trước 3 ngày.</div>
+      </div>
+      <div class="email-body">
+        <div class="em-hd"><div class="em-hd-wm">Mora</div><div class="em-hd-rule"></div></div>
+        <div class="em-content">
+          <div class="em-title">Một món quà không ai có trước khi bạn tặng.</div>
+          <div class="em-text">Chai nước hoa Mora không tồn tại trước khi người nhận đến. Được pha chế riêng, mang tên họ, trong 30–40 phút họ hoàn toàn được chăm chút.<br><br>Đây là trải nghiệm — không phải sản phẩm.</div>
+          <div class="em-detail">Gift options</div>
+          <div class="em-detail-val">Gift set: 50ml + 10ml · với hộp và ribbon<br>Trải nghiệm đặt lịch: bạn đặt, người nhận đến theo lịch</div>
+          <a class="em-cta">Xem gift options →</a>
+        </div>
+        <div class="em-footer"><div class="em-footer-text">Mora · Saigon, Vietnam · mora.vn<br>Không countdown. Không urgency giả.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════ S5 · QUIZ ══════ -->
+<div class="panel" id="s5">
+  <div class="sec-ey">C07 · Discovery Quiz</div>
+  <h2 class="sec-ti">Discovery Quiz</h2>
+  <p class="sec-sub">Digital seed experience — convert người chưa đến thành người muốn đến. 5 câu hỏi về lifestyle, không phải về kỹ thuật hương. Kết quả: nhóm hương phù hợp + CTA booking.</p>
+
+  <div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap">
+
+    <div class="quiz-wrap">
+      <div class="quiz-progress" id="qprogress">
+        <div class="qp-dot cur"></div>
+        <div class="qp-dot"></div>
+        <div class="qp-dot"></div>
+        <div class="qp-dot"></div>
+        <div class="qp-dot"></div>
+      </div>
+
+      <div class="quiz-screen" id="qscreen">
+        <div class="quiz-q-n" id="qnum">Câu 1 / 5</div>
+        <div class="quiz-q-text" id="qtext">Khi nào bạn muốn mang mùi hương này?</div>
+        <div class="quiz-opts" id="qopts"></div>
+        <div class="quiz-nav">
+          <button class="btn on" id="qnext" onclick="nextQ()" disabled>Tiếp theo →</button>
+          <span style="font-size:11px;color:var(--ink55);font-family:var(--fm)" id="qhint">Chọn một đáp án</span>
+        </div>
+      </div>
+
+      <div class="quiz-result" id="qresult">
+        <div class="qr-tag">Nhóm hương phù hợp với bạn</div>
+        <div class="qr-name" id="qr-name">Gỗ tươi mát</div>
+        <div class="qr-desc" id="qr-desc">Bạn hướng đến sự cân bằng — không quá ngọt, không quá nặng. Nhóm hương gỗ tươi mát (Woody Fresh) sẽ đồng hành tốt trong hầu hết các tình huống, từ buổi sáng làm việc đến buổi tối thư giãn.</div>
+        <div class="qr-notes" id="qr-notes">Gợi ý: Cedarwood · Vetiver · Ambroxan · Bergamot</div>
+        <div class="qr-cta">
+          <button class="btn on" style="margin-right:10px" onclick="resetQuiz()">← Làm lại</button>
+          <button class="btn on" style="background:var(--teal);border-color:var(--teal)">Đặt lịch trải nghiệm →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz flow overview -->
+    <div style="max-width:260px">
+      <h3 class="sub-h">5 câu hỏi — logic</h3>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="border:0.5px solid var(--linen);padding:10px 12px;border-radius:3px">
+          <div style="font-family:var(--fm);font-size:10px;color:var(--teal);margin-bottom:3px">Q1 · Occasion</div>
+          <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">Khi nào mang? → maps to sillage</div>
+        </div>
+        <div style="border:0.5px solid var(--linen);padding:10px 12px;border-radius:3px">
+          <div style="font-family:var(--fm);font-size:10px;color:var(--teal);margin-bottom:3px">Q2 · Environment</div>
+          <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">Thích không khí nào? → maps to fragrance family</div>
+        </div>
+        <div style="border:0.5px solid var(--linen);padding:10px 12px;border-radius:3px">
+          <div style="font-family:var(--fm);font-size:10px;color:var(--teal);margin-bottom:3px">Q3 · Personality</div>
+          <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">Từ mô tả bạn? → maps to character</div>
+        </div>
+        <div style="border:0.5px solid var(--linen);padding:10px 12px;border-radius:3px">
+          <div style="font-family:var(--fm);font-size:10px;color:var(--teal);margin-bottom:3px">Q4 · Intensity</div>
+          <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">Cường độ mùi? → maps to concentration</div>
+        </div>
+        <div style="border:0.5px solid var(--linen);padding:10px 12px;border-radius:3px">
+          <div style="font-family:var(--fm);font-size:10px;color:var(--teal);margin-bottom:3px">Q5 · Priority</div>
+          <div style="font-size:12px;color:var(--ink55);font-family:var(--fb);font-weight:300">Điều quan trọng nhất? → confirm direction</div>
+        </div>
+        <div style="background:var(--teal-lt);border-left:3px solid var(--teal);padding:10px 12px;border-radius:0 3px 3px 0;font-size:11px;color:var(--teal-dk);font-family:var(--fb);font-weight:300;margin-top:4px">Kết quả map ra 4 fragrance families: Woody Fresh · Floral · Citrus Fresh · Oriental Woody</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<script>
+// Tab switching
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.panel');
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabs.forEach(b => b.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+// S1 Device toggle
+function setDevice(v){
+  document.getElementById('s1-mobile').classList.toggle('on', v==='mobile');
+  document.getElementById('s1-desktop').classList.toggle('on', v==='desktop');
+  document.getElementById('view-mobile').style.display = v==='mobile' ? 'block' : 'none';
+  document.getElementById('view-desktop').style.display = v==='desktop' ? 'block' : 'none';
+}
+
+// S4 Email tabs
+function showEmail(id){
+  ['welcome','postvisit','refill','gifting'].forEach(t => {
+    const el = document.getElementById('em-'+t);
+    if(el) el.style.display = 'none';
+  });
+  document.getElementById('em-'+id).style.display = 'block';
+  document.querySelectorAll('.email-tab').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// S5 Quiz
+const questions = [
+  {q:'Khi nào bạn muốn mang mùi hương này?', opts:['Hằng ngày, đi làm','Dịp đặc biệt','Buổi tối, thư giãn','Bất kỳ lúc nào'], map:[0,2,3,1]},
+  {q:'Bạn thích không khí nào nhất?', opts:['Rừng sau cơn mưa','Café buổi sáng','Biển lúc hoàng hôn','Thư viện cũ'], map:[0,1,2,3]},
+  {q:'Nếu phải chọn một từ mô tả bạn?', opts:['Nhẹ nhàng','Mạnh mẽ','Tươi sáng','Trầm lắng'], map:[2,0,1,3]},
+  {q:'Bạn thích cường độ mùi hương?', opts:['Rất nhẹ, tinh tế','Vừa phải','Rõ nét, dễ nhận','Đậm, lưu dài'], map:[2,1,0,3]},
+  {q:'Điều gì quan trọng nhất với bạn?', opts:['Chất lượng nguyên liệu','Cá nhân hoá hoàn toàn','Câu chuyện đằng sau','Phù hợp với tính cách'], map:[0,1,3,2]},
+];
+const families = [
+  {n:'Gỗ tươi mát', d:'Bạn hướng đến sự cân bằng — không quá ngọt, không quá nặng. Nhóm hương gỗ tươi mát sẽ đồng hành trong hầu hết tình huống, từ buổi sáng đến buổi tối.', notes:'Cedarwood · Vetiver · Ambroxan · Bergamot'},
+  {n:'Hoa cỏ', d:'Bạn mang trong mình sự nhẹ nhàng và tinh tế. Nhóm hương hoa cỏ phản ánh điều đó — không quá thể hiện, nhưng luôn có mặt theo cách đáng nhớ.', notes:'Iris · Jasmine · Rose · Musc'},
+  {n:'Cam quýt tươi', d:'Bạn năng động và muốn sự mới mẻ. Nhóm cam quýt tươi cho bạn cảm giác sạch sẽ, tỉnh táo — như buổi sáng đầu tiên sau kỳ nghỉ.', notes:'Bergamot · Lemon · Neroli · Petitgrain'},
+  {n:'Gỗ phương đông', d:'Bạn tìm kiếm chiều sâu. Nhóm hương gỗ phương đông mang theo lịch sử và sự bí ẩn — những mùi hương được lưu lại lâu nhất trong ký ức người gặp bạn.', notes:'Oud · Sandalwood · Amber · Musk'},
+];
+let answers = [], current = 0;
+
+function renderQ(){
+  const q = questions[current];
+  document.getElementById('qnum').textContent = 'Câu '+(current+1)+' / 5';
+  document.getElementById('qtext').textContent = q.q;
+  const opts = document.getElementById('qopts');
+  opts.innerHTML = '';
+  q.opts.forEach((o,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = o;
+    btn.onclick = () => selectOpt(i, btn);
+    opts.appendChild(btn);
+  });
+  document.getElementById('qnext').disabled = true;
+  document.getElementById('qhint').textContent = 'Chọn một đáp án';
+  updateProgress();
+}
+
+function selectOpt(i, btn){
+  document.querySelectorAll('.quiz-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[current] = questions[current].map[i];
+  document.getElementById('qnext').disabled = false;
+  document.getElementById('qhint').textContent = '';
+}
+
+function nextQ(){
+  if(answers[current] === undefined) return;
+  if(current < 4){ current++; renderQ(); }
+  else { showResult(); }
+}
+
+function showResult(){
+  const sum = answers.reduce((a,b)=>a+b,0);
+  const idx = Math.round(sum / answers.length) % 4;
+  const f = families[idx];
+  document.getElementById('qr-name').textContent = f.n;
+  document.getElementById('qr-desc').textContent = f.d;
+  document.getElementById('qr-notes').textContent = 'Gợi ý: '+f.notes;
+  document.getElementById('qscreen').style.display = 'none';
+  document.getElementById('qresult').style.display = 'block';
+}
+
+function resetQuiz(){
+  answers = []; current = 0;
+  document.getElementById('qscreen').style.display = 'block';
+  document.getElementById('qresult').style.display = 'none';
+  renderQ();
+}
+
+function updateProgress(){
+  const dots = document.querySelectorAll('.qp-dot');
+  dots.forEach((d,i) => {
+    d.classList.remove('done','cur');
+    if(i < current) d.classList.add('done');
+    else if(i === current) d.classList.add('cur');
+  });
+}
+
+renderQ();
+</script>
+</body>
+</html>
