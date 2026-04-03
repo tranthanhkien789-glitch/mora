@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mora · 06 · Brand × Journey × Finance Flywheel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#FAF9F6;--ink:#1A1916;--ink-60:rgba(26,25,22,.6);--ink-30:rgba(26,25,22,.3);--ink-12:rgba(26,25,22,.12);--ink-06:rgba(26,25,22,.06);--teal:#0F6E56;--teal-light:#E1F5EE;--amber:#854F0B;--amber-light:#FAEEDA;--blue:#185FA5;--blue-light:#E6F1FB;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;max-width:860px;margin:0 auto;padding:64px 40px 100px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);margin-bottom:12px}
+h1{font-family:var(--serif);font-size:clamp(36px,5vw,60px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--teal)}
+.lead{font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.7;color:var(--ink);margin-bottom:32px;font-style:italic}
+hr{border:none;border-top:1px solid var(--ink-12);margin:48px 0}
+.statement{border-left:2px solid var(--teal);padding:20px 28px;margin:24px 0;background:var(--teal-light)}
+.statement p{font-family:var(--serif);font-size:17px;font-weight:300;line-height:1.75;color:var(--ink)}
+.section-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);margin-bottom:16px}
+.fw-card{border:1px solid var(--ink-12);border-radius:4px;overflow:hidden;margin-bottom:20px}
+.fw-hd{padding:14px 20px;border-bottom:1px solid var(--ink-12);display:flex;align-items:center;gap:10px}
+.fw-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.fw-title{font-size:14px;font-weight:500;color:var(--ink)}
+.fw-sub{font-size:12px;color:var(--ink-60);margin-left:auto}
+.step-list{}
+.step{display:flex;gap:16px;padding:14px 20px;border-bottom:1px solid var(--ink-12);align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-n{font-family:var(--mono);font-size:10px;color:var(--ink-30);min-width:20px;padding-top:2px}
+.step-t{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.step-d{font-size:12px;color:var(--ink-60);line-height:1.55}
+.interlock-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}
+@media(max-width:600px){.interlock-grid{grid-template-columns:1fr}}
+.il-card{background:var(--ink-06);border-radius:4px;padding:16px}
+.il-from{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--teal)}
+.il-arrow{font-size:12px;color:var(--ink-30);margin:4px 0}
+.il-to{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--amber)}
+.il-what{font-size:12px;color:var(--ink);line-height:1.55;margin-top:8px}
+.nn-list{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.nn-item{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--ink-12);align-items:flex-start}
+.nn-item:last-child{border-bottom:1px solid var(--ink-12)}
+.nn-x{font-family:var(--mono);font-size:12px;color:var(--amber);min-width:20px;padding-top:2px}
+.nn-t{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.nn-d{font-size:12px;color:var(--ink-60);line-height:1.5}
+.accel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+@media(max-width:580px){.accel-grid{grid-template-columns:1fr}}
+.accel-card{border:1px solid var(--ink-12);border-radius:4px;padding:16px 18px}
+.accel-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-60);margin-bottom:6px}
+.accel-t{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.accel-d{font-size:12px;color:var(--ink-60);line-height:1.55}
+.growth-tbl{width:100%;border-collapse:collapse;margin:16px 0}
+.growth-tbl th{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-60);padding:8px 14px;border-bottom:1px solid var(--ink-12);text-align:left;background:var(--ink-06);font-weight:400}
+.growth-tbl td{font-size:12px;padding:11px 14px;border-bottom:1px solid var(--ink-12);color:var(--ink);line-height:1.5}
+.growth-tbl td.mono{font-family:var(--mono)}
+.growth-tbl td.muted{color:var(--ink-60)}
+.growth-tbl td.pos{color:var(--teal);font-weight:500}
+.growth-tbl tr.highlight td{background:var(--ink-06)}
+.growth-tbl tr.section-hd td{background:var(--ink-06);font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-60);padding:5px 14px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+@media(max-width:600px){.metrics{grid-template-columns:1fr 1fr}}
+.metric{background:var(--ink-06);border-radius:4px;padding:16px}
+.metric-val{font-family:var(--serif);font-size:26px;font-weight:300;color:var(--ink);margin-bottom:4px}
+.metric-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-60)}
+.footer{margin-top:80px;padding-top:32px;border-top:1px solid var(--ink-12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-brand{font-family:var(--serif);font-size:20px;font-weight:300}
+.footer-note{font-family:var(--mono);font-size:10px;color:var(--ink-60);letter-spacing:.05em}
+</style>
+</head><body>
+<div class="eyebrow">Mora · Business Dossier · Document 06 · v1.0</div>
+<h1>Brand × Journey × Finance <em>Flywheel</em></h1>
+<p class="lead">Cơ chế tăng trưởng không cần paid acquisition. Ba vòng quay tự nuôi nhau từ ngày 1 — và bằng chứng là Mora 1.0 đạt 1.8B/tháng với 1 designer và 2 photographer partime.</p>
+
+<div class="metrics">
+  <div class="metric"><div class="metric-val">1.8B</div><div class="metric-lbl">Peak revenue tháng 3</div></div>
+  <div class="metric"><div class="metric-val">0đ</div><div class="metric-lbl">Paid acquisition cost</div></div>
+  <div class="metric"><div class="metric-val">3</div><div class="metric-lbl">Flywheels tự nuôi nhau</div></div>
+  <div class="metric"><div class="metric-val">&lt;3 tháng</div><div class="metric-lbl">Recover toàn bộ vốn</div></div>
+</div>
+
+<div class="statement"><p>Mora không cần marketing budget lớn. Mora cần ba vòng quay hoạt động đúng cách — và ba vòng đó tự nuôi nhau. Brand tạo ra người muốn đến. Journey tạo ra người muốn kể. Finance tạo ra điều kiện để cả hai ngày càng tốt hơn.</p></div>
+
+<hr>
+<div class="section-lbl">01 · Brand Flywheel</div>
+<div class="fw-card">
+  <div class="fw-hd">
+    <div class="fw-dot" style="background:var(--teal)"></div>
+    <span class="fw-title">Brand Flywheel</span>
+    <span class="fw-sub">Codex → Content → Curiosity → Visit → Lặp lại</span>
+  </div>
+  <div class="step-list">
+    <div class="step"><span class="step-n">01</span><div><div class="step-t">Codex định nghĩa mọi thứ</div><div class="step-d">Mỗi quyết định về nội dung, không gian, sản phẩm đều trace về Codex. Không có gì xuất hiện mà không có lý do. Đây là điểm khởi đầu của toàn bộ flywheel.</div></div></div>
+    <div class="step"><span class="step-n">02</span><div><div class="step-t">Real experience → Authentic content</div><div class="step-d">Content không được tạo ra trong phòng họp — nó được capture từ khoảnh khắc thật tại cửa hàng. Tỷ lệ vàng không phải kỹ thuật chỉnh sửa, là kết quả của sự có mặt đầy đủ của người chụp. Mora 1.0 đạt tỷ lệ tương tác ngang Dior Parfum với 1 designer + 2 photographer partime.</div></div></div>
+    <div class="step"><span class="step-n">03</span><div><div class="step-t">Tính toàn vẹn online–offline tạo ra tò mò</div><div class="step-d">Người thấy trên social cảm nhận được thứ gì đó khác — không phải quảng cáo, không phải set-up. Họ muốn kiểm chứng liệu thứ họ cảm từ màn hình có thật không. Đây là cơ chế pull — không phải push.</div></div></div>
+    <div class="step"><span class="step-n">04</span><div><div class="step-t">Tò mò → First visit → Real experience → Content mới → Tò mò mới</div><div class="step-d">Vòng khép lại và tự quay. Mỗi visit tạo ra experience mới → experience mới tạo ra content mới → content mới tạo ra tò mò mới. Không cần paid ads vì mỗi visit là nhiên liệu cho vòng tiếp theo.</div></div></div>
+  </div>
+</div>
+
+<hr>
+<div class="section-lbl">02 · Journey Flywheel</div>
+<div class="fw-card">
+  <div class="fw-hd">
+    <div class="fw-dot" style="background:var(--blue)"></div>
+    <span class="fw-title">Journey Flywheel</span>
+    <span class="fw-sub">Visit → Connection → Word of mouth → New visits → Lặp lại</span>
+  </div>
+  <div class="step-list">
+    <div class="step"><span class="step-n">01</span><div><div class="step-t">6 bước value chain tạo kết nối thật — không phải transaction</div><div class="step-d">Được hiểu → Được trải nghiệm → Được trò chuyện → Được kết nối → Được cá nhân hoá → Được chứng thực. Người rời đi với artifact mang tên họ và câu chuyện đủ cụ thể để kể lại cho người khác.</div></div></div>
+    <div class="step"><span class="step-n">02</span><div><div class="step-t">Câu chuyện đủ cụ thể → Word of mouth có chất liệu</div><div class="step-d">"Mày phải đến Mora" — không phải vì sản phẩm tốt, mà vì có chi tiết để kể: cách nhân viên tiếp đón không push, cái ritual pha chế được thực hiện trước mặt mình, tên trên chai. Chi tiết cụ thể là điều kiện để word of mouth work.</div></div></div>
+    <div class="step"><span class="step-n">03</span><div><div class="step-t">Archetype 02 — Người Tò Mò — đến theo nhóm</div><div class="step-d">Mỗi visit của Người Tò Mò thường dẫn theo 2–4 người. Mỗi người trong nhóm đó có thể trở thành Người Kết Nối và tiếp tục vòng. Mỗi visit có khả năng nhân ra 3–5 visitor mới trong vòng 30 ngày.</div></div></div>
+    <div class="step"><span class="step-n">04</span><div><div class="step-t">Archetype 03 — Người Trung Thành — là amplifier mạnh nhất</div><div class="step-d">Người ở lại qua thử thách kể câu chuyện đầy đủ — kể cả phần lỗi và cầu thị của Mora. Câu chuyện đó làm Mora đáng tin hơn bất kỳ PR campaign nào vì nó authentic và có bằng chứng.</div></div></div>
+  </div>
+</div>
+
+<hr>
+<div class="section-lbl">03 · Finance Flywheel</div>
+<div class="fw-card">
+  <div class="fw-hd">
+    <div class="fw-dot" style="background:var(--amber)"></div>
+    <span class="fw-title">Finance Flywheel</span>
+    <span class="fw-sub">High margin → Reinvest → Better experience → More revenue → Lặp lại</span>
+  </div>
+  <div class="step-list">
+    <div class="step"><span class="step-n">01</span><div><div class="step-t">80–90% gross margin → Room để reinvest không giới hạn bởi volume</div><div class="step-d">Mora không cần discount để cạnh tranh, không cần volume để survive. Margin cao = tự do đầu tư vào chất lượng thay vì race to bottom với đối thủ. Đây là structural advantage.</div></div></div>
+    <div class="step"><span class="step-n">02</span><div><div class="step-t">Reinvest vào experience → Journey tốt hơn → NPS cao hơn → WOM mạnh hơn</div><div class="step-d">Mỗi đồng reinvest vào không gian, nhân sự, packaging đều trực tiếp cải thiện Journey. NPS cao hơn → word of mouth mạnh hơn → traffic tăng mà không cần paid ads. Vòng lặp này compound theo thời gian.</div></div></div>
+    <div class="step"><span class="step-n">03</span><div><div class="step-t">LTV compounds — Refill + B2B + Return visits</div><div class="step-d">Archetype 01 — Người Kết Nối — có LTV gấp 5–10× transaction đầu tiên khi tính hết refill, gifting, và return visits. Refill programme là revenue stream với acquisition cost bằng 0 và margin cao nhất trong toàn bộ model.</div></div></div>
+    <div class="step"><span class="step-n">04</span><div><div class="step-t">Revenue growth → Fund Brand → Brand flywheel nhanh hơn → Vòng lặp</div><div class="step-d">Khi doanh thu tăng, có thể đầu tư vào content production tốt hơn, không gian được upgrade, packaging được cải thiện. Brand flywheel quay nhanh hơn → nhiều traffic hơn → doanh thu tăng tiếp.</div></div></div>
+  </div>
+</div>
+
+<hr>
+<div class="section-lbl">04 · Điểm khớp — 3 flywheel tự nuôi nhau</div>
+<div class="interlock-grid">
+  <div class="il-card">
+    <div class="il-from">Journey</div>
+    <div class="il-arrow">↓ tạo ra</div>
+    <div class="il-to">Brand</div>
+    <div class="il-what">Real experience → Authentic content. Content hay nhất của Mora không được plan — nó xảy ra khi khách hàng cầm chai lên, khi nhân viên giải thích ritual, khi khoảnh khắc thật xảy ra.</div>
+  </div>
+  <div class="il-card">
+    <div class="il-from">Brand</div>
+    <div class="il-arrow">↓ kéo vào</div>
+    <div class="il-to">Journey</div>
+    <div class="il-what">Tính toàn vẹn online–offline tạo curiosity → first visit. Kỳ vọng đã được set trước khi khách đến — Journey phải match kỳ vọng đó, không được thấp hơn.</div>
+  </div>
+  <div class="il-card">
+    <div class="il-from">Finance</div>
+    <div class="il-arrow">↓ fund cả hai</div>
+    <div class="il-to">Brand + Journey</div>
+    <div class="il-what">Margin cao → reinvest vào packaging, không gian, nhân sự, content production. Finance là thứ giữ cho cả Brand và Journey không bị compromise theo thời gian khi scale.</div>
+  </div>
+</div>
+
+<hr>
+<div class="section-lbl">05 · Yếu tố gia tốc flywheel</div>
+<div class="accel-grid">
+  <div class="accel-card">
+    <div class="accel-lbl">Gia tốc Brand</div>
+    <div class="accel-t">Pre-launch online 3 tháng</div>
+    <div class="accel-d">Build đám đông đang chờ trước ngày mở cửa. Mora 1.0 đạt 600M/tháng online trước khi có store — với chỉ founder làm marketing. Mora 2.0 với system đầy đủ có thể làm tốt hơn.</div>
+  </div>
+  <div class="accel-card">
+    <div class="accel-lbl">Gia tốc Journey</div>
+    <div class="accel-t">B2B Gifting Season</div>
+    <div class="accel-d">Mỗi corporate gift = 10–50 người nhận được trải nghiệm Mora gián tiếp. Người nhận tò mò → potential Archetype 02. Nhân số đột biến vào Tết, Valentine, cuối năm.</div>
+  </div>
+  <div class="accel-card">
+    <div class="accel-lbl">Gia tốc Finance</div>
+    <div class="accel-t">Refill Programme</div>
+    <div class="accel-d">Mỗi refill visit = zero acquisition cost + ritual moment tạo new content + LTV compound. Revenue stream có margin cao nhất và acquisition cost bằng 0 trong toàn bộ model.</div>
+  </div>
+  <div class="accel-card">
+    <div class="accel-lbl">Gia tốc toàn bộ</div>
+    <div class="accel-t">10ml Entry Touchpoint</div>
+    <div class="accel-d">Người chưa thể đến cửa hàng nhận được 10ml → trải nghiệm thế giới Mora từ xa → tò mò → visit. Mỗi 10ml đi ra là một Brand × Journey seed được gieo. Giá bán cover COGS — không phải revenue driver nhưng là acquisition tool.</div>
+  </div>
+</div>
+
+<hr>
+<div class="section-lbl">06 · Điều phá vỡ flywheel — và cách Mora 2.0 phòng tránh</div>
+<div class="nn-list">
+  <div class="nn-item"><span class="nn-x">×</span><div><div class="nn-t">Gap giữa online và offline</div><div class="nn-d">Nếu social hứa hẹn thứ gì mà cửa hàng không deliver → kỳ vọng vỡ → Archetype 02 không convert → word of mouth âm. Mora 2.0: mọi content phải trace về trải nghiệm thật tại cửa hàng. Không dàn dựng bất kỳ thứ gì không tồn tại trong không gian vật lý.</div></div></div>
+  <div class="nn-item"><span class="nn-x">×</span><div><div class="nn-t">Nhân sự không được trao đủ</div><div class="nn-d">Journey flywheel phụ thuộc vào người truyền tinh thần — không phải script. Nếu nhân sự không được trao đủ worldview của Mora, họ chỉ execute script và experience mất đi sự thật. Mora 2.0: trao worldview trước, train kỹ năng sau.</div></div></div>
+  <div class="nn-item"><span class="nn-x">×</span><div><div class="nn-t">Scale trước khi lock</div><div class="nn-d">Mora 1.0 lesson: mở store 2 khi store 1 chưa có SOP → experience inconsistent → word of mouth chứa thông tin mâu thuẫn → Brand flywheel bị noise và mất momentum. Mora 2.0: scale gate cứng, không thương lượng.</div></div></div>
+  <div class="nn-item"><span class="nn-x">×</span><div><div class="nn-t">Discount và flash sale</div><div class="nn-d">Một lần discount = phá vỡ premium positioning → signal rằng giá ban đầu không thật → mất trust với cả 3 archetype → Finance flywheel bị erode từ margin → ít room để reinvest → Journey và Brand bị compromise theo.</div></div></div>
+  <div class="nn-item"><span class="nn-x">×</span><div><div class="nn-t">Paid ads thay thế earned trust</div><div class="nn-d">Dùng paid ads để compensate cho word of mouth yếu là mask một vấn đề trong Journey. Paid traffic không có context — họ không đến với kỳ vọng đúng → conversion thấp → ROAS xấu → vòng lặp tiêu cực thay vì dương.</div></div></div>
+</div>
+
+<hr>
+<div class="section-lbl">07 · Growth trajectory — Brand × Journey × Finance đồng bộ</div>
+<table class="growth-tbl">
+  <tr><th>Giai đoạn</th><th>Revenue</th><th>Flywheel đang hoạt động</th></tr>
+  <tr class="section-hd"><td colspan="3">Phase 0 — Pre-launch online</td></tr>
+  <tr><td>T−3 → T−1</td><td class="mono">150 → 450M</td><td class="muted">Brand flywheel khởi động · content từ founder · build đám đông đang chờ</td></tr>
+  <tr class="section-hd"><td colspan="3">Phase 1 — Store opens (Mora 1.0 actuals)</td></tr>
+  <tr class="highlight"><td>T1 — Mở cửa hàng</td><td class="mono pos">500M → 600–800M</td><td class="muted">Journey flywheel bắt đầu · experience đủ mạnh tạo wave word of mouth đầu tiên</td></tr>
+  <tr class="highlight"><td>T2</td><td class="mono pos">1.4B → 1.4–1.8B</td><td class="muted">Journey flywheel có momentum · Archetype 02 đến theo nhóm · Archetype 01 quay lại</td></tr>
+  <tr class="highlight"><td>T3 — 3 flywheels đồng bộ</td><td class="mono pos">1.8B → 1.8–2.2B</td><td class="muted">Finance flywheel tham gia · margin reinvest vào experience · NPS tăng · vòng lặp ổn định</td></tr>
+  <tr><td>T7 — B2B + Tết season</td><td class="mono pos">2.5–3B</td><td class="muted">B2B gia tốc Journey · Refill LTV compound Finance · 10ml seeds đang nở thành Archetype 02</td></tr>
+  <tr><td>T12 — Tết peak</td><td class="mono pos">3–4B</td><td class="muted">3 flywheels ở vận tốc đỉnh · word of mouth network effects · Tết gifting peak B2B</td></tr>
+</table>
+
+<div class="statement"><p>Mora không cần marketing budget lớn. Mora cần người vận hành ba vòng quay này đang sống đúng với Codex. Brand flywheel hoạt động vì người tạo content có mặt đầy đủ. Journey flywheel hoạt động vì founder đã trao đủ cho nhân sự trước khi họ trao đi. Finance flywheel hoạt động vì không bao giờ compromise margin để có volume. Ba vòng này có thể được document — nhưng chúng chỉ tự quay khi người vận hành chúng đang sống đúng với sự thật.</p></div>
+
+<footer class="footer">
+  <span class="footer-brand">Mora</span>
+  <span class="footer-note">Document 06 · Brand × Journey × Finance Flywheel v1.0 · Derived từ Mora 1.0 actuals</span>
+</footer>
+</body></html>
