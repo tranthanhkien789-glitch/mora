@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mora · 02 · Customer Archetype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#FAF9F6;--ink:#1A1916;--ink-60:rgba(26,25,22,.6);--ink-30:rgba(26,25,22,.3);--ink-12:rgba(26,25,22,.12);--ink-06:rgba(26,25,22,.06);--teal:#0F6E56;--teal-light:#E1F5EE;--amber:#854F0B;--amber-light:#FAEEDA;--blue:#185FA5;--blue-light:#E6F1FB;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;max-width:860px;margin:0 auto;padding:64px 40px 100px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);margin-bottom:12px}
+h1{font-family:var(--serif);font-size:clamp(40px,6vw,68px);font-weight:300;line-height:1.05;letter-spacing:-.02em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--teal)}
+.lead{font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.7;color:var(--ink);margin-bottom:32px;font-style:italic}
+hr{border:none;border-top:1px solid var(--ink-12);margin:48px 0}
+.statement{border-left:2px solid var(--teal);padding:20px 28px;margin:24px 0;background:var(--teal-light)}
+.statement p{font-family:var(--serif);font-size:18px;font-weight:300;line-height:1.75;color:var(--ink)}
+.section-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);margin-bottom:16px}
+.note-box{background:var(--ink-06);border-radius:4px;padding:16px 20px;margin-bottom:32px;font-size:13px;color:var(--ink-60);line-height:1.6}
+.note-box strong{color:var(--ink)}
+
+/* archetype card */
+.archetype{border:1px solid var(--ink-12);border-radius:4px;overflow:hidden;margin-bottom:24px}
+.arch-hd{background:var(--ink-06);padding:20px 24px;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.arch-num{font-family:var(--mono);font-size:11px;color:var(--ink-30)}
+.arch-name{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--ink)}
+.arch-tagline{font-size:13px;font-style:italic;color:var(--ink-60);margin-left:auto}
+.arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0}
+@media(max-width:580px){.arch-grid{grid-template-columns:1fr}}
+.attr{padding:16px 24px;border-bottom:1px solid var(--ink-12);border-right:1px solid var(--ink-12)}
+.attr:nth-child(2n){border-right:none}
+.attr:last-child,.attr:nth-last-child(2):nth-child(odd){border-bottom:none}
+@media(max-width:580px){.attr{border-right:none}}
+.attr-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-60);margin-bottom:6px}
+.attr-val{font-size:13px;color:var(--ink);line-height:1.6}
+
+/* SOP section */
+.arch-sop{padding:20px 24px;border-top:1px solid var(--ink-12)}
+.sop-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-60);margin-bottom:12px}
+.sop-list{display:flex;flex-direction:column;gap:0}
+.sop-item{display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--ink-12);align-items:flex-start}
+.sop-item:last-child{border-bottom:1px solid var(--ink-12)}
+.sop-arrow{font-size:12px;color:var(--ink-30);min-width:16px;padding-top:2px}
+.sop-text{font-size:13px;color:var(--ink);line-height:1.55}
+.sop-text span{color:var(--teal);font-weight:500}
+
+/* signal */
+.signal{background:var(--teal-light);border-left:2px solid var(--teal);padding:12px 16px;margin:16px 24px}
+.signal-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--teal);margin-bottom:6px}
+.signal-text{font-size:13px;color:var(--ink);line-height:1.6}
+
+/* implication */
+.impl-list{display:flex;flex-direction:column;gap:0;margin:20px 0}
+.impl-item{display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--ink-12);align-items:flex-start}
+.impl-item:last-child{border-bottom:1px solid var(--ink-12)}
+.impl-n{font-family:var(--mono);font-size:10px;color:var(--ink-30);min-width:24px;padding-top:2px}
+.impl-t{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.impl-d{font-size:13px;color:var(--ink-60);line-height:1.55}
+
+.footer{margin-top:80px;padding-top:32px;border-top:1px solid var(--ink-12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-brand{font-family:var(--serif);font-size:20px;font-weight:300}
+.footer-note{font-family:var(--mono);font-size:10px;color:var(--ink-60);letter-spacing:.05em}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Mora · Business Dossier · Document 02 · v1.0</div>
+<h1>Customer <em>Archetype</em></h1>
+<p class="lead">Derived từ quan sát thực tế Mora 1.0 · 3 archetypes · Không phân loại theo demographics — là cách họ đến với sự thật.</p>
+
+<div class="statement">
+  <p>Không ai trong số họ đến vì cần nước hoa. Họ đến vì đang sống trong một thế giới mà sự thật trong thương mại gần như không tồn tại — và họ cần bằng chứng rằng có một nơi khác. Mora là nơi đó. Chỉ có sự thật mới kết nối người với người lại với nhau.</p>
+</div>
+
+<hr>
+
+<div class="section-lbl">Nguyên lý đọc document này</div>
+<div class="note-box">Ba archetype này không phân loại theo tuổi, thu nhập, hay nghề nghiệp. Chúng phân loại theo <strong>mối quan hệ của họ với sự thật</strong> — và cách Mora đáp ứng nhu cầu đó. Một người có thể bắt đầu là archetype 02 và trở thành archetype 01 sau lần đầu tiên đến. Ba archetype là ba <strong>giai đoạn của cùng một hành trình</strong> — không phải ba nhóm người khác nhau.</div>
+
+<hr>
+
+<!-- ARCHETYPE 01 -->
+<div class="section-lbl">01 · Người Kết Nối</div>
+<div class="archetype">
+  <div class="arch-hd">
+    <span class="arch-num">01</span>
+    <span class="arch-name">Người Kết Nối</span>
+    <span class="arch-tagline">"Tôi cảm thấy được nhìn thấy ở đây — nên tôi ở lại."</span>
+  </div>
+  <div class="arch-grid">
+    <div class="attr">
+      <div class="attr-lbl">Họ đến như thế nào</div>
+      <div class="attr-val">Thường lần đầu đến từ tò mò hoặc được dẫn theo. Nhưng lần thứ hai là quyết định của riêng họ — không ai phải mời lại.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Điều họ cảm nhận</div>
+      <div class="attr-val">Kết nối với câu chuyện thương hiệu, với người trao — không phải với sản phẩm. Sản phẩm là artifact của kết nối đó.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Hành vi đặc trưng</div>
+      <div class="attr-val">Quay lại. Dẫn người thân đến. Không so sánh giá với nơi khác. Theo dõi Mora trên social như theo dõi một người bạn.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Điều họ tìm kiếm</div>
+      <div class="attr-val">Một nơi họ không cần giải thích tại sao họ quan tâm đến những thứ nhỏ — vì nơi đó cũng quan tâm đến những thứ nhỏ.</div>
+    </div>
+  </div>
+  <div class="arch-sop">
+    <div class="sop-lbl">Những gì Mora phải làm đúng với archetype này</div>
+    <div class="sop-list">
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Nhân sự nhớ họ.</span> Không cần nhớ tên — nhớ cách họ chọn, cách họ ngồi, điều họ nói lần trước. CRM ghi lại context trước khi họ bước vào.</div></div>
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Câu chuyện thương hiệu phải nhất quán.</span> Những gì họ nghe lần đầu phải trùng với những gì họ thấy lần thứ mười. Không có version khác nhau tuỳ nhân viên.</div></div>
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Không được làm họ ngượng</span> khi dẫn người quan trọng đến. Tức là mọi thứ phải ở trạng thái sẵn sàng mọi lúc — không chỉ khi có check.</div></div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="signal-lbl">Tín hiệu nhận ra họ</div>
+    <div class="signal-text">Họ hỏi về quy trình, về nguồn gốc — không phải để test, mà vì thực sự muốn biết. Họ dừng lại ở những chi tiết mà người khác không nhìn thấy. Họ chụp ảnh những thứ không ai nghĩ là đáng chụp.</div>
+  </div>
+</div>
+
+<!-- ARCHETYPE 02 -->
+<div class="section-lbl">02 · Người Tò Mò</div>
+<div class="archetype">
+  <div class="arch-hd">
+    <span class="arch-num">02</span>
+    <span class="arch-name">Người Tò Mò</span>
+    <span class="arch-tagline">"Tôi nghe kể — và tôi cần tự kiểm chứng."</span>
+  </div>
+  <div class="arch-grid">
+    <div class="attr">
+      <div class="attr-lbl">Họ đến như thế nào</div>
+      <div class="attr-val">Qua word of mouth — không phải quảng cáo. Ai đó đã kể cho họ nghe và cách kể đó đủ cụ thể để họ tò mò muốn kiểm chứng.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Điều họ cảm nhận</div>
+      <div class="attr-val">Muốn kiểm chứng: "liệu nó có đúng như người ta nói không?" Họ đến với kỳ vọng đã được đặt ra — kỳ vọng đó phải được match.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Hành vi đặc trưng</div>
+      <div class="attr-val">Thường dẫn theo người khác ngay từ lần đầu — vì đây là trải nghiệm họ muốn chia sẻ, không phải trải nghiệm một mình.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Điều họ tìm kiếm</div>
+      <div class="attr-val">Muốn người đi cùng được tôn trọng và làm chủ lựa chọn của mình — thứ các thương hiệu Việt khác gần như không làm được.</div>
+    </div>
+  </div>
+  <div class="arch-sop">
+    <div class="sop-lbl">Những gì Mora phải làm đúng với archetype này</div>
+    <div class="sop-list">
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Tính toàn vẹn online–offline không được có gap.</span> Họ đã thấy trên social trước khi đến — nếu có gì không khớp, kỳ vọng vỡ ngay và word of mouth trở thành âm.</div></div>
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Tiếp đón như đón bạn ghé nhà.</span> Không push, không script lộ liễu — chỉ đưa cho họ thứ họ cần đúng lúc họ cần. Câu hỏi đầu tiên không phải "bạn cần hỗ trợ gì không?"</div></div>
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Mỗi người trong nhóm được đối xử riêng.</span> Không phải một người được phục vụ, người còn lại đứng chờ. Đây là thứ hiếm nhất trong retail Việt Nam.</div></div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="signal-lbl">Tín hiệu nhận ra họ</div>
+    <div class="signal-text">Họ đến theo nhóm. Họ quan sát nhiều trước khi tương tác. Khi bắt đầu hỏi, câu hỏi của họ cụ thể — vì họ đã chuẩn bị trước từ những gì thấy trên social.</div>
+  </div>
+</div>
+
+<!-- ARCHETYPE 03 -->
+<div class="section-lbl">03 · Người Trung Thành Qua Thử Thách</div>
+<div class="archetype">
+  <div class="arch-hd">
+    <span class="arch-num">03</span>
+    <span class="arch-name">Người Trung Thành Qua Thử Thách</span>
+    <span class="arch-tagline">"Tôi thấy bạn thật — nên tôi ở lại dù sản phẩm chưa hoàn hảo."</span>
+  </div>
+  <div class="arch-grid">
+    <div class="attr">
+      <div class="attr-lbl">Họ đến như thế nào</div>
+      <div class="attr-val">Thường là archetype 01 hoặc 02 trước — rồi gặp sự cố. Cách Mora xử lý sự cố quyết định họ có trở thành archetype 03 không.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Điều họ cảm nhận</div>
+      <div class="attr-val">Họ test không chủ ý — và thấy con người đứng sau thương hiệu là thật. Sự cầu thị, update công khai là bằng chứng họ cần.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Hành vi đặc trưng</div>
+      <div class="attr-val">Cho cơ hội cải thiện. Tiếp tục đến. Kể câu chuyện đầy đủ — kể cả phần sản phẩm lỗi — vì câu chuyện đó làm Mora đáng tin hơn.</div>
+    </div>
+    <div class="attr">
+      <div class="attr-lbl">Điều họ tìm kiếm</div>
+      <div class="attr-val">Không tìm sự hoàn hảo. Tìm sự thật trong cách xử lý — những cam kết đưa ra có được giữ không, những lỗi có được thừa nhận không.</div>
+    </div>
+  </div>
+  <div class="arch-sop">
+    <div class="sop-lbl">Những gì Mora phải làm đúng với archetype này</div>
+    <div class="sop-list">
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Thừa nhận lỗi trước khi họ phàn nàn.</span> Khi phát hiện vấn đề, chủ động thông báo — không đợi họ quay lại và hỏi. Transparency là currency với archetype này.</div></div>
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Mỗi update phải được hiển thị.</span> Không chỉ fix trong im lặng — cho họ thấy cái gì đã thay đổi và tại sao. Đây là cách biến sự cố thành trust-building moment.</div></div>
+      <div class="sop-item"><span class="sop-arrow">→</span><div class="sop-text"><span>Không bao giờ hứa thứ chưa chắc chắn.</span> Một cam kết không giữ được sẽ xóa toàn bộ những gì đã xây dựng với archetype này — không thể recover dễ dàng.</div></div>
+    </div>
+  </div>
+  <div class="signal">
+    <div class="signal-lbl">Tín hiệu nhận ra họ</div>
+    <div class="signal-text">Họ phản hồi thẳng thắn khi có vấn đề — không phàn nàn sau lưng. Họ theo dõi những gì Mora làm sau đó. Nếu thấy đúng, họ trở thành người bảo vệ thương hiệu mạnh nhất — kể câu chuyện có cả phần gãy và cách Mora đứng dậy.</div>
+  </div>
+</div>
+
+<hr>
+
+<div class="section-lbl">Implication cho thiết kế trải nghiệm</div>
+<div class="impl-list">
+  <div class="impl-item">
+    <span class="impl-n">01</span>
+    <div>
+      <div class="impl-t">Không có khách hàng nào là "người lạ" lần thứ hai</div>
+      <div class="impl-d">CRM phải ghi lại đủ để nhân sự có context trước khi khách bước vào. Không phải nhớ tên — là nhớ cách họ tương tác, điều họ chọn, câu hỏi họ hỏi.</div>
+    </div>
+  </div>
+  <div class="impl-item">
+    <span class="impl-n">02</span>
+    <div>
+      <div class="impl-t">Mỗi lần có sự cố là cơ hội tạo ra archetype 03</div>
+      <div class="impl-d">Protocol xử lý sự cố phải được thiết kế trước — không phải ứng biến khi xảy ra. Sự cố được xử lý đúng là trust-building moment mạnh hơn mọi marketing.</div>
+    </div>
+  </div>
+  <div class="impl-item">
+    <span class="impl-n">03</span>
+    <div>
+      <div class="impl-t">Word of mouth là kênh acquisition duy nhất cần đầu tư</div>
+      <div class="impl-d">Nhưng nó chỉ work khi trải nghiệm đủ cụ thể để người kể có chất liệu thật để kể lại. Câu chuyện "có một nơi pha chế nước hoa riêng cho mày, khắc tên mày lên chai" — đủ cụ thể để kể.</div>
+    </div>
+  </div>
+  <div class="impl-item">
+    <span class="impl-n">04</span>
+    <div>
+      <div class="impl-t">Mỗi nhóm đến cùng nhau cần được đón tiếp như nhiều cá nhân riêng biệt</div>
+      <div class="impl-d">Không phải một đơn vị. Không phải một người được phục vụ, người còn lại đứng chờ. Đây là thứ hiếm nhất trong retail Việt Nam và là lý do archetype 02 dẫn người khác đến.</div>
+    </div>
+  </div>
+  <div class="impl-item">
+    <span class="impl-n">05</span>
+    <div>
+      <div class="impl-t">Ba archetype là một hành trình — không phải ba nhóm</div>
+      <div class="impl-d">Mora không cần nhiều loại khách hàng — chỉ cần đủ điều kiện để một người đi hết cả ba giai đoạn. Người Tò Mò đến → trở thành Người Kết Nối → gặp thử thách → trở thành Amplifier mạnh nhất của Mora.</div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <span class="footer-brand">Mora</span>
+  <span class="footer-note">Document 02 · Customer Archetype v1.0 · Derived từ Mora 1.0 actuals</span>
+</footer>
+</body>
+</html>
